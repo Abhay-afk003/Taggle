@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-background text-white font-sans;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-6 py-3 rounded-lg font-medium transition-all duration-300 inline-flex items-center justify-center;
+  }
+
+  .btn-primary {
+    @apply btn bg-gradient-to-r from-primary-light to-primary-dark hover:opacity-90 text-white;
+  }
+
+  .btn-ghost {
+    @apply btn border border-white/20 hover:bg-white/5 text-white;
+  }
+
+  .container-custom {
+    @apply container mx-auto px-4 md:px-8;
+  }
+
+  .nav-link {
+    @apply relative px-3 py-2 text-white/70 hover:text-white transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-gradient-to-r after:from-primary-light after:to-primary-dark after:transition-all after:duration-300 hover:after:w-full;
+  }
+
+  .brand-text {
+    @apply text-xl font-heading font-semibold text-white tracking-[-0.75px];
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-light via-primary-dark to-primary-light bg-[length:200%_100%] animate-gradient bg-clip-text text-transparent;
+  }
+
+  .glass-card {
+    @apply bg-surface-light backdrop-blur-sm border border-white/10 rounded-xl transition-all duration-300;
+  }
+
+  .feature-card {
+    @apply glass-card p-8 hover:scale-[1.02] hover:shadow-lg hover:shadow-primary-dark/20;
+  }
+}
