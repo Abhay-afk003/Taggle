@@ -1,176 +1,137 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { CheckCircle, BarChart2, Users, Building } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
+
+import { db } from '/home/user/Taggle/src/main';
+import Aurora from '/home/user/Taggle/src/backgrounds/Aurora/Aurora';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
 
 const Hero: React.FC = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+
+  const [email, setEmail] = useState('');
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [waitlistCount, setWaitlistCount] = useState(134); // Default
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (submitStatus === 'success') {
+      const timer = setTimeout(() => setSubmitStatus('idle'), 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [submitStatus]);
+
+  useEffect(() => {
+    const fetchWaitlistCount = async () => {
+      try {
+        const snapshot = await getDocs(collection(db, 'waitlist'));
+        setWaitlistCount(134 + snapshot.size);
+      } catch (error) {
+        console.error('Error fetching waitlist count:', error);
+      }
+    };
+    fetchWaitlistCount();
+  }, []);
+
+  const handleWaitlistSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setErrorMessage(null);
+    setSubmitStatus('idle');
+    if (!email.trim()) {
+      setErrorMessage('Please enter your email.');
+      return;
+    }
+
+    try {
+      await addDoc(collection(db, 'waitlist'), { email, timestamp: new Date() });
+      setSubmitStatus('success');
+      setEmail('');
+    } catch (error) {
+      setSubmitStatus('error');
+      setErrorMessage('Failed to join waitlist. Please try again.');
+    }
+  };
 
   return (
-    <section className="pt-36 pb-20 overflow-hidden">
-      <div className="container-custom">
-        <div className="flex flex-col lg:flex-row items-center justify-between">
-          <motion.div 
-            className="lg:w-1/2 mb-12 lg:mb-0"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-              You build it.{" "}
-              <span className="gradient-text">Now find who needs it.</span>
-            </h1>
-            <p className="text-white/70 text-lg md:text-xl mb-8 max-w-xl">
-              Our AI-powered platform identifies and connects you with high-value leads that are most likely to convert into customers.
-            </p>
-            
-            <div className="flex flex-wrap gap-4 mb-12">
-              <a href="#trial" className="btn-primary">
-                Start Your Free 14-Day Trial
-              </a>
-              <a href="#demo" className="btn-ghost">
-                Watch Demo
-              </a>
+    <section className="relative flex flex-col items-center justify-center min-h-[80vh] pt-20 pb-10 text-white overflow-hidden">
+      <div className="w-full max-w-4xl text-center" ref={ref}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mt-10 mb-1 text-white">
+            You build it.
+          </h1>
+          <h1 className="gradient-text text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-1">
+            Now Find Who needs it.
+          </h1>
+          <p className="text-gray-600 text-lg md:text-xl mt-6 mb-8 max-w-2xl mx-auto">
+          No more chasing leads. We deliver the ones ready to buy right now.
+          </p>
+
+          <form onSubmit={handleWaitlistSubmit} className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6 relative">
+            <div className="relative group rounded-lg w-64 bg-neutral-700 overflow-hidden before:absolute before:w-12 before:h-12 before:content-[''] before:right-0 before:bg-violet-500 before:rounded-full before:blur-lg before:[box-shadow:-60px_20px_10px_10px_#F9B0B9] hover:before:bg-purple-700">
+              <input
+                type="email"
+                name="email"
+                placeholder="enter your email here"
+                className="appearance-none relative bg-transparent ring-0 outline-none border border-neutral-500 text-purple-400 placeholder-purple-400 text-sm font-bold rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5 group-hover:placeholder-purple-300 group-hover:bg-purple-700"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
-            
-            <div>
-              <p className="text-white/60 mb-4 flex items-center">
-                <CheckCircle className="w-5 h-5 text-success mr-2" />
-                Trusted by 10,000+ companies worldwide
+            <button
+              type="submit"
+              className="rounded-full bg-purple-800 text-white font-mono ring-1 ring-purple-600 focus:ring-2 focus:ring-purple-400 outline-none duration-300 placeholder:text-white/70 px-4 py-2 shadow-md focus:shadow-lg focus:shadow-purple-400 dark:shadow-md dark:shadow-purple-500 ml-2"
+              disabled={submitStatus !== 'idle'}
+            >
+              {submitStatus === 'idle' && 'Join Waitlist'}
+              {submitStatus === 'success' && 'Joined!'}
+              {submitStatus === 'error' && 'Error!'} 🚀
+            </button>
+          </form>
+
+          {errorMessage && <p className="text-error text-sm mt-2">{errorMessage}</p>}
+
+          {/* AVATAR + TRUST BLOCK */}
+          <div className="mt-12">
+            <div className="flex flex-col items-center gap-4">
+              <p className="text-white/60 flex items-center text-base">
+                <CheckCircle className="w-5 h-5 text-green-400 mr-2" />
+                Backed by {waitlistCount}+ early adopters building the future
               </p>
-              <div className="flex flex-wrap items-center gap-8">
-                <img 
-                  src="https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
-                  alt="Company logo" 
-                  className="h-6 opacity-40"
-                />
-                <img 
-                  src="https://images.pexels.com/photos/218717/pexels-photo-218717.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
-                  alt="Company logo" 
-                  className="h-6 opacity-40"
-                />
-                <img 
-                  src="https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
-                  alt="Company logo" 
-                  className="h-6 opacity-40"
-                />
-              </div>
-            </div>
-          </motion.div>
-          
-          <motion.div 
-            className="lg:w-1/2 relative"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <div className="relative">
-              <div className="absolute -top-10 -left-10 w-72 h-72 bg-primary-light/20 rounded-full filter blur-3xl"></div>
-              <div className="absolute -bottom-10 -right-10 w-72 h-72 bg-primary-dark/20 rounded-full filter blur-3xl"></div>
-              
-              <div className="glass-card p-5 relative z-10">
-                <div className="bg-background/70 rounded-lg p-4">
-                  <div className="flex justify-between items-center mb-6">
-                    <h3 className="font-heading font-semibold">Lead Dashboard</h3>
-                    <div className="flex space-x-2">
-                      <div className="w-3 h-3 rounded-full bg-error"></div>
-                      <div className="w-3 h-3 rounded-full bg-warning"></div>
-                      <div className="w-3 h-3 rounded-full bg-success"></div>
-                    </div>
-                  </div>
-                  
-                  <div className="grid grid-cols-3 gap-4 mb-6">
-                    <div className="glass-card p-3">
-                      <div className="text-xs text-white/60 mb-1">New Leads</div>
-                      <div className="text-xl font-semibold">243</div>
-                      <div className="text-xs text-success mt-1">+18% ↑</div>
-                    </div>
-                    <div className="glass-card p-3">
-                      <div className="text-xs text-white/60 mb-1">Conversion</div>
-                      <div className="text-xl font-semibold">38%</div>
-                      <div className="text-xs text-success mt-1">+5% ↑</div>
-                    </div>
-                    <div className="glass-card p-3">
-                      <div className="text-xs text-white/60 mb-1">Revenue</div>
-                      <div className="text-xl font-semibold">$42K</div>
-                      <div className="text-xs text-success mt-1">+22% ↑</div>
-                    </div>
-                  </div>
-                  
-                  <div className="mb-6">
-                    <div className="flex justify-between items-center mb-4">
-                      <h4 className="text-sm font-medium">Lead Quality</h4>
-                      <span className="text-xs text-white/60">This Week</span>
-                    </div>
-                    <div className="h-20 flex items-end space-x-2">
-                      <div className="w-1/7 h-[30%] bg-gradient-to-t from-primary-light to-primary-dark rounded-t-sm"></div>
-                      <div className="w-1/7 h-[45%] bg-gradient-to-t from-primary-light to-primary-dark rounded-t-sm"></div>
-                      <div className="w-1/7 h-[60%] bg-gradient-to-t from-primary-light to-primary-dark rounded-t-sm"></div>
-                      <div className="w-1/7 h-[75%] bg-gradient-to-t from-primary-light to-primary-dark rounded-t-sm"></div>
-                      <div className="w-1/7 h-[90%] bg-gradient-to-t from-primary-light to-primary-dark rounded-t-sm"></div>
-                      <div className="w-1/7 h-[65%] bg-gradient-to-t from-primary-light to-primary-dark rounded-t-sm"></div>
-                      <div className="w-1/7 h-[80%] bg-gradient-to-t from-primary-light to-primary-dark rounded-t-sm"></div>
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <div className="flex justify-between items-center mb-3">
-                      <h4 className="text-sm font-medium">Top Lead Sources</h4>
-                      <span className="text-xs text-primary-light">View All</span>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="flex justify-between items-center p-2 glass-card">
-                        <div className="flex items-center">
-                          <Building className="w-4 h-4 mr-2 text-primary-light" />
-                          <span className="text-sm">Enterprise Solutions Inc.</span>
-                        </div>
-                        <span className="text-xs font-medium text-success">94%</span>
-                      </div>
-                      <div className="flex justify-between items-center p-2 glass-card">
-                        <div className="flex items-center">
-                          <Users className="w-4 h-4 mr-2 text-primary-light" />
-                          <span className="text-sm">Global Tech Partners</span>
-                        </div>
-                        <span className="text-xs font-medium text-success">89%</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <motion.div 
-                className="absolute -top-5 -right-5 glass-card p-3 z-20"
-                animate={{ y: [0, -10, 0] }}
-                transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
+
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+                className="flex items-center -space-x-3"
               >
-                <div className="flex items-center">
-                  <BarChart2 className="w-5 h-5 text-primary-light mr-2" />
-                  <div>
-                    <div className="text-xs font-medium">ROI Increased</div>
-                    <div className="text-sm font-semibold">+127%</div>
-                  </div>
-                </div>
+                <img src="/images/trusted-by-avatars/person1.png" className="avatar-ring" alt="Founder avatar" />
+                <img src="/images/trusted-by-avatars/person2.png" className="avatar-ring" alt="Founder avatar" />
+                <img src="/images/trusted-by-avatars/person3.png" className="avatar-ring" alt="Founder avatar" />
+                <img src="/images/trusted-by-avatars/person4.png" className="avatar-ring" alt="Founder avatar" />
+                <img src="/images/trusted-by-avatars/person5.png" className="avatar-ring" alt="Founder avatar" />
+                <img src="/images/trusted-by-avatars/person6.png" className="avatar-ring" alt="Founder avatar" />
+                <img src="/images/trusted-by-avatars/person7.png" className="avatar-ring" alt="Founder avatar" />
               </motion.div>
-              
-              <motion.div 
-                className="absolute -bottom-5 -left-5 glass-card p-3 z-20"
-                animate={{ y: [0, 10, 0] }}
-                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut", delay: 1 }}
-              >
-                <div className="flex items-center">
-                  <Users className="w-5 h-5 text-primary-light mr-2" />
-                  <div>
-                    <div className="text-xs font-medium">New Leads Today</div>
-                    <div className="text-sm font-semibold">32 Qualified</div>
-                  </div>
-                </div>
-              </motion.div>
+
+              <span className="text-sm text-white/40 mt-1">
+                Real makers. Real feedback. Real traction.
+              </span>
             </div>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
