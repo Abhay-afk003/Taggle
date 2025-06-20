@@ -3,8 +3,8 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { CheckCircle } from 'lucide-react';
 
-import { db } from '/home/user/Taggle/src/main';
-import Aurora from '/home/user/Taggle/src/backgrounds/Aurora/Aurora';
+import { db } from '../main';
+import Aurora from '../backgrounds/Aurora/Aurora';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
 
 const Hero: React.FC = () => {
