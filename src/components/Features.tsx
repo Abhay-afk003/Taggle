@@ -2,10 +2,10 @@ import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import {
-  Crosshair,
-  ScanSearch,
-  ActivitySquare,
-  Merge,
+  UserCheck,
+  FileSearch,
+  Zap,
+  Database,
   Clock,
   DollarSign,
   BarChart3,
@@ -20,28 +20,24 @@ const Features: React.FC = () => {
 
   const features = [
     {
-      icon: <Crosshair className="w-8 h-8 text-white group-hover:text-purple-400 transition-colors duration-300" />,
-      title: 'Precision Targeting That Converts',
-      description:
-        'Our AI finds your perfect target prospects with up to 94% accuracy, eliminating guesswork and reducing acquisition costs by up to 60%.',
+      icon: <UserCheck className="w-8 h-8 text-white group-hover:text-purple-400 transition-colors duration-300" />,
+      title: 'Verified ICP-Matched Leads',
+      description: 'Receive laser-targeted leads, fully verified and aligned to your ideal customer profile (ICP), right in your inbox.',
     },
     {
-      icon: <ScanSearch className="w-8 h-8 text-white group-hover:text-purple-400 transition-colors duration-300" />,
-      title: 'Complete Prospect Intelligence',
-      description:
-        'From partial lists, get full profiles with verified emails, phone numbers, company data, and real-time buying signals.',
+      icon: <FileSearch className="w-8 h-8 text-white group-hover:text-purple-400 transition-colors duration-300" />,
+      title: 'Prospect Intelligence',
+      description: 'Gain insight into each lead’s buying signals, firmographics, and intent—all enriched automatically.',
     },
     {
-      icon: <ActivitySquare className="w-8 h-8 text-white group-hover:text-purple-400 transition-colors duration-300" />,
-      title: 'Smart Lead Prioritization',
-      description:
-        'Our AI scores each lead on conversion probability and helping you close up to 3× more deals by focusing on ready-to-buy prospects first.',
+      icon: <Zap className="w-8 h-8 text-white group-hover:text-purple-400 transition-colors duration-300" />,
+      title: 'Optional Automation',
+      description: 'Enable intelligent automation to save hours every week and nurture leads without manual intervention.',
     },
     {
-      icon: <Merge className="w-8 h-8 text-white group-hover:text-purple-400 transition-colors duration-300" />,
-      title: 'Seamless Workflow Automation',
-      description:
-        'Sync data instantly with Salesforce, HubSpot, and custom workflows, eliminating manual updates and keeping pipelines fresh.',
+      icon: <Database className="w-8 h-8 text-white group-hover:text-purple-400 transition-colors duration-300" />,
+      title: 'CRM Integrations',
+      description: 'Seamlessly integrate with Salesforce, HubSpot, and more. Handled separately to keep your pipeline fresh.',
     },
   ];
 
@@ -56,10 +52,10 @@ const Features: React.FC = () => {
           transition={{ duration: 0.5 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Turn More Prospects Into <span className="gradient-text">Paying Customers</span>
+            Taggle Delivers the Leads That Actually Convert
           </h2>
           <p className="text-white/70 text-base sm:text-lg mb-8">
-            We help you find, score, and convert the right leads—faster.
+            Verified contacts. Real-time insights. Automation optional. Integrations ready.
           </p>
 
           <motion.div
@@ -87,8 +83,8 @@ const Features: React.FC = () => {
                 <Icon className="w-5 h-5 text-purple-400 animate-bounce mr-2" />
                 <span className="font-medium text-white text-sm sm:text-base">
                   {idx === 0 && 'Save 25+ hours weekly'}
-                  {idx === 1 && 'Reduce costs by 60%'}
-                  {idx === 2 && '3x higher close rates'}
+                  {idx === 1 && 'Cut CAC by up to 60%'}
+                  {idx === 2 && '3x higher conversions'}
                 </span>
               </motion.div>
             ))}
@@ -113,7 +109,6 @@ const Features: React.FC = () => {
             {features.map((feature, idx) => (
               <SwiperSlide key={idx}>
                 <div className="group text-white rounded-3xl border border-purple-500/20 bg-gradient-to-tr from-[#0F0F0F] to-[#0B0B0B] shadow-2xl duration-700 relative backdrop-blur-xl hover:border-purple-500/40 overflow-hidden hover:shadow-purple-500/10 hover:shadow-3xl p-6 sm:p-8 mx-auto h-full min-h-[300px] max-w-[320px]">
-                  {/* background visuals unchanged */}
                   <div className="absolute inset-0 z-0 overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/5 to-purple-400/10 opacity-40 group-hover:opacity-60 transition-opacity duration-500"></div>
                     <div className="absolute -bottom-20 -left-20 w-48 h-48 rounded-full bg-gradient-to-tr from-purple-500/10 to-transparent blur-3xl opacity-30 group-hover:opacity-50 transform group-hover:scale-110 transition-all duration-700"></div>
