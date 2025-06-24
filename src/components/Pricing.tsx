@@ -53,7 +53,7 @@ const Pricing: React.FC = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
-    <section id="pricing" className="py-20 bg-black text-white">
+    <section id="pricing" className="py-20 text-white">
       <div className="max-w-7xl mx-auto px-4">
         <motion.div
           ref={ref}

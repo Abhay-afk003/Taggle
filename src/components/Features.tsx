@@ -22,22 +22,26 @@ const Features: React.FC = () => {
     {
       icon: <UserCheck className="w-8 h-8 text-white group-hover:text-purple-400 transition-colors duration-300" />,
       title: 'Verified ICP-Matched Leads',
-      description: 'Receive laser-targeted leads, fully verified and aligned to your ideal customer profile (ICP), right in your inbox.',
+      description:
+        'Receive laser-targeted leads, fully verified and aligned to your ideal customer profile (ICP), right in your inbox.',
     },
     {
       icon: <FileSearch className="w-8 h-8 text-white group-hover:text-purple-400 transition-colors duration-300" />,
       title: 'Prospect Intelligence',
-      description: 'Gain insight into each lead’s buying signals, firmographics, and intent—all enriched automatically.',
+      description:
+        'Gain insight into each lead’s buying signals, firmographics, and intent—all enriched automatically.',
     },
     {
       icon: <Zap className="w-8 h-8 text-white group-hover:text-purple-400 transition-colors duration-300" />,
       title: 'Optional Automation',
-      description: 'Enable intelligent automation to save hours every week and nurture leads without manual intervention.',
+      description:
+        'Enable intelligent automation to save hours every week and nurture leads without manual intervention.',
     },
     {
       icon: <Database className="w-8 h-8 text-white group-hover:text-purple-400 transition-colors duration-300" />,
       title: 'CRM Integrations',
-      description: 'Seamlessly integrate with Salesforce, HubSpot, and more. Handled separately to keep your pipeline fresh.',
+      description:
+        'Seamlessly integrate with Salesforce, HubSpot, and more. Handled separately to keep your pipeline fresh.',
     },
   ];
 
@@ -48,11 +52,11 @@ const Features: React.FC = () => {
           ref={ref}
           className="text-center max-w-4xl mx-auto mb-16"
           initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Taggle Delivers the Leads That Actually Convert
+            Taggle Delivers the <span className="gradient-text">Leads That Convert</span>
           </h2>
           <p className="text-white/70 text-base sm:text-lg mb-8">
             Verified contacts. Real-time insights. Automation optional. Integrations ready.
