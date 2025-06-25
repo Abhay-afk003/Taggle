@@ -6,6 +6,7 @@ import { Check } from "lucide-react";
 interface PricingPlan {
   name: string;
   price: { monthly: number; yearly: number };
+  baseLeads: number;
   description: string;
   features: string[];
   cta: string;
@@ -15,7 +16,8 @@ const plans: PricingPlan[] = [
   {
     name: "Lite",
     price: { monthly: 9, yearly: 90 },
-    description: "100 verified leads/month delivered to your inbox.",
+    baseLeads: 100,
+    description: "",
     features: [
       "Inbox delivery only",
       "Basic ICP matching",
@@ -26,23 +28,26 @@ const plans: PricingPlan[] = [
   {
     name: "Solo",
     price: { monthly: 29, yearly: 290 },
-    description: "500 verified leads/month with insights + CRM-ready.",
+    baseLeads: 500,
+    description: "",
     features: [
       "Inbox delivery with insights",
       "Advanced ICP matching",
-      "CRM integration (Zapier/Make)",
+      "Limited CRM integrations",
+      "Limited Automations enabled"
     ],
     cta: "Get Solo",
   },
   {
     name: "Pro",
     price: { monthly: 69, yearly: 690 },
-    description: "1500 leads/month + CRM and optional automation.",
+    baseLeads: 1500,
+    description: "",
     features: [
       "Inbox delivery with insights",
       "Advanced ICP matching",
-      "CRM integrations",
-      "Automation enabled (if configured)",
+      "Full CRM integrations",
+      "All Automations enabled",
     ],
     cta: "Go Pro",
   },
@@ -51,6 +56,11 @@ const plans: PricingPlan[] = [
 const Pricing: React.FC = () => {
   const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">("monthly");
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+
+  const getLeadsText = (baseLeads: number) => {
+    const leads = billingCycle === "yearly" ? Math.ceil(baseLeads * 1.2) : baseLeads;
+    return `${leads} verified leads/month delivered to your inbox.`;
+  };
 
   return (
     <section id="pricing" className="py-20 text-white">
@@ -66,7 +76,7 @@ const Pricing: React.FC = () => {
             Straightforward <span className="gradient-text">Pricing</span>
           </h2>
           <p className="text-white/70 text-lg">
-            Verified, ICP-matched leads sent to your inbox. CRM-ready. No exports.
+          You pay. We deliver. Simple.
           </p>
 
           <div className="mt-6 inline-flex items-center space-x-4 justify-center">
@@ -112,7 +122,7 @@ const Pricing: React.FC = () => {
                     /{billingCycle === "monthly" ? "mo" : "yr"}
                   </span>
                 </p>
-                <p className="text-white/70 mb-6">{plan.description}</p>
+                <p className="text-white/70 mb-6">{getLeadsText(plan.baseLeads)}</p>
                 <ul className="space-y-3">
                   {plan.features.map((feature, i) => (
                     <li key={i} className="flex items-start">

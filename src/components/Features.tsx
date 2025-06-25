@@ -21,7 +21,7 @@ const Features: React.FC = () => {
   const features = [
     {
       icon: <UserCheck className="w-8 h-8 text-white group-hover:text-purple-400 transition-colors duration-300" />,
-      title: 'Verified ICP-Matched Leads',
+      title: 'Verified Leads',
       description:
         'Receive laser-targeted leads, fully verified and aligned to your ideal customer profile (ICP), right in your inbox.',
     },
@@ -29,11 +29,11 @@ const Features: React.FC = () => {
       icon: <FileSearch className="w-8 h-8 text-white group-hover:text-purple-400 transition-colors duration-300" />,
       title: 'Prospect Intelligence',
       description:
-        'Gain insight into each lead’s buying signals, firmographics, and intent—all enriched automatically.',
+        'Gain insight into each lead’s buying signals, firmographics, and intent, all enriched automatically.',
     },
     {
       icon: <Zap className="w-8 h-8 text-white group-hover:text-purple-400 transition-colors duration-300" />,
-      title: 'Optional Automation',
+      title: 'Automations',
       description:
         'Enable intelligent automation to save hours every week and nurture leads without manual intervention.',
     },
@@ -59,7 +59,7 @@ const Features: React.FC = () => {
             Taggle Delivers the <span className="gradient-text">Leads That Convert</span>
           </h2>
           <p className="text-white/70 text-base sm:text-lg mb-8">
-            Verified contacts. Real-time insights. Automation optional. Integrations ready.
+            Verified contacts. Real-time insights. Automations. Integrations ready.
           </p>
 
           <motion.div

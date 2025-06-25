@@ -10,7 +10,7 @@ interface TestimonialProps {
   role: string;
   company: string;
   image: string;
-  delay: number; // Added delay prop for staggered animation
+  delay: number;
 }
 
 const Testimonial: React.FC<TestimonialProps> = ({ quote, name, role, company, image, delay }) => {
@@ -25,7 +25,7 @@ const Testimonial: React.FC<TestimonialProps> = ({ quote, name, role, company, i
       className="rounded-2xl p-8 bg-surface-medium border border-surface-dark backdrop-blur-md relative overflow-hidden shadow-xl"
       initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay }} // Use delay prop for staggered animation
+      transition={{ duration: 0.6, delay }}
     >
       <Quote className="absolute top-6 left-6 w-10 h-10 text-primary-light opacity-20" />
       <div className="pt-8">
@@ -44,28 +44,28 @@ const Testimonial: React.FC<TestimonialProps> = ({ quote, name, role, company, i
 
 const testimonials = [
   {
-    quote: "AI Lead Finder has transformed our B2B sales process. We\'ve seen a 43% increase in qualified leads and our sales team is closing deals 30% faster.",
+    quote: "Taggle has transformed our B2B outreach. We've seen a 43% increase in qualified leads and our sales team is closing deals 30% faster.",
     name: "Sarah Johnson",
     role: "VP of Sales",
     company: "TechGrowth Inc.",
     image: "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg",
-    delay: 0.1, // Added delay
+    delay: 0.1,
   },
   {
-    quote: "The AI-powered lead scoring has been a game-changer. We\'re now focusing our efforts on leads that are 5x more likely to convert, saving us time and resources.",
+    quote: "Thanks to Taggle, we're focusing only on leads that are 5x more likely to convert. It's saved our team hours every week.",
     name: "Michael Chen",
     role: "Marketing Director",
     company: "Innovate Solutions",
     image: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg",
-    delay: 0.2, // Added delay
+    delay: 0.2,
   },
   {
-    quote: "Since implementing AI Lead Finder, our cost per acquisition has dropped by 35% while our conversion rate has doubled. The ROI has been exceptional.",
+    quote: "Since switching to Taggle, our cost per acquisition dropped by 35% and our conversion rate doubled. It’s a no-brainer.",
     name: "Emma Rodriguez",
     role: "Growth Lead",
     company: "Scale Ventures",
     image: "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg",
-    delay: 0.3, // Added delay
+    delay: 0.3,
   },
 ];
 
@@ -73,7 +73,7 @@ const Testimonials: React.FC = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
 
   return (
-    <section id="testimonials" className="py-24 bg-background relative z-0"> {/* Removed overflow-hidden */}
+    <section id="testimonials" className="py-24 bg-background relative z-0">
       <div className="absolute inset-0 bg-gradient-radial from-primary-dark/20 via-background to-transparent opacity-30 pointer-events-none" />
 
       <div className="container-custom relative z-10">
@@ -87,16 +87,16 @@ const Testimonials: React.FC = () => {
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white font-heading">
             Trusted by <span className="bg-gradient-to-r from-primary-light via-primary-dark to-primary-light bg-clip-text text-transparent animate-gradient">Industry Leaders</span>
           </h2>
-          <p className="text-white/70 text-lg">See how companies are transforming their lead generation with our AI-powered platform.</p>
+          <p className="text-white/70 text-lg">
+            See how companies are scaling their outreach with Taggle.
+          </p>
         </motion.div>
 
-        {/* Testimonial cards with fade transition */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8"> {/* Restored grid classes */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
             <Testimonial key={index} {...testimonial} />
           ))}
         </div>
-
       </div>
     </section>
   );

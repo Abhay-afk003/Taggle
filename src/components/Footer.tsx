@@ -29,18 +29,25 @@ const Footer: React.FC = () => {
               </span>
             </div>
             <p className="text-white/70 mb-6 max-w-sm">
-              No more chasing leads. We deliver the ones ready to buy right now.
+              Done chasing leads? We’ll send qualified ones right to your inbox.
             </p>
             <div className="flex space-x-3">
-              {[Facebook, Twitter, Linkedin, Instagram].map((Icon, index) => (
-                <a
-                  key={index}
-                  href="#"
-                  className="p-2 rounded-md bg-surface-medium hover:bg-surface-dark transition"
-                >
-                  <Icon className="w-5 h-5 text-white/70 hover:text-white" />
-                </a>
-              ))}
+              <a
+                href="https://x.com/Taggle003?t=Y22m6F_aT2Ndendy6ZHt8w&s=08"
+                className="p-2 rounded-md bg-surface-medium hover:bg-surface-dark transition"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Twitter className="w-5 h-5 text-white/70 hover:text-white" />
+              </a>
+              <a
+                href="https://www.linkedin.com/company/taggle003/"
+                className="p-2 rounded-md bg-surface-medium hover:bg-surface-dark transition"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Linkedin className="w-5 h-5 text-white/70 hover:text-white" />
+              </a>
             </div>
           </div>
 
@@ -51,7 +58,7 @@ const Footer: React.FC = () => {
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-y-4">
               {['Home', 'Features', 'Pricing', 'Blog', 'About Us', 'Careers'].map(
-                (link, i) => (
+                (link, i) => (link === 'Blog' || link === 'About Us' || link === 'Careers' ? null : (
                   <a
                     key={i}
                     href="#"
@@ -59,25 +66,23 @@ const Footer: React.FC = () => {
                   >
                     {link}
                   </a>
-                )
+                ))
               )}
             </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm">
+        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-white/50">
           <p className="text-white/50 mb-4 md:mb-0">
             © 2025 Taggle. All rights reserved.
           </p>
           <div className="flex space-x-6">
-            {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map(
-              (text, i) => (
-                <a
-                  key={i}
-                  href="#"
+            {['Privacy Policy', 'Terms of Service'].map(
+              (text) => (
+                <a key={text} href={text === 'Privacy Policy' ? '/privacy-policy' : '/terms-of-service'}
                   className="text-white/50 hover:text-white transition duration-300"
-                >
+                  >
                   {text}
                 </a>
               )
