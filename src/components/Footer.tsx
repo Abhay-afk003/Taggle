@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { FC } from 'react'; // Import FC
 import { motion } from 'framer-motion';
 import { Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  onShowPrivacy: () => void;
+  onShowTerms: () => void;
+}
+
+const Footer: FC<FooterProps> = ({ onShowPrivacy, onShowTerms }) => {
   return (
     <footer className="relative bg-background text-white font-sans pt-20 pb-10">
       {/* Gradient Overlay */}
@@ -79,18 +84,31 @@ const Footer: React.FC = () => {
           </p>
           <div className="flex space-x-6">
             {['Privacy Policy', 'Terms of Service'].map(
-              (text) => (
-                <a key={text} href={text === 'Privacy Policy' ? '/privacy-policy' : '/terms-of-service'}
-                  className="text-white/50 hover:text-white transition duration-300"
+              (text) => {
+                const isPrivacy = text === 'Privacy Policy';
+                return (
+                  <a
+                    key={text}
+                    onClick={() => {
+                      if (isPrivacy) {
+                        console.log("Privacy Policy clicked");
+                        onShowPrivacy();
+                      } else {
+                        console.log("Terms of Service clicked");
+                        onShowTerms();
+                      }
+                    }}
+                    className="text-white/50 hover:text-white transition duration-300"
                   >
-                  {text}
-                </a>
-              )
+                    {text}
+                  </a>
+                );
+              }
             )}
           </div>
         </div>
       </motion.div>
-    </footer>
+    </footer> // Corrected closing tag for footer
   );
 };
 
