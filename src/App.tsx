@@ -3,6 +3,7 @@ import Hero from './components/Hero';
 import Features from './components/Features';
 import Testimonials from './components/Testimonials';
 import Pricing from './components/Pricing';
+import Aurora from './backgrounds/Aurora/Aurora';
 import CtaSection from './components/CtaSection';
 import Footer from './components/Footer';
 import './global.css';
@@ -67,13 +68,15 @@ We may update this policy. Changes will be reflected on this page with a revised
   const [showTermsAndConditions, setShowTermsAndConditions] = useState(false);
 
   const handleShowPrivacyPolicy = () => {
+    console.log("Showing Privacy Policy");
     setShowPrivacyPolicy(true);
-    setShowTermsAndConditions(false);
+    setShowTermsAndConditions(false); // Ensure only one is shown at a time
   };
 
   const handleShowTermsAndConditions = () => {
+    console.log("Showing Terms and Conditions");
     setShowTermsAndConditions(true);
-    setShowPrivacyPolicy(false);
+    setShowPrivacyPolicy(false); // Ensure only one is shown at a time
   };
 
   const handleGoBack = () => {
@@ -82,47 +85,45 @@ We may update this policy. Changes will be reflected on this page with a revised
   };
 
   return (
-    <div className="relative w-full min-h-screen bg-black">
+    <div className="relative w-full">
       {showPrivacyPolicy || showTermsAndConditions ? (
-        <div className="min-h-screen bg-black text-white p-4 md:p-8">
+        <div className="p-8"> {/* Reverted styling, added basic padding */}
           <button
             onClick={handleGoBack}
-            className="mb-6 text-white hover:text-gradient-1 transition-colors duration-300 font-medium touch-target focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black"
+            className="mb-4 text-blue-500 hover:underline" // Basic back button styling
           >
-            ← Back
+            Back
           </button>
-          {showPrivacyPolicy && (
-            <div className="max-w-4xl mx-auto">
-              <h1 className="text-2xl md:text-3xl font-bold mb-6">Privacy Policy</h1>
-              <div className="prose prose-invert max-w-none">
-                <pre className="whitespace-pre-wrap text-white/80 leading-relaxed font-sans text-sm md:text-base">
-                  {privacyPolicyText}
-                </pre>
-              </div>
-            </div>
-          )}
-          {showTermsAndConditions && (
-            <div className="max-w-4xl mx-auto">
-              <h1 className="text-2xl md:text-3xl font-bold mb-6">Terms and Conditions</h1>
-              <div className="prose prose-invert max-w-none">
-                <pre className="whitespace-pre-wrap text-white/80 leading-relaxed font-sans text-sm md:text-base">
-                  {termsAndConditionsText}
-                </pre>
-              </div>
-            </div>
-          )}
+          {showPrivacyPolicy && <p className="whitespace-pre-wrap">{privacyPolicyText}</p>} {/* Reverted styling, added whitespace pre-wrap */}
+          {showTermsAndConditions && <p className="whitespace-pre-wrap">{termsAndConditionsText}</p>} {/* Reverted styling, added whitespace pre-wrap */}
         </div>
       ) : (
         <>
+          {/* Background Aurora */}
+          <Aurora
+            className="absolute top-0 left-0 w-full h-[100vh] -z-10"
+            colorStops={["#6366F1", "#8B5CF6", "#6366F1"]}
+          />
+          
+          {/* Header */}
           <Header />
-          <Hero />
+
+          {/* Hero Section with Background Particles */}
+          <Hero>
+
+          </Hero>
+
           <main>
             <Features />
             <Pricing />
             <Testimonials />
           </main>
-          <div className="flex flex-col">
+
+          <div className="flex flex-col gap-10">
+            {/* CTA Section (Optional: move it above or below depending on flow) */}
             <CtaSection />
+
+            {/* Footer */}
             <Footer onShowPrivacy={handleShowPrivacyPolicy} onShowTerms={handleShowTermsAndConditions} />
           </div>
         </>

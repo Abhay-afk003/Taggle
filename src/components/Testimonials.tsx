@@ -1,165 +1,101 @@
-import React, { useState, useEffect } from 'react';
-import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import { Quote } from 'lucide-react';
+import { cn } from "@/lib/utils"; // Assuming you have a cn utility
 
-interface Testimonial {
+interface TestimonialProps {
   quote: string;
   name: string;
   role: string;
   company: string;
   image: string;
-  rating: number;
+  delay: number;
 }
 
-const testimonials: Testimonial[] = [
+const Testimonial: React.FC<TestimonialProps> = ({ quote, name, role, company, image, delay }) => {
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  });
+
+  return (
+    <motion.div
+      ref={ref}
+      className="rounded-2xl p-8 bg-surface-medium border border-surface-dark backdrop-blur-md relative overflow-hidden shadow-xl"
+      initial={{ opacity: 0, y: 30 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay }}
+    >
+      <Quote className="absolute top-6 left-6 w-10 h-10 text-primary-light opacity-20" />
+      <div className="pt-8">
+        <p className="text-white/90 text-base leading-relaxed mb-6 relative z-10">{quote}</p>
+        <div className="flex items-center">
+          <img src={image} alt={name} className="w-14 h-14 rounded-full object-cover mr-4 ring-2 ring-primary-dark" />
+          <div>
+            <h4 className="font-heading font-semibold text-white">{name}</h4>
+            <p className="text-white/60 text-sm">{role}, {company}</p>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+const testimonials = [
   {
-    quote: "Taggle has transformed our B2B outreach completely. We've seen a 43% increase in qualified leads and our sales team is closing deals 30% faster than before.",
+    quote: "Taggle has transformed our B2B outreach. We've seen a 43% increase in qualified leads and our sales team is closing deals 30% faster.",
     name: "Sarah Johnson",
     role: "VP of Sales",
     company: "TechGrowth Inc.",
     image: "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg",
-    rating: 5,
+    delay: 0.1,
   },
   {
-    quote: "Thanks to Taggle, we're focusing only on leads that are 5x more likely to convert. It's saved our team countless hours every week.",
+    quote: "Thanks to Taggle, we're focusing only on leads that are 5x more likely to convert. It's saved our team hours every week.",
     name: "Michael Chen",
     role: "Marketing Director",
     company: "Innovate Solutions",
     image: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg",
-    rating: 5,
+    delay: 0.2,
   },
   {
-    quote: "Since switching to Taggle, our cost per acquisition dropped by 35% and our conversion rate doubled. It's honestly a no-brainer for any B2B company.",
+    quote: "Since switching to Taggle, our cost per acquisition dropped by 35% and our conversion rate doubled. It's a no-brainer.",
     name: "Emma Rodriguez",
     role: "Growth Lead",
     company: "Scale Ventures",
     image: "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg",
-    rating: 5,
+    delay: 0.3,
   },
 ];
 
 const Testimonials: React.FC = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-
-  useEffect(() => {
-    if (!isAutoPlaying) return;
-
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [isAutoPlaying]);
-
-  const handlePrevious = () => {
-    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-    setIsAutoPlaying(false);
-    setTimeout(() => setIsAutoPlaying(true), 10000);
-  };
-
-  const handleNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-    setIsAutoPlaying(false);
-    setTimeout(() => setIsAutoPlaying(true), 10000);
-  };
-
-  const currentTestimonial = testimonials[currentIndex];
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
 
   return (
-    <section id="testimonials" className="section">
-      <div className="container">
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto" style={{ marginBottom: '48px' }}>
-          <h2 className="section-title">
-            Trusted by <span className="accent-text-orange">industry leaders</span>
+    <section id="testimonials" className="py-24 bg-background relative z-0">
+      <div className="absolute inset-0 bg-gradient-radial from-primary-dark/20 via-background to-transparent opacity-30 pointer-events-none" />
+
+      <div className="container-custom relative z-10">
+        <motion.div
+          ref={ref}
+          className="text-center max-w-3xl mx-auto mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white font-heading">
+            Trusted by <span className="bg-gradient-to-r from-primary-light via-primary-dark to-primary-light bg-clip-text text-transparent animate-gradient">Industry Leaders</span>
           </h2>
-          <p className="section-description">
+          <p className="text-white/70 text-lg">
             See how companies are scaling their outreach with Taggle.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Testimonial Display */}
-        <div className="relative max-w-4xl mx-auto">
-          {/* Navigation Buttons */}
-          <button
-            onClick={handlePrevious}
-            className="carousel-btn carousel-btn-left"
-            aria-label="Previous testimonial"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-          
-          <button
-            onClick={handleNext}
-            className="carousel-btn carousel-btn-right"
-            aria-label="Next testimonial"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
-
-          {/* Testimonial Card */}
-          <div style={{ padding: '0 64px 48px 64px' }}>
-            <div 
-              key={currentIndex}
-              className="testimonial-card animate-fade-up"
-            >
-              {/* Header with Rating and Quote Icon */}
-              <div className="testimonial-header">
-                <div className="rating-stars">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className={`star ${i < currentTestimonial.rating ? 'filled' : ''}`}
-                      fill={i < currentTestimonial.rating ? 'currentColor' : 'none'}
-                    />
-                  ))}
-                </div>
-                <Quote className="quote-icon" />
-              </div>
-
-              {/* Quote */}
-              <blockquote className="testimonial-quote">
-                "{currentTestimonial.quote}"
-              </blockquote>
-
-              {/* Author */}
-              <div className="testimonial-author">
-                <img
-                  src={currentTestimonial.image}
-                  alt={currentTestimonial.name}
-                  className="author-avatar"
-                  loading="lazy"
-                />
-                <div className="author-info">
-                  <div className="author-name">{currentTestimonial.name}</div>
-                  <div className="author-role">{currentTestimonial.role}</div>
-                  <div className="author-company">{currentTestimonial.company}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Dots Indicator */}
-          <div className="carousel-dots">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`carousel-dot ${index === currentIndex ? 'active' : ''}`}
-                aria-label={`Go to testimonial ${index + 1}`}
-              />
-            ))}
-          </div>
-
-          {/* Progress Indicator */}
-          <div className="text-center">
-            <div className="progress-indicator">
-              <div className={`status-dot ${isAutoPlaying ? 'active' : ''}`} />
-              <span className="status-text">{isAutoPlaying ? 'Auto-playing' : 'Paused'}</span>
-              <span className="separator">•</span>
-              <span className="counter-text">{currentIndex + 1} of {testimonials.length}</span>
-            </div>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {testimonials.map((testimonial, index) => (
+            <Testimonial key={index} {...testimonial} />
+          ))}
         </div>
       </div>
     </section>

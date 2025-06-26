@@ -1,13 +1,15 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 import { Check } from "lucide-react";
 
 interface PricingPlan {
   name: string;
   price: { monthly: number; yearly: number };
   baseLeads: number;
+  description: string;
   features: string[];
   cta: string;
-  popular?: boolean;
 }
 
 const plans: PricingPlan[] = [
@@ -15,10 +17,11 @@ const plans: PricingPlan[] = [
     name: "Lite",
     price: { monthly: 9, yearly: 90 },
     baseLeads: 100,
+    description: "",
     features: [
       "Inbox delivery only",
       "Basic ICP matching",
-      "Email support",
+      "No CRM or automation",
     ],
     cta: "Start Lite",
   },
@@ -26,25 +29,25 @@ const plans: PricingPlan[] = [
     name: "Solo",
     price: { monthly: 29, yearly: 290 },
     baseLeads: 500,
+    description: "",
     features: [
       "Inbox delivery with insights",
       "Advanced ICP matching",
       "Limited CRM integrations",
-      "Priority support"
+      "Limited Automations enabled"
     ],
     cta: "Get Solo",
-    popular: true,
   },
   {
     name: "Pro",
     price: { monthly: 69, yearly: 690 },
     baseLeads: 1500,
+    description: "",
     features: [
-      "Full platform access",
+      "Inbox delivery with insights",
       "Advanced ICP matching",
-      "All CRM integrations",
-      "Full automation suite",
-      "Dedicated support"
+      "Full CRM integrations",
+      "All Automations enabled",
     ],
     cta: "Go Pro",
   },
@@ -52,80 +55,90 @@ const plans: PricingPlan[] = [
 
 const Pricing: React.FC = () => {
   const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">("monthly");
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   const getLeadsText = (baseLeads: number) => {
     const leads = billingCycle === "yearly" ? Math.ceil(baseLeads * 1.2) : baseLeads;
-    return `${leads} verified leads/month`;
+    return `${leads} verified leads/month delivered to your inbox.`;
   };
 
   return (
-    <section id="pricing" className="section">
-      <div className="container">
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto" style={{ marginBottom: '48px' }}>
-          <h2 className="section-title">
-            Simple <span className="accent-text-green">pricing</span>
+    <section id="pricing" className="py-20 text-white">
+      <div className="max-w-7xl mx-auto px-4">
+        <motion.div
+          ref={ref}
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
+        >
+          <h2 className="text-4xl font-bold mb-4">
+            Straightforward <span className="gradient-text">Pricing</span>
           </h2>
-          <p className="section-description">
-            Choose the plan that fits your business needs.
+          <p className="text-white/70 text-lg">
+          You pay. We deliver. Simple.
           </p>
 
-          {/* Billing Toggle */}
-          <div className="billing-toggle">
-            <button
+          <div className="mt-6 inline-flex items-center space-x-4 justify-center">
+            <span
+              className={`text-sm cursor-pointer ${billingCycle === "monthly" ? "text-white" : "text-white/50"}`}
               onClick={() => setBillingCycle("monthly")}
-              className={`toggle-btn ${billingCycle === "monthly" ? 'active' : ''}`}
             >
               Monthly
-            </button>
-            <button
+            </span>
+            <div
+              className="w-12 h-6 bg-zinc-700 rounded-full flex items-center px-1 cursor-pointer"
+              onClick={() => setBillingCycle(billingCycle === "monthly" ? "yearly" : "monthly")}
+            >
+              <div
+                className={`w-4 h-4 rounded-full bg-white transition-transform ${
+                  billingCycle === "yearly" ? "translate-x-6" : ""
+                }`}
+              />
+            </div>
+            <span
+              className={`text-sm cursor-pointer ${billingCycle === "yearly" ? "text-white" : "text-white/50"}`}
               onClick={() => setBillingCycle("yearly")}
-              className={`toggle-btn ${billingCycle === "yearly" ? 'active' : ''}`}
             >
               Yearly
-            </button>
+            </span>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Pricing Grid */}
-        <div className="pricing-grid">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {plans.map((plan, index) => (
-            <div
+            <motion.div
               key={index}
-              className={`pricing-card ${plan.popular ? 'popular' : ''}`}
+              className="rounded-xl border border-zinc-800 p-6 bg-zinc-900 flex flex-col justify-between"
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              {plan.popular && (
-                <div className="popular-badge">
-                  Most Popular
-                </div>
-              )}
-              
-              <div className="pricing-header">
-                <h3 className="plan-name">{plan.name}</h3>
-                <div className="price-container">
-                  <span className="price-amount">
-                    ${billingCycle === "monthly" ? plan.price.monthly : plan.price.yearly}
-                  </span>
-                  <span className="price-period">
+              <div>
+                <h3 className="text-xl font-semibold mb-2">{plan.name}</h3>
+                <p className="text-3xl font-bold mb-4">
+                  ${billingCycle === "monthly" ? plan.price.monthly : plan.price.yearly}
+                  <span className="text-sm font-normal text-white/50 ml-1">
                     /{billingCycle === "monthly" ? "mo" : "yr"}
                   </span>
-                </div>
-                <p className="plan-description">{getLeadsText(plan.baseLeads)}</p>
+                </p>
+                <p className="text-white/70 mb-6">{getLeadsText(plan.baseLeads)}</p>
+                <ul className="space-y-3">
+                  {plan.features.map((feature, i) => (
+                    <li key={i} className="flex items-start">
+                      <Check className="w-5 h-5 text-green-400 mt-1 mr-2" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-
-              <ul className="features-list">
-                {plan.features.map((feature, i) => (
-                  <li key={i} className="feature-item">
-                    <Check className="check-icon" />
-                    <span className="feature-text">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <button className={`btn ${plan.popular ? 'btn-primary' : 'btn-secondary'} w-full`}>
+              <a
+                href="#signup"
+                className="mt-6 inline-block w-full text-center bg-purple-600 hover:bg-purple-700 transition rounded-md py-2 font-medium"
+              >
                 {plan.cta}
-              </button>
-            </div>
+              </a>
+            </motion.div>
           ))}
         </div>
       </div>
