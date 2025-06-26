@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Quote } from 'lucide-react';
-import { cn } from "@/lib/utils"; // Assuming you have a cn utility
+import { cn } from "@/lib/utils";
 
 interface TestimonialProps {
   quote: string;
@@ -22,19 +22,19 @@ const Testimonial: React.FC<TestimonialProps> = ({ quote, name, role, company, i
   return (
     <motion.div
       ref={ref}
-      className="rounded-2xl p-8 bg-surface-medium border border-surface-dark backdrop-blur-md relative overflow-hidden shadow-xl"
+      className="rounded-xl p-6 bg-surface-medium border border-surface-dark backdrop-blur-md relative overflow-hidden shadow-xl"
       initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay }}
     >
-      <Quote className="absolute top-6 left-6 w-10 h-10 text-primary-light opacity-20" />
-      <div className="pt-8">
-        <p className="text-white/90 text-base leading-relaxed mb-6 relative z-10">{quote}</p>
+      <Quote className="absolute top-4 left-4 w-8 h-8 text-primary-light opacity-20" />
+      <div className="pt-6">
+        <p className="text-white/90 text-sm leading-relaxed mb-5 relative z-10">{quote}</p>
         <div className="flex items-center">
-          <img src={image} alt={name} className="w-14 h-14 rounded-full object-cover mr-4 ring-2 ring-primary-dark" />
+          <img src={image} alt={name} className="w-12 h-12 rounded-full object-cover mr-3 ring-2 ring-primary-dark" />
           <div>
-            <h4 className="font-heading font-semibold text-white">{name}</h4>
-            <p className="text-white/60 text-sm">{role}, {company}</p>
+            <h4 className="font-heading font-semibold text-white text-sm">{name}</h4>
+            <p className="text-white/60 text-xs">{role}, {company}</p>
           </div>
         </div>
       </div>
@@ -73,26 +73,26 @@ const Testimonials: React.FC = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
 
   return (
-    <section id="testimonials" className="py-24 bg-background relative z-0">
+    <section id="testimonials" className="py-16 bg-background relative z-0">
       <div className="absolute inset-0 bg-gradient-radial from-primary-dark/20 via-background to-transparent opacity-30 pointer-events-none" />
 
       <div className="container-custom relative z-10">
         <motion.div
           ref={ref}
-          className="text-center max-w-3xl mx-auto mb-16"
+          className="text-center max-w-3xl mx-auto mb-12"
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white font-heading">
+          <h2 className="text-2xl md:text-3xl font-bold mb-3 text-white font-heading">
             Trusted by <span className="bg-gradient-to-r from-primary-light via-primary-dark to-primary-light bg-clip-text text-transparent animate-gradient">Industry Leaders</span>
           </h2>
-          <p className="text-white/70 text-lg">
+          <p className="text-white/70 text-base">
             See how companies are scaling their outreach with Taggle.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {testimonials.map((testimonial, index) => (
             <Testimonial key={index} {...testimonial} />
           ))}
