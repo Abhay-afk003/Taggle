@@ -56,7 +56,7 @@ const Hero: React.FC<HeroProps> = ({ children }) => {
 
   return (
     <section 
-      className="relative flex flex-col items-center justify-center min-h-screen pt-24 pb-20 text-white overflow-hidden"
+      className="relative flex flex-col items-center justify-center min-h-screen pt-20 pb-20 text-white overflow-hidden"
       style={{ contentVisibility: 'auto' }}
     >
       {/* Content */}

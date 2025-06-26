@@ -23,7 +23,7 @@ const Header: React.FC = () => {
   }, [menuOpen]);
 
   return (
-    <header className="w-full z-50 bg-transparent fixed top-0 left-0 right-0">
+    <header className="w-full z-50 bg-transparent relative">
       <div className="header-container">
         {/* Left Section - Logo */}
         <div className="header-logo">
