@@ -73,36 +73,23 @@ const Features: React.FC = () => {
             Verified contacts. Real-time insights. Automations. Integrations ready.
           </p>
 
-          <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-12"
-            initial="hidden"
-            animate={inView ? 'visible' : 'hidden'}
-            variants={{
-              hidden: {},
-              visible: {
-                transition: { staggerChildren: 0.1 },
-              },
-            }}
-          >
-            {[Clock, DollarSign, BarChart3].map((Icon, idx) => (
-              <motion.div
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-12">
+            {[
+              { icon: Clock, text: 'Save 25+ hours weekly' },
+              { icon: DollarSign, text: 'Cut CAC by up to 60%' },
+              { icon: BarChart3, text: '3x higher conversions' }
+            ].map(({ icon: Icon, text }, idx) => (
+              <div
                 key={idx}
                 className="bg-black/30 border border-white/10 p-4 flex items-center justify-center rounded-xl"
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0 },
-                }}
-                transition={{ duration: 0.3 }}
               >
                 <Icon className="w-5 h-5 text-purple-400 mr-2" />
                 <span className="font-medium text-white text-sm sm:text-base">
-                  {idx === 0 && 'Save 25+ hours weekly'}
-                  {idx === 1 && 'Cut CAC by up to 60%'}
-                  {idx === 2 && '3x higher conversions'}
+                  {text}
                 </span>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </motion.div>
 
         <div
