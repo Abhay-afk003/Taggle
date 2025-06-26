@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Enhanced Gradient Text Styling */
+/* Enhanced Gradient Text Styling with Fixed Font Rendering */
 .gradient-text {
   background: linear-gradient(120deg, #6366F1 0%, #8B5CF6 50%, #A855F7 100%);
   background-size: 200% 200%;
@@ -13,33 +13,95 @@
   animation: gradient-shift 6s ease-in-out infinite;
   display: inline-block;
   position: relative;
-  line-height: 1.2;
+  line-height: 1.3;
   letter-spacing: -0.02em;
   word-break: keep-all;
   overflow-wrap: break-word;
-  text-overflow: ellipsis;
-  max-width: 100%;
   vertical-align: baseline;
-}
-
-.gradient-text.italic {
-  font-family: 'Inter', 'SF Pro Display', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-  font-style: italic;
-  font-weight: 500;
-  transform: skew(-1.5deg, 0deg);
-  letter-spacing: -0.01em;
-  padding: 0;
-  margin: 0 0.15rem;
-  line-height: 1.2;
-  vertical-align: baseline;
-  display: inline;
-  position: relative;
-  top: 0;
   font-variant-ligatures: common-ligatures;
   font-feature-settings: "liga" 1, "calt" 1;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Fixed Italic Gradient Text with Proper Font Loading */
+.gradient-text.italic {
+  /* Ensure Inter italic is properly loaded and fallback to reliable italic fonts */
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-style: italic;
+  font-weight: 500;
+  /* Reduced skew to prevent clipping */
+  transform: skew(-0.8deg, 0deg);
+  letter-spacing: -0.01em;
+  /* Added padding to prevent text cutoff */
+  padding: 0.1em 0.2em;
+  margin: 0 0.1rem;
+  line-height: 1.3;
+  vertical-align: baseline;
+  display: inline;
+  position: relative;
+  /* Prevent text clipping */
+  overflow: visible;
+  /* Enhanced font rendering */
+  font-variant-ligatures: common-ligatures;
+  font-feature-settings: "liga" 1, "calt" 1, "kern" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Ensure proper font loading */
+  font-display: swap;
+  /* Fix for potential clipping */
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* Container fixes to prevent text overflow */
+.text-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0;
+  line-height: 1.3;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+  /* Prevent container clipping */
+  overflow: visible;
+  /* Add padding to accommodate skewed text */
+  padding: 0.2em 0.5em;
+}
+
+.text-container h1,
+.text-container h2,
+.text-container h3 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0;
+  line-height: 1.3;
+  margin: 0;
+  overflow: visible;
+}
+
+.text-container span {
+  display: inline;
+  vertical-align: baseline;
+  line-height: inherit;
+}
+
+/* Enhanced baseline alignment */
+.text-container .gradient-text.italic {
+  margin: 0 0.1rem;
+  padding: 0.1em 0.15em;
+  vertical-align: baseline;
+  line-height: inherit;
+  position: relative;
+  top: 0;
+  /* Ensure proper rendering space */
+  min-height: 1.3em;
 }
 
 /* Gradient border animation */
@@ -125,113 +187,101 @@
   background-color: white;
 }
 
-/* Enhanced text container for perfect alignment */
-.gradient-text-container {
-  display: inline-flex;
-  align-items: baseline;
-  line-height: 1.2;
-  vertical-align: baseline;
-}
-
-/* Text container for proper alignment */
-.text-container {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: center;
-  gap: 0;
-  line-height: 1.2;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  hyphens: auto;
-}
-
-.text-container h1,
-.text-container h2,
-.text-container h3 {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: center;
-  gap: 0;
-  line-height: 1.2;
-  margin: 0;
-}
-
-.text-container span {
-  display: inline;
-  vertical-align: baseline;
-  line-height: inherit;
-}
-
-/* Ensure consistent baseline alignment */
-.text-container .gradient-text.italic {
-  margin: 0 0.1rem;
-  padding: 0;
-  vertical-align: baseline;
-  line-height: inherit;
-  position: relative;
-  top: 0;
-}
-
-/* Text overflow handling for different screen sizes */
+/* Responsive typography with proper italic handling */
 @media (max-width: 640px) {
   .gradient-text {
     font-size: clamp(1.5rem, 5vw, 2.5rem);
-    line-height: 1.2;
+    line-height: 1.3;
     letter-spacing: -0.025em;
   }
   
   .gradient-text.italic {
-    transform: skew(-1deg, 0deg);
+    transform: skew(-0.5deg, 0deg);
     margin: 0 0.08rem;
+    padding: 0.08em 0.12em;
     font-size: clamp(1.5rem, 5vw, 2.5rem);
-    line-height: 1.2;
+    line-height: 1.3;
   }
   
   .text-container {
     gap: 0;
-    line-height: 1.2;
+    line-height: 1.3;
+    padding: 0.15em 0.3em;
   }
 }
 
 @media (min-width: 641px) and (max-width: 1024px) {
   .gradient-text {
     font-size: clamp(2rem, 4vw, 3rem);
-    line-height: 1.2;
+    line-height: 1.3;
     letter-spacing: -0.02em;
   }
   
   .gradient-text.italic {
-    transform: skew(-1.2deg, 0deg);
+    transform: skew(-0.6deg, 0deg);
     margin: 0 0.12rem;
+    padding: 0.1em 0.15em;
     font-size: clamp(2rem, 4vw, 3rem);
-    line-height: 1.2;
+    line-height: 1.3;
   }
   
   .text-container {
     gap: 0;
-    line-height: 1.2;
+    line-height: 1.3;
+    padding: 0.18em 0.4em;
   }
 }
 
 @media (min-width: 1025px) {
   .gradient-text {
     font-size: clamp(2.5rem, 3vw, 4rem);
-    line-height: 1.2;
+    line-height: 1.3;
     letter-spacing: -0.015em;
   }
   
   .gradient-text.italic {
-    transform: skew(-1.5deg, 0deg);
+    transform: skew(-0.8deg, 0deg);
     margin: 0 0.15rem;
+    padding: 0.1em 0.2em;
     font-size: clamp(2.5rem, 3vw, 4rem);
-    line-height: 1.2;
+    line-height: 1.3;
   }
   
   .text-container {
     gap: 0;
-    line-height: 1.2;
+    line-height: 1.3;
+    padding: 0.2em 0.5em;
+  }
+}
+
+/* Font loading optimization */
+@supports (font-display: swap) {
+  .gradient-text.italic {
+    font-display: swap;
+  }
+}
+
+/* Cross-browser compatibility fixes */
+@supports not (background-clip: text) {
+  .gradient-text {
+    color: #8B5CF6;
+    background: none;
+  }
+}
+
+/* Safari-specific fixes */
+@supports (-webkit-appearance: none) {
+  .gradient-text.italic {
+    -webkit-transform: skew(-0.8deg, 0deg);
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* Firefox-specific fixes */
+@-moz-document url-prefix() {
+  .gradient-text.italic {
+    -moz-osx-font-smoothing: grayscale;
+    transform: skew(-0.8deg, 0deg);
   }
 }
 
@@ -304,6 +354,8 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* Ensure fonts are loaded properly */
+    font-display: swap;
   }
 }
 
