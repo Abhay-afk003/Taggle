@@ -9,7 +9,7 @@ import {
   DollarSign,
   BarChart3,
 } from 'lucide-react';
-import CardCarousel from './CardCarousel';
+import SimpleCarousel from './SimpleCarousel';
 
 const Features: React.FC = () => {
   const [ref, inView] = useInView({ 
@@ -55,15 +55,13 @@ const Features: React.FC = () => {
   const featureCards = features.map((feature, index) => (
     <div
       key={index}
-      className="feature-carousel-card"
-      role="article"
-      aria-labelledby={`feature-title-${index}`}
+      className="feature-card"
     >
       <div className="mb-6 p-3 rounded-xl bg-black/20 w-fit">
         {feature.icon}
       </div>
       
-      <h3 id={`feature-title-${index}`} className="text-xl mb-3 text-white leading-tight">
+      <h3 className="text-xl mb-3 text-white leading-tight">
         {feature.title}
       </h3>
       
@@ -112,10 +110,7 @@ const Features: React.FC = () => {
 
         {/* Features Carousel */}
         <div ref={ref}>
-          <CardCarousel
-            autoPlay={true}
-            autoPlayInterval={5000}
-            animationSpeed={400}
+          <SimpleCarousel
             cardsPerView={{
               mobile: 1,
               tablet: 2,
@@ -123,13 +118,9 @@ const Features: React.FC = () => {
             }}
             gap={24}
             className="features-carousel"
-            onCardChange={(index) => {
-              // Optional: Track analytics or perform actions on card change
-              console.log(`Features carousel changed to card ${index}`);
-            }}
           >
             {featureCards}
-          </CardCarousel>
+          </SimpleCarousel>
         </div>
       </div>
     </section>

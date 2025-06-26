@@ -1,7 +1,7 @@
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Quote } from 'lucide-react';
-import CardCarousel from './CardCarousel';
+import SimpleCarousel from './SimpleCarousel';
 
 interface TestimonialData {
   quote: string;
@@ -54,31 +54,10 @@ const testimonials: TestimonialData[] = [
     company: "TechForward",
     image: "https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg",
   },
-  {
-    quote: "The automation and lead quality from Taggle has doubled our monthly revenue. It's the best investment we've made.",
-    name: "Rachel Kim",
-    role: "Founder",
-    company: "NextGen Solutions",
-    image: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg",
-  },
-  {
-    quote: "Taggle's AI-powered lead matching is incredibly accurate. We're closing 40% more deals with half the effort.",
-    name: "Alex Martinez",
-    role: "Sales Manager",
-    company: "InnovateTech",
-    image: "https://images.pexels.com/photos/1181316/pexels-photo-1181316.jpeg",
-  },
 ];
 
-const TestimonialCard: React.FC<{ testimonial: TestimonialData; index: number }> = ({ 
-  testimonial, 
-  index 
-}) => (
-  <div 
-    className="testimonial-carousel-card"
-    role="article"
-    aria-labelledby={`testimonial-author-${index}`}
-  >
+const TestimonialCard: React.FC<{ testimonial: TestimonialData }> = ({ testimonial }) => (
+  <div className="testimonial-card">
     <Quote className="w-6 h-6 text-primary-light opacity-20 mb-4 flex-shrink-0" />
     <div className="flex-1">
       <blockquote className="text-white/90 text-base leading-relaxed mb-6">
@@ -103,10 +82,7 @@ const TestimonialCard: React.FC<{ testimonial: TestimonialData; index: number }>
           />
         </picture>
         <div className="overflow-hidden">
-          <h4 
-            id={`testimonial-author-${index}`}
-            className="font-heading text-white text-base truncate"
-          >
+          <h4 className="font-heading text-white text-base truncate">
             {testimonial.name}
           </h4>
           <p className="text-white/60 text-sm truncate">
@@ -129,8 +105,7 @@ const Testimonials: React.FC = () => {
   const testimonialCards = testimonials.map((testimonial, index) => (
     <TestimonialCard 
       key={index} 
-      testimonial={testimonial} 
-      index={index}
+      testimonial={testimonial}
     />
   ));
 
@@ -154,10 +129,7 @@ const Testimonials: React.FC = () => {
         </div>
 
         {/* Testimonials Carousel */}
-        <CardCarousel
-          autoPlay={true}
-          autoPlayInterval={6000}
-          animationSpeed={350}
+        <SimpleCarousel
           cardsPerView={{
             mobile: 1,
             tablet: 2,
@@ -165,13 +137,9 @@ const Testimonials: React.FC = () => {
           }}
           gap={24}
           className="testimonials-carousel"
-          onCardChange={(index) => {
-            // Optional: Track analytics or perform actions on card change
-            console.log(`Testimonials carousel changed to card ${index}`);
-          }}
         >
           {testimonialCards}
-        </CardCarousel>
+        </SimpleCarousel>
       </div>
     </section>
   );
