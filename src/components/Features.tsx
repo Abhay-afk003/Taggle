@@ -10,7 +10,7 @@ import {
   DollarSign,
   BarChart3,
 } from 'lucide-react';
-import { Swiper, SwiperSlide } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 
