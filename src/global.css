@@ -65,6 +65,33 @@
   }
 }
 
+/* Marquee Animation */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 60s linear infinite;
+  will-change: transform;
+}
+
+.pause-animation:hover {
+  animation-play-state: paused;
+}
+
+/* Line clamp utility */
+.line-clamp-4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .avatar-ring {
   @apply w-10 h-10 rounded-full object-cover ring-2 ring-white;
   transition: transform 0.2s ease-out;
@@ -155,16 +182,6 @@
   }
 }
 
-/* Optimized marquee animation */
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(calc(-100% - var(--gap)));
-  }
-}
-
 /* Performance-optimized utility classes */
 .gpu-accelerated {
   transform: translateZ(0);
@@ -217,6 +234,10 @@
   }
   
   .card-gradient-border::before {
+    animation: none;
+  }
+  
+  .animate-marquee {
     animation: none;
   }
 }

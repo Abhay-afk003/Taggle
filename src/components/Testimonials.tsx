@@ -1,7 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { Quote } from 'lucide-react';
+import { Star, Quote } from 'lucide-react';
 
 interface TestimonialProps {
   quote: string;
@@ -9,84 +7,147 @@ interface TestimonialProps {
   role: string;
   company: string;
   image: string;
+  rating: number;
 }
 
-const Testimonial: React.FC<TestimonialProps> = ({ quote, name, role, company, image }) => {
+const TestimonialCard: React.FC<TestimonialProps> = ({ quote, name, role, company, image, rating }) => {
   return (
-    <div className="rounded-2xl p-8 bg-surface-medium border border-surface-dark backdrop-blur-md relative shadow-xl">
-      <Quote className="absolute top-6 left-6 w-10 h-10 text-primary-light opacity-20" />
-      <div className="pt-8">
-        <p className="text-white/90 text-base leading-relaxed mb-6 relative z-10">{quote}</p>
-        <div className="flex items-center">
-          <img 
-            src={image} 
-            alt={name} 
-            className="w-14 h-14 rounded-full object-cover mr-4 ring-2 ring-primary-dark" 
+    <div className="flex-shrink-0 w-80 mx-4 p-6 bg-gradient-to-br from-zinc-900/90 to-zinc-800/90 rounded-2xl border border-zinc-700/50 backdrop-blur-sm shadow-xl">
+      {/* Header with rating */}
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex space-x-1">
+          {[...Array(5)].map((_, i) => (
+            <Star
+              key={i}
+              className={`w-4 h-4 ${i < rating ? 'text-yellow-400 fill-current' : 'text-gray-500'}`}
+            />
+          ))}
+        </div>
+        <Quote className="w-8 h-8 text-purple-400/40" />
+      </div>
+
+      {/* Quote */}
+      <p className="text-white/90 text-sm leading-relaxed mb-6 line-clamp-4">
+        "{quote}"
+      </p>
+
+      {/* Author */}
+      <div className="flex items-center">
+        <div className="relative">
+          <img
+            src={image}
+            alt={name}
+            className="w-12 h-12 rounded-full object-cover ring-2 ring-purple-500/30"
           />
-          <div>
-            <h4 className="font-heading font-semibold text-white">{name}</h4>
-            <p className="text-white/60 text-sm">{role}, {company}</p>
-          </div>
+          <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-zinc-900"></div>
+        </div>
+        <div className="ml-3">
+          <h4 className="font-semibold text-white text-sm">{name}</h4>
+          <p className="text-gray-400 text-xs">{role}</p>
+          <p className="text-purple-400 text-xs font-medium">{company}</p>
         </div>
       </div>
     </div>
   );
 };
 
-const testimonials = [
+const testimonials: TestimonialProps[] = [
   {
-    quote: "Taggle has transformed our B2B outreach. We've seen a 43% increase in qualified leads and our sales team is closing deals 30% faster.",
+    quote: "Taggle has transformed our B2B outreach completely. We've seen a 43% increase in qualified leads and our sales team is closing deals 30% faster than before.",
     name: "Sarah Johnson",
     role: "VP of Sales",
     company: "TechGrowth Inc.",
     image: "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg",
+    rating: 5,
   },
   {
-    quote: "Thanks to Taggle, we're focusing only on leads that are 5x more likely to convert. It's saved our team hours every week.",
+    quote: "Thanks to Taggle, we're focusing only on leads that are 5x more likely to convert. It's saved our team countless hours every week.",
     name: "Michael Chen",
     role: "Marketing Director",
     company: "Innovate Solutions",
     image: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg",
+    rating: 5,
   },
   {
-    quote: "Since switching to Taggle, our cost per acquisition dropped by 35% and our conversion rate doubled. It's a no-brainer.",
+    quote: "Since switching to Taggle, our cost per acquisition dropped by 35% and our conversion rate doubled. It's honestly a no-brainer for any B2B company.",
     name: "Emma Rodriguez",
     role: "Growth Lead",
     company: "Scale Ventures",
     image: "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg",
+    rating: 5,
+  },
+  {
+    quote: "The quality of leads from Taggle is unmatched. Every prospect we receive is perfectly aligned with our ICP and ready to engage.",
+    name: "David Kim",
+    role: "CEO",
+    company: "StartupFlow",
+    image: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg",
+    rating: 5,
+  },
+  {
+    quote: "Taggle's automation features have revolutionized our lead nurturing process. We're seeing 60% better engagement rates.",
+    name: "Lisa Zhang",
+    role: "Sales Manager",
+    company: "CloudTech Pro",
+    image: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg",
+    rating: 5,
+  },
+  {
+    quote: "The ROI on Taggle is incredible. We've cut our prospecting time in half while tripling our qualified pipeline.",
+    name: "Alex Thompson",
+    role: "Business Development",
+    company: "Growth Labs",
+    image: "https://images.pexels.com/photos/697509/pexels-photo-697509.jpeg",
+    rating: 5,
   },
 ];
 
 const Testimonials: React.FC = () => {
-  const [ref, inView] = useInView({ 
-    triggerOnce: true, 
-    threshold: 0.2,
-  });
+  // Duplicate testimonials for seamless loop
+  const allTestimonials = [...testimonials, ...testimonials];
 
   return (
-    <section id="testimonials" className="py-24 bg-background relative z-0">
-      <div className="absolute inset-0 bg-gradient-radial from-primary-dark/20 via-background to-transparent opacity-30 pointer-events-none" />
-
+    <section id="testimonials" className="py-24 bg-background relative overflow-hidden">
       <div className="container-custom relative z-10">
-        <motion.div
-          ref={ref}
-          className="text-center max-w-3xl mx-auto mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-        >
+        <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white font-heading">
-            Trusted by <span className="bg-gradient-to-r from-primary-light via-primary-dark to-primary-light bg-clip-text text-transparent animate-gradient">Industry Leaders</span>
+            Trusted by <span className="gradient-text">Industry Leaders</span>
           </h2>
           <p className="text-white/70 text-lg">
             See how companies are scaling their outreach with Taggle.
           </p>
-        </motion.div>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <Testimonial key={index} {...testimonial} />
-          ))}
+        {/* Marquee Container */}
+        <div className="relative">
+          {/* Gradient overlays for fade effect */}
+          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-background to-transparent z-10"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-background to-transparent z-10"></div>
+          
+          {/* Scrolling testimonials */}
+          <div className="flex animate-marquee space-x-0 hover:pause-animation">
+            {allTestimonials.map((testimonial, index) => (
+              <TestimonialCard key={index} {...testimonial} />
+            ))}
+          </div>
+        </div>
+
+        {/* Call to action */}
+        <div className="text-center mt-12">
+          <p className="text-white/60 text-sm mb-4">Join 500+ companies already using Taggle</p>
+          <div className="flex justify-center items-center space-x-2">
+            <div className="flex -space-x-2">
+              {testimonials.slice(0, 5).map((testimonial, i) => (
+                <img
+                  key={i}
+                  src={testimonial.image}
+                  className="w-8 h-8 rounded-full border-2 border-background"
+                  alt="Customer"
+                />
+              ))}
+            </div>
+            <span className="text-white/60 text-sm">and many more...</span>
+          </div>
         </div>
       </div>
     </section>
