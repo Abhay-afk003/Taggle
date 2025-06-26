@@ -55,29 +55,57 @@ export default {
   			'muted-foreground': 'hsl(var(--muted-foreground))'
   		},
   		fontFamily: {
+  			// Modern, distinctive font stack
   			sans: [
-  				'Inter',
+  				'Plus Jakarta Sans',
+  				'-apple-system',
+  				'BlinkMacSystemFont',
+  				'Segoe UI',
+  				'Roboto',
   				'sans-serif'
   			],
+  			// Elegant font for headings
   			heading: [
-  				'Poppins',
-  				'sans-serif'
+  				'Plus Jakarta Sans',
+  				'Playfair Display',
+  				'serif'
+  			],
+  			// Beautiful calligraphic font for special text
+  			script: [
+  				'Kaushan Script',
+  				'Playfair Display',
+  				'cursive'
+  			],
+  			// Elegant serif for sophisticated text
+  			serif: [
+  				'Playfair Display',
+  				'Georgia',
+  				'serif'
   			]
   		},
   		animation: {
-  			gradient: 'gradient-shift 4s ease-in-out infinite',
-  			marquee: 'marquee var(--duration) linear infinite'
+  			gradient: 'gradient-shift 6s ease-in-out infinite',
+  			marquee: 'marquee var(--duration) linear infinite',
+  			'fade-in': 'fadeIn 0.6s ease-out',
+  			'slide-up': 'slideUp 0.6s ease-out'
   		},
   		keyframes: {
   			'gradient-shift': {
-  				'0%': {
-  					backgroundPosition: '0% 50%'
+  				'0%, 100%': {
+  					backgroundPosition: '0% 50%',
+  					filter: 'hue-rotate(0deg) brightness(1)'
+  				},
+  				'25%': {
+  					backgroundPosition: '50% 50%',
+  					filter: 'hue-rotate(15deg) brightness(1.1)'
   				},
   				'50%': {
-  					backgroundPosition: '100% 50%'
+  					backgroundPosition: '100% 50%',
+  					filter: 'hue-rotate(30deg) brightness(1.2)'
   				},
-  				'100%': {
-  					backgroundPosition: '0% 50%'
+  				'75%': {
+  					backgroundPosition: '50% 50%',
+  					filter: 'hue-rotate(15deg) brightness(1.1)'
   				}
   			},
   			marquee: {
@@ -86,6 +114,26 @@ export default {
   				},
   				to: {
   					transform: 'translateX(calc(-100% - var(--gap)))'
+  				}
+  			},
+  			fadeIn: {
+  				'0%': {
+  					opacity: '0',
+  					transform: 'translateY(10px)'
+  				},
+  				'100%': {
+  					opacity: '1',
+  					transform: 'translateY(0)'
+  				}
+  			},
+  			slideUp: {
+  				'0%': {
+  					opacity: '0',
+  					transform: 'translateY(20px)'
+  				},
+  				'100%': {
+  					opacity: '1',
+  					transform: 'translateY(0)'
   				}
   			}
   		},
@@ -96,6 +144,15 @@ export default {
   		},
   		maxWidth: {
   			container: '1280px'
+  		},
+  		typography: {
+  			DEFAULT: {
+  				css: {
+  					fontFamily: 'Plus Jakarta Sans, sans-serif',
+  					lineHeight: '1.6',
+  					letterSpacing: '-0.005em'
+  				}
+  			}
   		}
   	}
   },
