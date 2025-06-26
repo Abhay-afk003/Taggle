@@ -19,7 +19,7 @@ interface BeamPath {
       y1: string | string[];
       y2: string | string[];
     };
-    transition?: Transition; // Use Framer Motion's Transition type
+    transition?: Transition;
   };
   connectionPoints?: Array<{
     cx: number;
@@ -58,7 +58,7 @@ export const PulseBeams = ({
   return (
     <div
       className={cn(
-        "w-full relative flex items-center justify-center antialiased overflow-hidden", // Removed h-screen
+        "w-full relative flex items-center justify-center antialiased overflow-hidden",
         className
       )}
     >
@@ -131,7 +131,11 @@ const SVGs: React.FC<SVGsProps> = ({ beams, width, height, baseColor, accentColo
             gradientUnits="userSpaceOnUse"
             initial={beam.gradientConfig.initial}
             animate={beam.gradientConfig.animate}
-            transition={beam.gradientConfig.transition as Transition} // Cast to Transition type
+            transition={{
+              ...beam.gradientConfig.transition,
+              duration: Math.min(beam.gradientConfig.transition?.duration || 2, 2),
+              ease: 'ease-out'
+            } as Transition}
           >
             <GradientColors colors={gradientColors} />
           </motion.linearGradient>

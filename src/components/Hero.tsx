@@ -11,7 +11,11 @@ interface HeroProps {
 }
 
 const Hero: React.FC<HeroProps> = ({ children }) => {
-  const [ref] = useInView({ triggerOnce: true, threshold: 0.1 });
+  const [ref] = useInView({ 
+    triggerOnce: true, 
+    threshold: 0.1,
+    rootMargin: '50px 0px'
+  });
 
   const [email, setEmail] = useState('');
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -49,7 +53,7 @@ const Hero: React.FC<HeroProps> = ({ children }) => {
 
     try {
       await addDoc(collection(db, 'waitlist'), { email, timestamp: new Date() });
-      setWaitlistCount((prev) => prev + 1); // Increase count live
+      setWaitlistCount((prev) => prev + 1);
       setSubmitStatus('success');
       setEmail('');
     } catch (error) {
@@ -64,7 +68,8 @@ const Hero: React.FC<HeroProps> = ({ children }) => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.3, ease: 'ease-out' }}
+          style={{ willChange: 'transform, opacity' }}
         >
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mt-10 mb-1 text-white">
             You build it.
@@ -73,7 +78,7 @@ const Hero: React.FC<HeroProps> = ({ children }) => {
             Now Find Who needs it.
           </h1>
           <p className="text-gray-600 text-lg md:text-xl mt-6 mb-8 max-w-2xl mx-auto">
-          Done chasing leads? We’ll send qualified ones right to your inbox.
+          Done chasing leads? We'll send qualified ones right to your inbox.
           </p>
 
           <form
@@ -81,19 +86,19 @@ const Hero: React.FC<HeroProps> = ({ children }) => {
             id="waitlist-section"
             className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6 relative"
           >
-            <div className="relative group rounded-lg w-64 bg-neutral-700 overflow-hidden before:absolute before:w-12 before:h-12 before:content-[''] before:right-0 before:bg-violet-500 before:rounded-full before:blur-lg before:[box-shadow:-60px_20px_10px_10px_#F9B0B9] hover:before:bg-purple-700">
+            <div className="relative group rounded-lg w-64 bg-neutral-700 overflow-hidden before:absolute before:w-12 before:h-12 before:content-[''] before:right-0 before:bg-violet-500 before:rounded-full before:blur-lg before:[box-shadow:-60px_20px_10px_10px_#F9B0B9] hover:before:bg-purple-700 transition-all duration-200">
               <input
                 type="email"
                 name="email"
                 placeholder="enter your email here"
-                className="appearance-none relative bg-transparent ring-0 outline-none border border-neutral-500 text-purple-400 placeholder-purple-400 text-sm font-bold rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5 group-hover:placeholder-purple-300 group-hover:bg-purple-700"
+                className="appearance-none relative bg-transparent ring-0 outline-none border border-neutral-500 text-purple-400 placeholder-purple-400 text-sm font-bold rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5 group-hover:placeholder-purple-300 group-hover:bg-purple-700 transition-all duration-200"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <button
               type="submit"
-              className="rounded-full bg-purple-800 text-white font-mono ring-1 ring-purple-600 focus:ring-2 focus:ring-purple-400 outline-none duration-300 placeholder:text-white/70 px-4 py-2 shadow-md focus:shadow-lg focus:shadow-purple-400 dark:shadow-md dark:shadow-purple-500 ml-2"
+              className="rounded-full bg-purple-800 text-white font-mono ring-1 ring-purple-600 focus:ring-2 focus:ring-purple-400 outline-none duration-200 placeholder:text-white/70 px-4 py-2 shadow-md focus:shadow-lg focus:shadow-purple-400 dark:shadow-md dark:shadow-purple-500 ml-2 transition-all transform hover:scale-105"
               disabled={submitStatus !== 'idle'}
             >
               {submitStatus === 'idle' && 'Join Waitlist'}
@@ -105,7 +110,6 @@ const Hero: React.FC<HeroProps> = ({ children }) => {
           {children}
           {errorMessage && <p className="text-error text-sm mt-2">{errorMessage}</p>}
 
-          {/* AVATAR + TRUST BLOCK */}
           <div className="mt-12">
             <div className="flex flex-col items-center gap-4">
               <p className="text-white/60 flex items-center text-base">
@@ -116,16 +120,26 @@ const Hero: React.FC<HeroProps> = ({ children }) => {
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.3, ease: 'ease-out' }}
                 className="flex items-center -space-x-3"
+                style={{ willChange: 'transform, opacity' }}
               >
-                <img src="/images/trusted-by-avatars/person1.png" className="avatar-ring" alt="Founder avatar" />
-                <img src="/images/trusted-by-avatars/person2.png" className="avatar-ring" alt="Founder avatar" />
-                <img src="/images/trusted-by-avatars/person3.png" className="avatar-ring" alt="Founder avatar" />
-                <img src="/images/trusted-by-avatars/person4.png" className="avatar-ring" alt="Founder avatar" />
-                <img src="/images/trusted-by-avatars/person5.png" className="avatar-ring" alt="Founder avatar" />
-                <img src="/images/trusted-by-avatars/person6.png" className="avatar-ring" alt="Founder avatar" />
-                <img src="/images/trusted-by-avatars/person7.png" className="avatar-ring" alt="Founder avatar" />
+                {[1, 2, 3, 4, 5, 6, 7].map((i, index) => (
+                  <motion.img
+                    key={i}
+                    src={`/images/trusted-by-avatars/person${i}.png`}
+                    className="avatar-ring"
+                    alt="Founder avatar"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{
+                      duration: 0.2,
+                      delay: index * 0.05,
+                      ease: 'ease-out'
+                    }}
+                    style={{ willChange: 'transform, opacity' }}
+                  />
+                ))}
               </motion.div>
             </div>
           </div>

@@ -65,19 +65,18 @@ export default {
   			]
   		},
   		animation: {
-  			gradient: 'gradient-shift 4s ease-in-out infinite',
-  			marquee: 'marquee var(--duration) linear infinite'
+  			gradient: 'gradient-shift 3s ease-in-out infinite',
+  			marquee: 'marquee var(--duration) linear infinite',
+  			'fade-in': 'fade-in 0.3s ease-out forwards',
+  			'slide-up': 'slide-up 0.3s ease-out forwards'
   		},
   		keyframes: {
   			'gradient-shift': {
-  				'0%': {
+  				'0%, 100%': {
   					backgroundPosition: '0% 50%'
   				},
   				'50%': {
   					backgroundPosition: '100% 50%'
-  				},
-  				'100%': {
-  					backgroundPosition: '0% 50%'
   				}
   			},
   			marquee: {
@@ -86,6 +85,24 @@ export default {
   				},
   				to: {
   					transform: 'translateX(calc(-100% - var(--gap)))'
+  				}
+  			},
+  			'fade-in': {
+  				from: {
+  					opacity: '0'
+  				},
+  				to: {
+  					opacity: '1'
+  				}
+  			},
+  			'slide-up': {
+  				from: {
+  					opacity: '0',
+  					transform: 'translateY(20px)'
+  				},
+  				to: {
+  					opacity: '1',
+  					transform: 'translateY(0)'
   				}
   			}
   		},
@@ -96,6 +113,10 @@ export default {
   		},
   		maxWidth: {
   			container: '1280px'
+  		},
+  		transitionDuration: {
+  			'200': '200ms',
+  			'300': '300ms'
   		}
   	}
   },

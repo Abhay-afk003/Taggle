@@ -19,13 +19,13 @@ const beams = [
         y2: ["100%", "20%", "20%"],
       },
       transition: {
-        duration: 2,
+        duration: 1.5,
         repeat: Infinity,
- repeatType: "loop",
-        ease: "linear",
-        repeatDelay: 2,
-        delay: Math.random() * 2,
-      } as any, // Explicitly cast to any
+        repeatType: "loop",
+        ease: "ease-out",
+        repeatDelay: 1.5,
+        delay: Math.random() * 1.5,
+      } as any,
     },
     connectionPoints: [
       { cx: 6.5, cy: 398.5, r: 6 },
@@ -48,13 +48,13 @@ const beams = [
         y2: ["100%", "100%", "0%"],
       },
       transition: {
-        duration: 2,
+        duration: 1.5,
         repeat: Infinity,
- repeatType: "loop",
-        ease: "linear",
-        repeatDelay: 2,
-        delay: Math.random() * 2,
-      } as any, // Explicitly cast to any
+        repeatType: "loop",
+        ease: "ease-out",
+        repeatDelay: 1.5,
+        delay: Math.random() * 1.5,
+      } as any,
     },
     connectionPoints: [
       { cx: 851, cy: 34, r: 6.5 },
@@ -77,13 +77,13 @@ const beams = [
         y2: ["100%", "100%", "0%"],
       },
       transition: {
-        duration: 2,
+        duration: 1.5,
         repeat: Infinity,
- repeatType: "loop",
-        ease: "linear",
-        repeatDelay: 2,
-        delay: Math.random() * 2,
-      } as any, // Explicitly cast to any
+        repeatType: "loop",
+        ease: "ease-out",
+        repeatDelay: 1.5,
+        delay: Math.random() * 1.5,
+      } as any,
     },
     connectionPoints: [
       { cx: 142, cy: 427, r: 6.5 },
@@ -106,13 +106,13 @@ const beams = [
         y2: "-20%",
       },
       transition: {
-        duration: 2,
+        duration: 1.5,
         repeat: Infinity,
- repeatType: "loop",
-        ease: "linear",
-        repeatDelay: 2,
-        delay: Math.random() * 2,
-      } as any, // Explicitly cast to any
+        repeatType: "loop",
+        ease: "ease-out",
+        repeatDelay: 1.5,
+        delay: Math.random() * 1.5,
+      } as any,
     },
     connectionPoints: [
       { cx: 770, cy: 427, r: 6.5 },
@@ -135,13 +135,13 @@ const beams = [
         y2: ["20%", "20%", "200%"],
       },
       transition: {
-        duration: 2,
+        duration: 1.5,
         repeat: Infinity,
- repeatType: "loop",
-        ease: "linear",
-        repeatDelay: 2,
-        delay: Math.random() * 2,
-      } as any, // Explicitly cast to any
+        repeatType: "loop",
+        ease: "ease-out",
+        repeatDelay: 1.5,
+        delay: Math.random() * 1.5,
+      } as any,
     },
     connectionPoints: [
       { cx: 420.5, cy: 6.5, r: 6 },
@@ -162,12 +162,12 @@ export const PulseBeamsFirstDemo = ({ onButtonClick }: { onButtonClick?: () => v
       beams={beams}
       gradientColors={gradientColors}
     >
-      <button className="bg-slate-800 w-full max-w-xs mx-auto md:max-w-md z-40 no-underline group cursor-pointer relative shadow-md rounded-full p-px text-xs font-semibold leading-6  text-white inline-block">
+      <button className="bg-slate-800 w-full max-w-xs mx-auto md:max-w-md z-40 no-underline group cursor-pointer relative shadow-md rounded-full p-px text-xs font-semibold leading-6 text-white inline-block transition-all duration-200 hover:scale-105">
         <span className="absolute inset-0 overflow-hidden rounded-full">
-          <span className="absolute inset-0 rounded-full bg-[image:radial-gradient(75%_100%_at_50%_0%,rgba(56,189,248,0.6)_0%,rgba(56,189,248,0)_75%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+          <span className="absolute inset-0 rounded-full bg-[image:radial-gradient(75%_100%_at_50%_0%,rgba(56,189,248,0.6)_0%,rgba(56,189,248,0)_75%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
         </span>
         <div className="relative flex justify-center w-full text-center space-x-2 items-center z-10 rounded-full bg-zinc-950 py-2 md:py-4 px-4 md:px-8 ring-1 ring-white/10">
-          <button onClick={onButtonClick} className="md:text-2xl text-base inline-block bg-clip-text text-transparent bg-gradient-to-r from-neutral-300 via-neutral-600 to-neutral-300 focus:outline-none py-2">
+          <button onClick={onButtonClick} className="md:text-2xl text-base inline-block bg-clip-text text-transparent bg-gradient-to-r from-neutral-300 via-neutral-600 to-neutral-300 focus:outline-none py-2 transition-all duration-200">
             Join Waitlist
           </button>
         </div>
