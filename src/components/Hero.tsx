@@ -14,7 +14,6 @@ const Hero: React.FC<HeroProps> = ({ children }) => {
   const [ref] = useInView({ 
     triggerOnce: true, 
     threshold: 0.1,
-    rootMargin: '50px 0px'
   });
 
   const [email, setEmail] = useState('');
@@ -63,13 +62,12 @@ const Hero: React.FC<HeroProps> = ({ children }) => {
   };
 
   return (
-    <section className="relative flex flex-col items-center justify-center min-h-[80vh] pt-20 pb-10 text-white overflow-hidden">
-      <div className="w-full max-w-4xl text-center" ref={ref}>
+    <section className="relative flex flex-col items-center justify-center min-h-[80vh] pt-20 pb-10 text-white">
+      <div className="w-full max-w-4xl text-center px-4" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, ease: 'ease-out' }}
-          style={{ willChange: 'transform, opacity' }}
+          transition={{ duration: 0.3 }}
         >
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mt-10 mb-1 text-white">
             You build it.
@@ -77,70 +75,56 @@ const Hero: React.FC<HeroProps> = ({ children }) => {
           <h1 className="gradient-text text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-1">
             Now Find Who needs it.
           </h1>
-          <p className="text-gray-600 text-lg md:text-xl mt-6 mb-8 max-w-2xl mx-auto">
-          Done chasing leads? We'll send qualified ones right to your inbox.
+          <p className="text-gray-400 text-lg md:text-xl mt-6 mb-8 max-w-2xl mx-auto">
+            Done chasing leads? We'll send qualified ones right to your inbox.
           </p>
 
           <form
             onSubmit={handleWaitlistSubmit}
             id="waitlist-section"
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6 relative"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6"
           >
-            <div className="relative group rounded-lg w-64 bg-neutral-700 overflow-hidden before:absolute before:w-12 before:h-12 before:content-[''] before:right-0 before:bg-violet-500 before:rounded-full before:blur-lg before:[box-shadow:-60px_20px_10px_10px_#F9B0B9] hover:before:bg-purple-700 transition-all duration-200">
+            <div className="relative rounded-lg w-64 bg-neutral-800 border border-neutral-600">
               <input
                 type="email"
                 name="email"
-                placeholder="enter your email here"
-                className="appearance-none relative bg-transparent ring-0 outline-none border border-neutral-500 text-purple-400 placeholder-purple-400 text-sm font-bold rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5 group-hover:placeholder-purple-300 group-hover:bg-purple-700 transition-all duration-200"
+                placeholder="Enter your email"
+                className="w-full bg-transparent text-white placeholder-gray-400 text-sm rounded-lg border-0 focus:ring-2 focus:ring-purple-500 p-3 outline-none"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <button
               type="submit"
-              className="rounded-full bg-purple-800 text-white font-mono ring-1 ring-purple-600 focus:ring-2 focus:ring-purple-400 outline-none duration-200 placeholder:text-white/70 px-4 py-2 shadow-md focus:shadow-lg focus:shadow-purple-400 dark:shadow-md dark:shadow-purple-500 ml-2 transition-all transform hover:scale-105"
+              className="bg-purple-600 hover:bg-purple-700 text-white font-medium px-6 py-3 rounded-lg transition-colors duration-200"
               disabled={submitStatus !== 'idle'}
             >
               {submitStatus === 'idle' && 'Join Waitlist'}
               {submitStatus === 'success' && 'Joined!'}
-              {submitStatus === 'error' && 'Error!'} 🚀
+              {submitStatus === 'error' && 'Error!'}
             </button>
           </form>
 
           {children}
-          {errorMessage && <p className="text-error text-sm mt-2">{errorMessage}</p>}
+          {errorMessage && <p className="text-red-400 text-sm mt-2">{errorMessage}</p>}
 
           <div className="mt-12">
             <div className="flex flex-col items-center gap-4">
               <p className="text-white/60 flex items-center text-base">
                 <CheckCircle className="w-5 h-5 text-green-400 mr-2" />
-                {waitlistCount} sharp minds already in. You in?
+                {waitlistCount} people have joined. Join them?
               </p>
 
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.3, ease: 'ease-out' }}
-                className="flex items-center -space-x-3"
-                style={{ willChange: 'transform, opacity' }}
-              >
-                {[1, 2, 3, 4, 5, 6, 7].map((i, index) => (
-                  <motion.img
+              <div className="flex items-center -space-x-3">
+                {[1, 2, 3, 4, 5, 6, 7].map((i) => (
+                  <img
                     key={i}
                     src={`/images/trusted-by-avatars/person${i}.png`}
-                    className="avatar-ring"
-                    alt="Founder avatar"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{
-                      duration: 0.2,
-                      delay: index * 0.05,
-                      ease: 'ease-out'
-                    }}
-                    style={{ willChange: 'transform, opacity' }}
+                    className="w-10 h-10 rounded-full object-cover ring-2 ring-white"
+                    alt="User avatar"
                   />
                 ))}
-              </motion.div>
+              </div>
             </div>
           </div>
         </motion.div>

@@ -1,5 +1,4 @@
 import React from 'react';
-import { PulseBeamsFirstDemo } from '@/components/ui/demo';
 
 // Function to scroll to the waitlist section
 const scrollToWaitlist = () => {
@@ -11,10 +10,21 @@ const scrollToWaitlist = () => {
 
 const CtaSection: React.FC = () => {
   return (
-    <div className="my-12">
-      {/* Pass the scrollToWaitlist function as a prop to PulseBeamsFirstDemo if it accepts an onClick handler */}
-      {/* Or, if the button is rendered directly in PulseBeamsFirstDemo, modify that component */}
-      <PulseBeamsFirstDemo onButtonClick={scrollToWaitlist} /> {/* Assuming onButtonClick is the prop name */}
+    <div className="py-20 text-center">
+      <div className="max-w-2xl mx-auto px-4">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+          Ready to Get Started?
+        </h2>
+        <p className="text-gray-400 text-lg mb-8">
+          Join hundreds of businesses already using Taggle to find their perfect customers.
+        </p>
+        <button
+          onClick={scrollToWaitlist}
+          className="btn-primary text-lg px-8 py-4"
+        >
+          Join Waitlist
+        </button>
+      </div>
     </div>
   );
 };

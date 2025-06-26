@@ -58,7 +58,6 @@ const Pricing: React.FC = () => {
   const [ref, inView] = useInView({ 
     triggerOnce: true, 
     threshold: 0.1,
-    rootMargin: '50px 0px'
   });
 
   const getLeadsText = (baseLeads: number) => {
@@ -74,8 +73,7 @@ const Pricing: React.FC = () => {
           className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.3, ease: 'ease-out' }}
-          style={{ willChange: 'transform, opacity' }}
+          transition={{ duration: 0.3 }}
         >
           <h2 className="text-4xl font-bold mb-4">
             Straightforward <span className="gradient-text">Pricing</span>
@@ -114,11 +112,10 @@ const Pricing: React.FC = () => {
           {plans.map((plan, index) => (
             <motion.div
               key={index}
-              className="rounded-xl border border-zinc-800 p-6 bg-zinc-900 flex flex-col justify-between transition-all duration-200 hover:scale-105 hover:border-purple-500/40"
+              className="rounded-xl border border-zinc-800 p-6 bg-zinc-900 flex flex-col justify-between"
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.2, delay: index * 0.05, ease: 'ease-out' }}
-              style={{ willChange: 'transform, opacity' }}
+              transition={{ duration: 0.3, delay: index * 0.1 }}
             >
               <div>
                 <h3 className="text-xl font-semibold mb-2">{plan.name}</h3>
@@ -140,7 +137,7 @@ const Pricing: React.FC = () => {
               </div>
               <a
                 href="#signup"
-                className="mt-6 inline-block w-full text-center bg-purple-600 hover:bg-purple-700 transition-all duration-200 rounded-md py-2 font-medium transform hover:scale-105"
+                className="mt-6 inline-block w-full text-center bg-purple-600 hover:bg-purple-700 transition-colors duration-200 rounded-md py-2 font-medium"
               >
                 {plan.cta}
               </a>
