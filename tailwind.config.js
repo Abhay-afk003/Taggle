@@ -6,6 +6,7 @@ export default {
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
         serif: ['Playfair Display', 'Georgia', 'serif'],
+        heading: ['Inter', 'sans-serif'],
       },
       colors: {
         'gradient-1-start': '#FF3366',
