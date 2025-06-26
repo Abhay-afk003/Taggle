@@ -51,7 +51,7 @@ const Features: React.FC = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+          <h2 className="text-3xl md:text-4xl mb-4 text-white">
             Taggle Delivers the <span className="gradient-text italic">Leads That Convert</span>
           </h2>
           <p className="text-gray-300 text-base md:text-lg mb-10 leading-relaxed">
@@ -73,7 +73,7 @@ const Features: React.FC = () => {
                 transition={{ duration: 0.6, delay: idx * 0.1 }}
               >
                 <stat.icon className={`w-6 h-6 ${stat.color}`} />
-                <span className="font-semibold text-white text-sm md:text-base">{stat.text}</span>
+                <span className="text-white text-sm md:text-base">{stat.text}</span>
               </motion.div>
             ))}
           </div>
@@ -93,7 +93,7 @@ const Features: React.FC = () => {
                 {feature.icon}
               </div>
               
-              <h3 className="text-lg font-bold mb-3 text-white group-hover:text-purple-300 transition-colors duration-300">
+              <h3 className="text-lg mb-3 text-white group-hover:text-purple-300 transition-colors duration-300">
                 {feature.title}
               </h3>
               

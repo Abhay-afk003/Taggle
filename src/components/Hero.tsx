@@ -69,10 +69,10 @@ const Hero: React.FC<HeroProps> = ({ children }) => {
         >
           {/* Main Headline */}
           <div className="mb-6">
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-3">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl leading-tight mb-3">
               <span className="text-white">You Built It.</span>
             </h1>
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight flex flex-wrap items-center justify-center gap-2">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl leading-tight flex flex-wrap items-center justify-center gap-2">
               <span className="text-white">Now Find</span>
               <span className="gradient-text italic">Who</span>
               <span className="text-white">Needs It.</span>
@@ -102,7 +102,7 @@ const Hero: React.FC<HeroProps> = ({ children }) => {
             </div>
             <button
               type="submit"
-              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 shadow-lg hover:shadow-purple-500/25"
+              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-full transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 shadow-lg hover:shadow-purple-500/25"
               disabled={submitStatus !== 'idle'}
             >
               {submitStatus === 'idle' && (
@@ -141,7 +141,7 @@ const Hero: React.FC<HeroProps> = ({ children }) => {
                 <img src="/images/trusted-by-avatars/person5.png" className="w-10 h-10 rounded-full border-2 border-white object-cover" alt="User" />
               </div>
               <div className="text-left">
-                <p className="text-white font-semibold text-sm">{waitlistCount}+ early adopters</p>
+                <p className="text-white text-sm">{waitlistCount}+ early adopters</p>
                 <p className="text-gray-400 text-xs">already in the waitlist</p>
               </div>
             </motion.div>
