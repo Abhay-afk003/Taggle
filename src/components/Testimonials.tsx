@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Quote } from 'lucide-react';
 
@@ -8,11 +8,40 @@ interface TestimonialProps {
   role: string;
   company: string;
   image: string;
+  index: number;
+  isVisible: boolean;
 }
 
-const Testimonial: React.FC<TestimonialProps> = ({ quote, name, role, company, image }) => {
+const Testimonial: React.FC<TestimonialProps> = ({ 
+  quote, 
+  name, 
+  role, 
+  company, 
+  image, 
+  index, 
+  isVisible 
+}) => {
+  const testimonialRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isVisible && testimonialRef.current) {
+      // Use requestAnimationFrame for smooth performance
+      requestAnimationFrame(() => {
+        if (testimonialRef.current) {
+          testimonialRef.current.classList.add('testimonial-slide-visible');
+        }
+      });
+    }
+  }, [isVisible]);
+
   return (
-    <div className="testimonial-card">
+    <div 
+      ref={testimonialRef}
+      className="testimonial-slide"
+      style={{
+        animationDelay: `${index * 100}ms`
+      }}
+    >
       <Quote className="w-6 h-6 text-primary-light opacity-20 mb-4" />
       <div className="flex-1">
         <p className="text-white/90 text-base leading-relaxed mb-6">
@@ -96,7 +125,19 @@ const testimonials = [
 ];
 
 const Testimonials: React.FC = () => {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
+  const [ref, inView] = useInView({ 
+    triggerOnce: true, 
+    threshold: 0.1,
+    rootMargin: '50px 0px'
+  });
+  
+  const [animationStarted, setAnimationStarted] = useState(false);
+
+  useEffect(() => {
+    if (inView && !animationStarted) {
+      setAnimationStarted(true);
+    }
+  }, [inView, animationStarted]);
 
   return (
     <section 
@@ -117,10 +158,15 @@ const Testimonials: React.FC = () => {
           </p>
         </div>
 
-        {/* Testimonials Grid */}
+        {/* Testimonials Grid with Horizontal Slide Animation */}
         <div className="testimonials-grid">
           {testimonials.map((testimonial, index) => (
-            <Testimonial key={index} {...testimonial} />
+            <Testimonial 
+              key={index} 
+              {...testimonial} 
+              index={index}
+              isVisible={animationStarted}
+            />
           ))}
         </div>
       </div>

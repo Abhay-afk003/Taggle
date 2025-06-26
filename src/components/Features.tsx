@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import {
   UserCheck,
@@ -13,8 +13,12 @@ import {
 const Features: React.FC = () => {
   const [ref, inView] = useInView({ 
     triggerOnce: true, 
-    threshold: 0.2 
+    threshold: 0.15,
+    rootMargin: '50px 0px'
   });
+  
+  const [animationStarted, setAnimationStarted] = useState(false);
+  const featureRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const features = [
     {
@@ -38,6 +42,29 @@ const Features: React.FC = () => {
       description: 'Seamlessly integrate with Salesforce, HubSpot, and more. Keep your pipeline fresh and organized.',
     },
   ];
+
+  useEffect(() => {
+    if (inView && !animationStarted) {
+      setAnimationStarted(true);
+      
+      // Use requestAnimationFrame for smooth performance
+      const animateFeatures = () => {
+        featureRefs.current.forEach((element, index) => {
+          if (element) {
+            // Stagger animations by 100ms
+            setTimeout(() => {
+              requestAnimationFrame(() => {
+                element.classList.add('feature-slide-up-visible');
+              });
+            }, index * 100);
+          }
+        });
+      };
+      
+      // Small delay to ensure DOM is ready
+      setTimeout(animateFeatures, 50);
+    }
+  }, [inView, animationStarted]);
 
   return (
     <section 
@@ -76,7 +103,7 @@ const Features: React.FC = () => {
           </div>
         </div>
 
-        {/* Features Grid with Performance-Optimized Animation */}
+        {/* Features Grid with Slide-Up Animation */}
         <div 
           ref={ref}
           className="features-grid"
@@ -85,9 +112,11 @@ const Features: React.FC = () => {
           {features.map((feature, idx) => (
             <div
               key={idx}
-              className={`feature-card ${inView ? 'feature-card-visible' : ''}`}
+              ref={(el) => {
+                featureRefs.current[idx] = el;
+              }}
+              className="feature-slide-up"
               style={{ 
-                animationDelay: `${idx * 100}ms`,
                 gap: '24px'
               }}
             >

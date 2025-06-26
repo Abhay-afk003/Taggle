@@ -181,28 +181,82 @@
   outline-offset: 2px;
 }
 
-/* Features Section - Performance Optimized */
+/* Features Section - Slide-Up Animation */
 .features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 24px;
 }
 
-.feature-card {
+.feature-slide-up {
   padding: 32px;
   border-radius: 1rem;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   opacity: 0;
-  transform: translateX(50px);
-  transition: none;
+  transform: translateY(50px);
+  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+  will-change: transform, opacity;
 }
 
-.feature-card-visible {
+.feature-slide-up-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Testimonials Section - Horizontal Slide Animation */
+.testimonials-grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+@media (min-width: 768px) {
+  .testimonials-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .testimonials-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.testimonial-slide {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out, translateY 0.2s ease;
+  will-change: transform, opacity;
+}
+
+.testimonial-slide-visible {
   opacity: 1;
   transform: translateX(0);
-  transition: transform 500ms ease-in-out, opacity 500ms ease-in-out;
+}
+
+.testimonial-slide:hover {
+  transform: translateX(0) translateY(-2px);
+}
+
+.testimonial-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 12px;
+  border: 2px solid rgba(139, 92, 246, 0.5);
+  flex-shrink: 0;
 }
 
 /* Pricing Grid - Responsive Layout */
@@ -279,52 +333,6 @@
   background-color: #6d28d9;
 }
 
-/* Testimonials Grid - 3x2 Layout */
-.testimonials-grid {
-  display: grid;
-  gap: 24px;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-}
-
-@media (min-width: 768px) {
-  .testimonials-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .testimonials-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-.testimonial-card {
-  display: flex;
-  flex-direction: column;
-  padding: 24px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
-  height: 100%;
-}
-
-.testimonial-card:hover {
-  transform: translateY(-2px);
-}
-
-.testimonial-avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 12px;
-  border: 2px solid rgba(139, 92, 246, 0.5);
-  flex-shrink: 0;
-}
-
 /* Hero Section Optimizations */
 .hero-content {
   animation: none;
@@ -391,7 +399,7 @@
     gap: 16px;
   }
   
-  .feature-card {
+  .feature-slide-up {
     padding: 24px;
   }
 
@@ -507,6 +515,68 @@
   }
 }
 
+/* Reduced Motion Support - Accessibility First */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .feature-slide-up {
+    opacity: 1;
+    transform: translateY(0);
+    transition: none;
+  }
+  
+  .testimonial-slide {
+    opacity: 1;
+    transform: translateX(0);
+    transition: none;
+  }
+  
+  .testimonial-slide:hover {
+    transform: none;
+  }
+
+  .gradient-button:hover {
+    transform: none;
+  }
+}
+
+/* Performance optimizations for off-screen content */
+section {
+  contain: layout style paint;
+}
+
+/* Optimize repaints and reflows */
+.feature-slide-up, .testimonial-slide, .pricing-card {
+  will-change: transform, opacity;
+}
+
+/* Critical CSS for above-the-fold content */
+.hero-line, .hero-input, .hero-button {
+  display: block;
+}
+
+/* Ensure minimum tap target sizes for accessibility */
+button, a, input[type="submit"], input[type="button"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .pricing-card, .testimonial-slide, .feature-slide-up {
+    border-width: 2px;
+    border-color: #ffffff;
+  }
+  
+  .cta-button, .pricing-button, .gradient-button {
+    border: 2px solid #ffffff;
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -595,60 +665,5 @@
   
   button, input, select, textarea {
     font-family: 'Plus Jakarta Sans', sans-serif;
-  }
-}
-
-/* Performance optimizations for off-screen content */
-section {
-  contain: layout style paint;
-}
-
-/* Optimize repaints and reflows */
-.feature-card, .testimonial-card, .pricing-card {
-  will-change: transform;
-}
-
-/* Reduce GPU memory usage */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-  
-  .feature-card {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  
-  .testimonial-card:hover {
-    transform: none;
-  }
-
-  .gradient-button:hover {
-    transform: none;
-  }
-}
-
-/* Critical CSS for above-the-fold content */
-.hero-line, .hero-input, .hero-button {
-  display: block;
-}
-
-/* Ensure minimum tap target sizes for accessibility */
-button, a, input[type="submit"], input[type="button"] {
-  min-height: 44px;
-  min-width: 44px;
-}
-
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-  .pricing-card, .testimonial-card, .feature-card {
-    border-width: 2px;
-    border-color: #ffffff;
-  }
-  
-  .cta-button, .pricing-button, .gradient-button {
-    border: 2px solid #ffffff;
   }
 }
