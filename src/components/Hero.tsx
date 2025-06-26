@@ -62,19 +62,19 @@ export default function Hero() {
   };
 
   return (
-    <section className="section flex flex-col items-center justify-center min-h-[calc(100vh-80px)] text-center">
+    <section className="hero-section">
       <div className="container">
-        <div className="max-w-4xl mx-auto animate-fade-up">
-          {/* Hero Heading - Exactly like Tablr */}
-          <h1 className="hero-text-line rhythm-12">
-            You Built It.
-          </h1>
-          <h1 className="hero-text-line rhythm-32">
-            Now Find <span className="hero-magic-word">Who</span> Needs It.
-          </h1>
+        <div className="max-w-4xl mx-auto text-center animate-fade-up">
+          {/* Hero Heading - Exactly like the image */}
+          <div className="hero-text-container">
+            <h1 className="hero-line-1">You Built It.</h1>
+            <h1 className="hero-line-2">
+              Now Find <span className="hero-who">Who</span> Needs It.
+            </h1>
+          </div>
           
           {/* Subheading */}
-          <p className="hero-subtext max-w-2xl mx-auto rhythm-48 animate-fade-up-delay-1">
+          <p className="hero-subtitle">
             Done chasing leads? We'll send qualified ones right to your inbox.
           </p>
 
@@ -82,14 +82,14 @@ export default function Hero() {
           <form
             onSubmit={handleWaitlistSubmit}
             id="waitlist-section"
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 animate-fade-up-delay-2"
+            className="hero-form"
           >
-            <div className="relative">
+            <div className="input-container">
               <input
                 type="email"
                 name="email"
                 placeholder="Enter your email"
-                className="form-input"
+                className="hero-input"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -97,7 +97,7 @@ export default function Hero() {
             </div>
             <button
               type="submit"
-              className="btn btn-primary"
+              className="hero-button"
               disabled={submitStatus !== 'idle'}
             >
               {submitStatus === 'idle' && 'Join Waitlist'}
@@ -107,23 +107,23 @@ export default function Hero() {
           </form>
 
           {errorMessage && (
-            <p className="error-text text-sm mb-4">{errorMessage}</p>
+            <p className="error-message">{errorMessage}</p>
           )}
 
           {/* Social Proof */}
-          <div className="flex flex-col items-center gap-6 animate-fade-up-delay-3">
-            <p className="social-proof-text flex items-center">
-              <CheckCircle className="w-5 h-5 mr-2 text-purple-400" />
+          <div className="social-proof">
+            <p className="social-proof-text">
+              <CheckCircle className="social-proof-icon" />
               {waitlistCount} professionals have joined. Join them?
             </p>
 
             {/* Avatar Stack */}
-            <div className="flex items-center -space-x-3">
+            <div className="avatar-stack">
               {[1, 2, 3, 4, 5, 6, 7].map((i) => (
                 <img
                   key={i}
                   src={`/images/trusted-by-avatars/person${i}.png`}
-                  className="avatar-image"
+                  className="avatar"
                   alt={`Professional ${i}`}
                   loading="lazy"
                 />

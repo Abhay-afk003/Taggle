@@ -12,14 +12,14 @@ const CtaSection: React.FC = () => {
     <section className="section">
       <div className="container">
         <div className="text-center max-w-2xl mx-auto">
-          <h2 className="section-heading rhythm-24">
-            Ready to <span className="gradient-text-1">get started</span>?
+          <h2 className="section-title" style={{ marginBottom: '24px' }}>
+            Ready to <span className="accent-text-purple">get started</span>?
           </h2>
-          <p className="body-text text-white/80 rhythm-32">
+          <p className="section-description" style={{ marginBottom: '32px' }}>
             Join hundreds of businesses already using Taggle to find their perfect customers.
           </p>
           <button onClick={scrollToWaitlist} className="btn btn-primary">
-            Join Waitlist
+            Join Waitlist Now
           </button>
         </div>
       </div>

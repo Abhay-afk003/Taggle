@@ -69,7 +69,7 @@ const Testimonials: React.FC = () => {
     <section id="testimonials" className="section">
       <div className="container">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto rhythm-48">
+        <div className="text-center max-w-3xl mx-auto" style={{ marginBottom: '48px' }}>
           <h2 className="section-title">
             Trusted by <span className="accent-text-orange">industry leaders</span>
           </h2>
@@ -98,7 +98,7 @@ const Testimonials: React.FC = () => {
           </button>
 
           {/* Testimonial Card */}
-          <div className="px-16 py-12">
+          <div style={{ padding: '0 64px 48px 64px' }}>
             <div 
               key={currentIndex}
               className="testimonial-card animate-fade-up"

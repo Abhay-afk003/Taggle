@@ -62,7 +62,7 @@ const Pricing: React.FC = () => {
     <section id="pricing" className="section">
       <div className="container">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto rhythm-48">
+        <div className="text-center max-w-3xl mx-auto" style={{ marginBottom: '48px' }}>
           <h2 className="section-title">
             Simple <span className="accent-text-green">pricing</span>
           </h2>

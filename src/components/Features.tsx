@@ -62,7 +62,7 @@ const Features: React.FC = () => {
     <section id="features" className="section">
       <div className="container">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto rhythm-48">
+        <div className="text-center max-w-3xl mx-auto" style={{ marginBottom: '48px' }}>
           <h2 className="section-title">
             Features that <span className="accent-text-blue">convert</span>
           </h2>
@@ -91,7 +91,7 @@ const Features: React.FC = () => {
           </button>
 
           {/* Feature Card */}
-          <div className="px-16 py-12">
+          <div style={{ padding: '0 64px 48px 64px' }}>
             <div 
               key={currentIndex}
               className="feature-card animate-fade-up"
