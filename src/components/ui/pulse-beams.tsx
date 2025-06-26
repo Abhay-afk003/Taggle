@@ -134,7 +134,7 @@ const SVGs: React.FC<SVGsProps> = ({ beams, width, height, baseColor, accentColo
             transition={{
               ...beam.gradientConfig.transition,
               duration: Math.min(beam.gradientConfig.transition?.duration || 2, 2),
-              ease: 'ease-out'
+              ease: 'easeOut'
             } as Transition}
           >
             <GradientColors colors={gradientColors} />
