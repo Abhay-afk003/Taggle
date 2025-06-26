@@ -61,18 +61,18 @@ const Hero: React.FC<HeroProps> = ({ children }) => {
   return (
     <section className="relative flex flex-col items-center justify-center min-h-screen pt-20 pb-20 text-white overflow-hidden">
       {/* Content */}
-      <div className="w-full max-w-6xl mx-auto text-center px-4" ref={ref}>
+      <div className="w-full max-w-5xl mx-auto text-center px-4" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           {/* Main Headline */}
-          <div className="mb-8">
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-4">
+          <div className="mb-6">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-3">
               <span className="text-white">You Built It.</span>
             </h1>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight">
               <span className="text-white">Now Find </span>
               <span className="gradient-text italic">Who</span>
               <span className="text-white"> Needs It.</span>
@@ -80,7 +80,7 @@ const Hero: React.FC<HeroProps> = ({ children }) => {
           </div>
 
           {/* Subtitle */}
-          <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed">
             Done chasing leads? We'll send qualified ones right to your inbox.
           </p>
 
@@ -88,13 +88,13 @@ const Hero: React.FC<HeroProps> = ({ children }) => {
           <form
             onSubmit={handleWaitlistSubmit}
             id="waitlist-section"
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 max-w-md mx-auto"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10 max-w-md mx-auto"
           >
             <div className="relative w-full">
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="w-full px-6 py-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                className="w-full px-5 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={submitStatus !== 'idle'}
@@ -102,18 +102,18 @@ const Hero: React.FC<HeroProps> = ({ children }) => {
             </div>
             <button
               type="submit"
-              className="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 shadow-lg hover:shadow-purple-500/25"
               disabled={submitStatus !== 'idle'}
             >
               {submitStatus === 'idle' && (
                 <>
                   Join Waitlist
-                  <ArrowRight className="w-5 h-5" />
+                  <ArrowRight className="w-4 h-4" />
                 </>
               )}
               {submitStatus === 'success' && (
                 <>
-                  <CheckCircle className="w-5 h-5" />
+                  <CheckCircle className="w-4 h-4" />
                   Joined!
                 </>
               )}
@@ -126,23 +126,23 @@ const Hero: React.FC<HeroProps> = ({ children }) => {
           )}
 
           {/* Social Proof */}
-          <div className="flex flex-col items-center gap-6">
+          <div className="flex flex-col items-center gap-5">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex items-center gap-4"
+              className="flex items-center gap-3"
             >
-              <div className="flex -space-x-3">
-                <img src="/images/trusted-by-avatars/person1.png" className="w-12 h-12 rounded-full border-2 border-white object-cover" alt="User" />
-                <img src="/images/trusted-by-avatars/person2.png" className="w-12 h-12 rounded-full border-2 border-white object-cover" alt="User" />
-                <img src="/images/trusted-by-avatars/person3.png" className="w-12 h-12 rounded-full border-2 border-white object-cover" alt="User" />
-                <img src="/images/trusted-by-avatars/person4.png" className="w-12 h-12 rounded-full border-2 border-white object-cover" alt="User" />
-                <img src="/images/trusted-by-avatars/person5.png" className="w-12 h-12 rounded-full border-2 border-white object-cover" alt="User" />
+              <div className="flex -space-x-2">
+                <img src="/images/trusted-by-avatars/person1.png" className="w-10 h-10 rounded-full border-2 border-white object-cover" alt="User" />
+                <img src="/images/trusted-by-avatars/person2.png" className="w-10 h-10 rounded-full border-2 border-white object-cover" alt="User" />
+                <img src="/images/trusted-by-avatars/person3.png" className="w-10 h-10 rounded-full border-2 border-white object-cover" alt="User" />
+                <img src="/images/trusted-by-avatars/person4.png" className="w-10 h-10 rounded-full border-2 border-white object-cover" alt="User" />
+                <img src="/images/trusted-by-avatars/person5.png" className="w-10 h-10 rounded-full border-2 border-white object-cover" alt="User" />
               </div>
               <div className="text-left">
-                <p className="text-white font-semibold">{waitlistCount}+ early adopters</p>
-                <p className="text-gray-400 text-sm">already in the waitlist</p>
+                <p className="text-white font-semibold text-sm">{waitlistCount}+ early adopters</p>
+                <p className="text-gray-400 text-xs">already in the waitlist</p>
               </div>
             </motion.div>
 
@@ -152,7 +152,7 @@ const Hero: React.FC<HeroProps> = ({ children }) => {
               transition={{ duration: 0.6, delay: 0.5 }}
               className="flex items-center gap-2 text-green-400"
             >
-              <CheckCircle className="w-5 h-5" />
+              <CheckCircle className="w-4 h-4" />
               <span className="text-sm">No spam, just quality updates</span>
             </motion.div>
           </div>
