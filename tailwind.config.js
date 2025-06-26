@@ -1,51 +1,103 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+    darkMode: ['class'],
+    content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {
-      fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
-        serif: ['Playfair Display', 'Georgia', 'serif'],
-        heading: ['Inter', 'sans-serif'],
-      },
-      colors: {
-        'gradient-1-start': '#FF3366',
-        'gradient-1-end': '#FF6B6B',
-        'gradient-2-start': '#4A90E2',
-        'gradient-2-end': '#67B26F',
-      },
-      backgroundImage: {
-        'gradient-1': 'linear-gradient(45deg, #FF3366, #FF6B6B)',
-        'gradient-2': 'linear-gradient(45deg, #4A90E2, #67B26F)',
-      },
-      animation: {
-        'gradient-flow': 'gradient-flow 3s ease-in-out infinite',
-        'fade-up': 'fade-up 800ms cubic-bezier(0.4, 0, 0.2, 1) forwards',
-      },
-      keyframes: {
-        'gradient-flow': {
-          '0%, 100%': { backgroundPosition: '0% 50%' },
-          '50%': { backgroundPosition: '100% 50%' },
-        },
-        'fade-up': {
-          from: { opacity: '0', transform: 'translateY(32px)' },
-          to: { opacity: '1', transform: 'translateY(0)' },
-        },
-      },
-      maxWidth: {
-        'container': '1200px',
-      },
-      spacing: {
-        '18': '4.5rem',
-        '88': '22rem',
-      },
-      backdropBlur: {
-        'xs': '2px',
-      },
-      transitionTimingFunction: {
-        'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',
-      },
-    },
+  	extend: {
+  		colors: {
+  			background: 'hsl(var(--background))',
+  			'primary-light': '#6366F1',
+  			'primary-dark': '#8B5CF6',
+  			'surface-light': 'rgba(255, 255, 255, 0.05)',
+  			'surface-medium': 'rgba(255, 255, 255, 0.08)',
+  			'surface-dark': 'rgba(255, 255, 255, 0.12)',
+  			success: '#10B981',
+  			warning: '#F59E0B',
+  			error: '#EF4444',
+  			foreground: 'hsl(var(--foreground))',
+  			card: {
+  				DEFAULT: 'hsl(var(--card))',
+  				foreground: 'hsl(var(--card-foreground))'
+  			},
+  			popover: {
+  				DEFAULT: 'hsl(var(--popover))',
+  				foreground: 'hsl(var(--popover-foreground))'
+  			},
+  			primary: {
+  				DEFAULT: 'hsl(var(--primary))',
+  				foreground: 'hsl(var(--primary-foreground))'
+  			},
+  			secondary: {
+  				DEFAULT: 'hsl(var(--secondary))',
+  				foreground: 'hsl(var(--secondary-foreground))'
+  			},
+  			muted: 'hsl(var(--muted))',
+  			accent: {
+  				DEFAULT: 'hsl(var(--accent))',
+  				foreground: 'hsl(var(--accent-foreground))'
+  			},
+  			destructive: {
+  				DEFAULT: 'hsl(var(--destructive))',
+  				foreground: 'hsl(var(--destructive-foreground))'
+  			},
+  			border: 'hsl(var(--border))',
+  			input: 'hsl(var(--input))',
+  			ring: 'hsl(var(--ring))',
+  			chart: {
+  				'1': 'hsl(var(--chart-1))',
+  				'2': 'hsl(var(--chart-2))',
+  				'3': 'hsl(var(--chart-3))',
+  				'4': 'hsl(var(--chart-4))',
+  				'5': 'hsl(var(--chart-5))'
+  			},
+  			brand: 'hsl(var(--brand))',
+  			'brand-foreground': 'hsl(var(--brand-foreground))',
+  			'muted-foreground': 'hsl(var(--muted-foreground))'
+  		},
+  		fontFamily: {
+  			sans: [
+  				'Inter',
+  				'sans-serif'
+  			],
+  			heading: [
+  				'Poppins',
+  				'sans-serif'
+  			]
+  		},
+  		animation: {
+  			gradient: 'gradient-shift 4s ease-in-out infinite',
+  			marquee: 'marquee var(--duration) linear infinite'
+  		},
+  		keyframes: {
+  			'gradient-shift': {
+  				'0%': {
+  					backgroundPosition: '0% 50%'
+  				},
+  				'50%': {
+  					backgroundPosition: '100% 50%'
+  				},
+  				'100%': {
+  					backgroundPosition: '0% 50%'
+  				}
+  			},
+  			marquee: {
+  				from: {
+  					transform: 'translateX(0)'
+  				},
+  				to: {
+  					transform: 'translateX(calc(-100% - var(--gap)))'
+  				}
+  			}
+  		},
+  		borderRadius: {
+  			lg: 'var(--radius)',
+  			md: 'calc(var(--radius) - 2px)',
+  			sm: 'calc(var(--radius) - 4px)'
+  		},
+  		maxWidth: {
+  			container: '1280px'
+  		}
+  	}
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animate")],
 };

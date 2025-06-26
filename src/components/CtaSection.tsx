@@ -1,29 +1,21 @@
 import React from 'react';
+import { PulseBeamsFirstDemo } from '@/components/ui/demo';
+
+// Function to scroll to the waitlist section
+const scrollToWaitlist = () => {
+  const element = document.getElementById('waitlist-section');
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+};
 
 const CtaSection: React.FC = () => {
-  const scrollToWaitlist = () => {
-    const element = document.getElementById('waitlist-section');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  };
-
   return (
-    <section className="section">
-      <div className="container">
-        <div className="text-center max-w-2xl mx-auto">
-          <h2 className="section-title" style={{ marginBottom: '24px' }}>
-            Ready to <span className="accent-text-purple">get started</span>?
-          </h2>
-          <p className="section-description" style={{ marginBottom: '32px' }}>
-            Join hundreds of businesses already using Taggle to find their perfect customers.
-          </p>
-          <button onClick={scrollToWaitlist} className="btn btn-primary">
-            Join Waitlist Now
-          </button>
-        </div>
-      </div>
-    </section>
+    <div className="my-12">
+      {/* Pass the scrollToWaitlist function as a prop to PulseBeamsFirstDemo if it accepts an onClick handler */}
+      {/* Or, if the button is rendered directly in PulseBeamsFirstDemo, modify that component */}
+      <PulseBeamsFirstDemo onButtonClick={scrollToWaitlist} /> {/* Assuming onButtonClick is the prop name */}
+    </div>
   );
 };
 

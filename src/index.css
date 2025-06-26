@@ -7,226 +7,105 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
   }
 
   body {
-    @apply bg-slate-950 text-white font-sans;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-    min-height: 100vh;
+    @apply bg-background text-white font-sans;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading;
-    font-display: swap;
   }
-
-  /* Performance optimizations */
-  img {
-    content-visibility: auto;
-    contain: layout style paint;
-  }
-
-  video {
-    content-visibility: auto;
-  }
-}
-
-/* Responsive utilities */
-@layer utilities {
-  .text-responsive-xs { font-size: clamp(0.75rem, 1vw, 0.875rem); }
-  .text-responsive-sm { font-size: clamp(0.875rem, 1.5vw, 1rem); }
-  .text-responsive-base { font-size: clamp(1rem, 2vw, 1.125rem); }
-  .text-responsive-lg { font-size: clamp(1.125rem, 2.5vw, 1.25rem); }
-  .text-responsive-xl { font-size: clamp(1.25rem, 3vw, 1.5rem); }
-  .text-responsive-2xl { font-size: clamp(1.5rem, 3.5vw, 2rem); }
-  .text-responsive-3xl { font-size: clamp(1.875rem, 4vw, 2.5rem); }
-  .text-responsive-4xl { font-size: clamp(2.25rem, 5vw, 3rem); }
-
-  .p-responsive-xs { padding: clamp(0.25rem, 1vw, 0.5rem); }
-  .p-responsive-sm { padding: clamp(0.5rem, 2vw, 1rem); }
-  .p-responsive-md { padding: clamp(1rem, 3vw, 1.5rem); }
-  .p-responsive-lg { padding: clamp(1.5rem, 4vw, 2rem); }
-  .p-responsive-xl { padding: clamp(2rem, 5vw, 3rem); }
-
-  .px-responsive-md { padding-left: clamp(1rem, 3vw, 1.5rem); padding-right: clamp(1rem, 3vw, 1.5rem); }
-  .py-responsive-sm { padding-top: clamp(0.5rem, 2vw, 1rem); padding-bottom: clamp(0.5rem, 2vw, 1rem); }
-
-  .m-responsive-xs { margin: clamp(0.25rem, 1vw, 0.5rem); }
-  .m-responsive-sm { margin: clamp(0.5rem, 2vw, 1rem); }
-  .m-responsive-md { margin: clamp(1rem, 3vw, 1.5rem); }
-  .m-responsive-lg { margin: clamp(1.5rem, 4vw, 2rem); }
-  .m-responsive-xl { margin: clamp(2rem, 5vw, 3rem); }
-
-  .gap-responsive-sm { gap: clamp(0.5rem, 2vw, 1rem); }
-  .gap-responsive-md { gap: clamp(1rem, 3vw, 1.5rem); }
-  .gap-responsive-lg { gap: clamp(1.5rem, 4vw, 2rem); }
 }
 
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center font-medium transition-all duration-200 touch-target;
-    @apply px-responsive-md py-responsive-sm rounded-lg;
-    min-height: 44px;
-    min-width: 44px;
+    @apply px-6 py-3 rounded-lg font-medium transition-all duration-300 inline-flex items-center justify-center;
   }
 
   .btn-primary {
-    @apply bg-gradient-to-r from-purple-600 to-purple-700;
-    @apply hover:from-purple-700 hover:to-purple-800;
-    @apply text-white shadow-lg hover:shadow-xl;
-    @apply transform hover:scale-105 active:scale-95;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    @apply btn bg-gradient-to-r from-primary-light to-primary-dark hover:opacity-90 text-white;
   }
 
   .btn-ghost {
-    @apply border border-white/20 hover:bg-white/5 text-white;
-    @apply hover:border-white/40 hover:shadow-lg;
+    @apply btn border border-white/20 hover:bg-white/5 text-white;
   }
 
-  .container-responsive {
-    @apply w-full max-w-7xl mx-auto;
-    @apply px-4 sm:px-6 lg:px-8;
+  .container-custom {
+    @apply container mx-auto px-4 md:px-8;
   }
 
-  .section-spacing {
-    @apply py-12 sm:py-16 md:py-20 lg:py-24;
+  .nav-link {
+    @apply relative px-3 py-2 text-white/70 hover:text-white transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-gradient-to-r after:from-primary-light after:to-primary-dark after:transition-all after:duration-300 hover:after:w-full;
   }
 
-  .grid-responsive {
-    @apply grid gap-6;
-    @apply grid-cols-1 sm:grid-cols-2 lg:grid-cols-3;
+  .brand-text {
+    @apply text-xl font-heading font-semibold text-white tracking-[-0.75px];
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-light via-primary-dark to-primary-light bg-[length:200%_100%] animate-gradient bg-clip-text text-transparent;
   }
 
   .glass-card {
-    @apply bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl;
-    @apply transition-all duration-300;
+    @apply bg-surface-light backdrop-blur-sm border border-white/10 rounded-xl transition-all duration-300;
   }
 
-  .text-fluid {
-    font-size: clamp(0.875rem, 1.5vw, 1.125rem);
+  .feature-card {
+    @apply glass-card p-8 hover:scale-[1.02] hover:shadow-lg hover:shadow-primary-dark/20;
   }
 
-  .heading-fluid {
-    font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+  .input__container {
+    position: relative;
+    background: rgba(255, 255, 255, 0.1); /* More transparent background */
+    padding: 8px 20px; /* Adjusted padding */
+    display: flex;
+    justify-content: flex-start; /* Align items to the start */
+    align-items: center;
+    gap: 10px; /* Increased gap */
+    border-radius: 9999px; /* Pill shape */
+    max-width: 350px;
+    transition: all 0.3s ease; /* Smooth transition */
+    transform: rotateX(10deg) rotateY(10deg); /* Add tilt effect */
+    perspective: 500px;
+    margin-top: 2rem; /* Add margin to separate from previous element */
   }
 
-  .hero-heading {
-    font-size: clamp(2rem, 5vw, 4rem);
-    line-height: 1.1;
+  .shadow__input {
+    content: "";
+    position: absolute; /* Stay absolute */
+    width: 100%;
+    height: 100%;
+    left: 0;
+    /* Match the border-radius of the input container for a better fit */
+    bottom: 0;
+    z-index: -1; /* Keep behind */
+    border-radius: 9999px; /* Match container border-radius for consistent glow */
+    /* Adjusted blur value */ /* Adjusted blur value */
   }
 
-  /* Touch-friendly interactive elements */
-  .touch-target {
-    @apply relative;
-    min-height: 44px;
-    min-width: 44px;
+  .input__button__shadow {
+    cursor: pointer; /* Pointer on hover */
+    border: none;
+    background: linear-gradient(to right, var(--color-primary-light), var(--color-primary-dark)); /* Add a gradient background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 15px; /* Add padding for button shape */
+    color: white; /* White text for better contrast on gradient */
+    border-radius: 8px; /* Smaller border-radius for square look */
   }
 
-  .touch-target::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 44px;
-    height: 44px;
-    transform: translate(-50%, -50%);
-    z-index: -1;
+  .input__search {
+    width: 100%;
+    /* Adjust border-radius to match the inner curve of the container */
+    border-radius: 9999px;
+    outline: none;
+    border: none;
+    /* Adjust padding to create space for the glow and align text */
+    padding: 8px 15px;
+    position: relative;
+    background: white; /* White background */
+    color: #333; /* Darker text color for contrast */
   }
-
-  /* Focus indicators */
-  .focus-ring {
-    @apply focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-slate-950;
-  }
-
-  /* Performance-optimized animations */
-  .animate-optimized {
-    will-change: transform, opacity;
-  }
-
-  .animate-optimized.animate-complete {
-    will-change: auto;
-  }
-}
-
-/* Device-specific optimizations */
-@media (max-width: 320px) {
-  .container-responsive {
-    @apply px-3;
-  }
-  
-  .section-spacing {
-    @apply py-8;
-  }
-  
-  .btn {
-    @apply px-4 py-2 text-sm;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 1199px) {
-  .tablet-grid {
-    @apply grid-cols-2;
-  }
-  
-  .tablet-text {
-    font-size: 1rem;
-    line-height: 1.5;
-  }
-}
-
-@media (min-width: 1200px) {
-  .desktop-grid {
-    @apply grid-cols-3;
-  }
-  
-  .desktop-text {
-    font-size: 1.125rem;
-    line-height: 1.6;
-  }
-}
-
-/* High DPI display optimization */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .high-dpi-optimized {
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
-  }
-}
-
-/* Reduced motion preferences */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-  
-  .animate-pulse-slow,
-  .gradient-text {
-    animation: none;
-  }
-}
-
-/* Print styles */
-@media print {
-  .no-print {
-    display: none !important;
-  }
-  
-  body {
-    background: white !important;
-    color: black !important;
-  }
-  
-  .text-white {
-    color: black !important;
-  }
-}
+} /* Added the missing closing brace for @layer components */
