@@ -9,22 +9,22 @@ interface Feature {
 
 const features: Feature[] = [
   {
-    icon: <UserCheck className="w-8 h-8 text-white" />,
+    icon: <UserCheck className="feature-icon" />,
     title: 'Verified Leads',
     description: 'Receive laser-targeted leads, fully verified and aligned to your ideal customer profile (ICP), right in your inbox.',
   },
   {
-    icon: <FileSearch className="w-8 h-8 text-white" />,
+    icon: <FileSearch className="feature-icon" />,
     title: 'Prospect Intelligence',
     description: "Gain insight into each lead's buying signals, firmographics, and intent, all enriched automatically.",
   },
   {
-    icon: <Zap className="w-8 h-8 text-white" />,
+    icon: <Zap className="feature-icon" />,
     title: 'Smart Automations',
     description: 'Enable intelligent automation to save hours every week and nurture leads without manual intervention.',
   },
   {
-    icon: <Database className="w-8 h-8 text-white" />,
+    icon: <Database className="feature-icon" />,
     title: 'CRM Integrations',
     description: 'Seamlessly integrate with Salesforce, HubSpot, and more. Handled separately to keep your pipeline fresh.',
   },
@@ -63,10 +63,10 @@ const Features: React.FC = () => {
       <div className="container">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto rhythm-48">
-          <h2 className="section-heading rhythm-24">
-            Features that <span className="gradient-text-1">convert</span>
+          <h2 className="section-title">
+            Features that <span className="accent-text-blue">convert</span>
           </h2>
-          <p className="body-text text-white/80">
+          <p className="section-description">
             Everything you need to find, verify, and convert your ideal customers.
           </p>
         </div>
@@ -76,53 +76,49 @@ const Features: React.FC = () => {
           {/* Navigation Buttons */}
           <button
             onClick={handlePrevious}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 touch-target bg-white/5 border border-white/20 rounded-full hover:bg-white/10 transition-all duration-300"
+            className="carousel-btn carousel-btn-left"
             aria-label="Previous feature"
           >
-            <ChevronLeft className="w-5 h-5 text-white" />
+            <ChevronLeft className="w-5 h-5" />
           </button>
           
           <button
             onClick={handleNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 touch-target bg-white/5 border border-white/20 rounded-full hover:bg-white/10 transition-all duration-300"
+            className="carousel-btn carousel-btn-right"
             aria-label="Next feature"
           >
-            <ChevronRight className="w-5 h-5 text-white" />
+            <ChevronRight className="w-5 h-5" />
           </button>
 
           {/* Feature Card */}
           <div className="px-16 py-12">
             <div 
               key={currentIndex}
-              className="card text-center max-w-2xl mx-auto p-12 animate-fade-up"
+              className="feature-card animate-fade-up"
             >
               {/* Icon */}
-              <div className="w-16 h-16 bg-white/5 border border-white/20 rounded-full flex items-center justify-center mx-auto rhythm-24">
+              <div className="feature-icon-container">
                 {currentFeature.icon}
               </div>
 
               {/* Content */}
-              <h3 className="section-heading gradient-text-1 rhythm-16">
+              <h3 className="feature-title">
                 {currentFeature.title}
               </h3>
               
-              <p className="body-text text-white/80 max-w-lg mx-auto">
+              <p className="feature-description">
                 {currentFeature.description}
               </p>
             </div>
           </div>
 
           {/* Dots Indicator */}
-          <div className="flex justify-center space-x-2 rhythm-16">
+          <div className="carousel-dots">
             {features.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  index === currentIndex 
-                    ? 'bg-white w-8' 
-                    : 'bg-white/40 hover:bg-white/60'
-                }`}
+                className={`carousel-dot ${index === currentIndex ? 'active' : ''}`}
                 aria-label={`Go to feature ${index + 1}`}
               />
             ))}
@@ -130,11 +126,11 @@ const Features: React.FC = () => {
 
           {/* Progress Indicator */}
           <div className="text-center">
-            <div className="inline-flex items-center space-x-2 text-xs text-white/40">
-              <div className={`w-2 h-2 rounded-full ${isAutoPlaying ? 'bg-green-400' : 'bg-white/40'}`} />
-              <span>{isAutoPlaying ? 'Auto-playing' : 'Paused'}</span>
-              <span>•</span>
-              <span>{currentIndex + 1} of {features.length}</span>
+            <div className="progress-indicator">
+              <div className={`status-dot ${isAutoPlaying ? 'active' : ''}`} />
+              <span className="status-text">{isAutoPlaying ? 'Auto-playing' : 'Paused'}</span>
+              <span className="separator">•</span>
+              <span className="counter-text">{currentIndex + 1} of {features.length}</span>
             </div>
           </div>
         </div>

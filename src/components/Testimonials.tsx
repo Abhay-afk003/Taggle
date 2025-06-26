@@ -70,10 +70,10 @@ const Testimonials: React.FC = () => {
       <div className="container">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto rhythm-48">
-          <h2 className="section-heading rhythm-24">
-            Trusted by <span className="gradient-text-2">industry leaders</span>
+          <h2 className="section-title">
+            Trusted by <span className="accent-text-orange">industry leaders</span>
           </h2>
-          <p className="body-text text-white/80">
+          <p className="section-description">
             See how companies are scaling their outreach with Taggle.
           </p>
         </div>
@@ -83,73 +83,69 @@ const Testimonials: React.FC = () => {
           {/* Navigation Buttons */}
           <button
             onClick={handlePrevious}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 touch-target bg-white/5 border border-white/20 rounded-full hover:bg-white/10 transition-all duration-300"
+            className="carousel-btn carousel-btn-left"
             aria-label="Previous testimonial"
           >
-            <ChevronLeft className="w-5 h-5 text-white" />
+            <ChevronLeft className="w-5 h-5" />
           </button>
           
           <button
             onClick={handleNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 touch-target bg-white/5 border border-white/20 rounded-full hover:bg-white/10 transition-all duration-300"
+            className="carousel-btn carousel-btn-right"
             aria-label="Next testimonial"
           >
-            <ChevronRight className="w-5 h-5 text-white" />
+            <ChevronRight className="w-5 h-5" />
           </button>
 
           {/* Testimonial Card */}
           <div className="px-16 py-12">
             <div 
               key={currentIndex}
-              className="card text-center max-w-2xl mx-auto p-12 animate-fade-up"
+              className="testimonial-card animate-fade-up"
             >
               {/* Header with Rating and Quote Icon */}
-              <div className="flex items-center justify-between rhythm-24">
-                <div className="flex space-x-1">
+              <div className="testimonial-header">
+                <div className="rating-stars">
                   {[...Array(5)].map((_, i) => (
                     <Star
                       key={i}
-                      className={`w-5 h-5 ${i < currentTestimonial.rating ? 'text-yellow-400' : 'text-white/20'}`}
+                      className={`star ${i < currentTestimonial.rating ? 'filled' : ''}`}
                       fill={i < currentTestimonial.rating ? 'currentColor' : 'none'}
                     />
                   ))}
                 </div>
-                <Quote className="w-8 h-8 text-white/20" />
+                <Quote className="quote-icon" />
               </div>
 
               {/* Quote */}
-              <blockquote className="text-lg text-white/90 leading-relaxed rhythm-32 italic">
+              <blockquote className="testimonial-quote">
                 "{currentTestimonial.quote}"
               </blockquote>
 
               {/* Author */}
-              <div className="flex items-center justify-center">
+              <div className="testimonial-author">
                 <img
                   src={currentTestimonial.image}
                   alt={currentTestimonial.name}
-                  className="w-12 h-12 rounded-full object-cover ring-2 ring-white/20 mr-4"
+                  className="author-avatar"
                   loading="lazy"
                 />
-                <div className="text-left">
-                  <div className="font-semibold text-white">{currentTestimonial.name}</div>
-                  <div className="text-sm text-white/60">{currentTestimonial.role}</div>
-                  <div className="text-sm gradient-text-1 font-medium">{currentTestimonial.company}</div>
+                <div className="author-info">
+                  <div className="author-name">{currentTestimonial.name}</div>
+                  <div className="author-role">{currentTestimonial.role}</div>
+                  <div className="author-company">{currentTestimonial.company}</div>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Dots Indicator */}
-          <div className="flex justify-center space-x-2 rhythm-16">
+          <div className="carousel-dots">
             {testimonials.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  index === currentIndex 
-                    ? 'bg-white w-8' 
-                    : 'bg-white/40 hover:bg-white/60'
-                }`}
+                className={`carousel-dot ${index === currentIndex ? 'active' : ''}`}
                 aria-label={`Go to testimonial ${index + 1}`}
               />
             ))}
@@ -157,11 +153,11 @@ const Testimonials: React.FC = () => {
 
           {/* Progress Indicator */}
           <div className="text-center">
-            <div className="inline-flex items-center space-x-2 text-xs text-white/40">
-              <div className={`w-2 h-2 rounded-full ${isAutoPlaying ? 'bg-green-400' : 'bg-white/40'}`} />
-              <span>{isAutoPlaying ? 'Auto-playing' : 'Paused'}</span>
-              <span>•</span>
-              <span>{currentIndex + 1} of {testimonials.length}</span>
+            <div className="progress-indicator">
+              <div className={`status-dot ${isAutoPlaying ? 'active' : ''}`} />
+              <span className="status-text">{isAutoPlaying ? 'Auto-playing' : 'Paused'}</span>
+              <span className="separator">•</span>
+              <span className="counter-text">{currentIndex + 1} of {testimonials.length}</span>
             </div>
           </div>
         </div>

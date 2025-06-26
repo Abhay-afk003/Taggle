@@ -36,18 +36,18 @@ const Header: React.FC = () => {
           {/* Logo */}
           <div className="flex items-center">
             <img src="/Untitled design.png" alt="Taggle Logo" className="h-8 w-8 object-contain" />
-            <span className="ml-2 text-xl font-bold tracking-tight text-white">aggle</span>
+            <span className="brand-name">aggle</span>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <button onClick={() => scrollToSection('features')} className="link text-sm">
+            <button onClick={() => scrollToSection('features')} className="nav-link">
               Features
             </button>
-            <button onClick={() => scrollToSection('pricing')} className="link text-sm">
+            <button onClick={() => scrollToSection('pricing')} className="nav-link">
               Pricing
             </button>
-            <button onClick={() => scrollToSection('testimonials')} className="link text-sm">
+            <button onClick={() => scrollToSection('testimonials')} className="nav-link">
               Testimonials
             </button>
             <button onClick={() => scrollToSection('waitlist-section')} className="btn btn-primary ml-4">
@@ -57,7 +57,7 @@ const Header: React.FC = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden touch-target text-white hover:text-gradient-1 transition-colors duration-300"
+            className="mobile-menu-btn"
             onClick={() => setMenuOpen(true)}
             aria-label="Open menu"
           >
@@ -68,32 +68,32 @@ const Header: React.FC = () => {
 
       {/* Mobile Menu Overlay */}
       {menuOpen && (
-        <div className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex items-center justify-center">
-          <div ref={menuRef} className="bg-black/90 p-8 rounded-lg w-[90%] max-w-sm text-center relative border border-white/10">
+        <div className="mobile-overlay">
+          <div ref={menuRef} className="mobile-menu">
             <button
-              className="absolute top-4 right-4 touch-target text-white hover:text-gradient-1 transition-colors duration-300"
+              className="mobile-close-btn"
               onClick={() => setMenuOpen(false)}
               aria-label="Close menu"
             >
               <X className="w-6 h-6" />
             </button>
             
-            <nav className="flex flex-col gap-6 text-white text-lg mt-8">
+            <nav className="flex flex-col gap-6 text-lg mt-8">
               <button 
                 onClick={() => scrollToSection('features')}
-                className="link text-left hover:text-gradient-1 transition-colors duration-300"
+                className="mobile-nav-link"
               >
                 Features
               </button>
               <button 
                 onClick={() => scrollToSection('pricing')}
-                className="link text-left hover:text-gradient-1 transition-colors duration-300"
+                className="mobile-nav-link"
               >
                 Pricing
               </button>
               <button 
                 onClick={() => scrollToSection('testimonials')}
-                className="link text-left hover:text-gradient-1 transition-colors duration-300"
+                className="mobile-nav-link"
               >
                 Testimonials
               </button>

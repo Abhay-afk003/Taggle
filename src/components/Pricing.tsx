@@ -63,32 +63,24 @@ const Pricing: React.FC = () => {
       <div className="container">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto rhythm-48">
-          <h2 className="section-heading rhythm-24">
-            Simple <span className="gradient-text-2">pricing</span>
+          <h2 className="section-title">
+            Simple <span className="accent-text-green">pricing</span>
           </h2>
-          <p className="body-text text-white/80 rhythm-32">
+          <p className="section-description">
             Choose the plan that fits your business needs.
           </p>
 
           {/* Billing Toggle */}
-          <div className="inline-flex items-center space-x-4 bg-white/5 p-1 rounded-lg border border-white/10">
+          <div className="billing-toggle">
             <button
               onClick={() => setBillingCycle("monthly")}
-              className={`px-4 py-2 rounded text-sm font-medium transition-all duration-300 ${
-                billingCycle === "monthly" 
-                  ? "bg-white text-black" 
-                  : "text-white hover:text-white/80"
-              }`}
+              className={`toggle-btn ${billingCycle === "monthly" ? 'active' : ''}`}
             >
               Monthly
             </button>
             <button
               onClick={() => setBillingCycle("yearly")}
-              className={`px-4 py-2 rounded text-sm font-medium transition-all duration-300 ${
-                billingCycle === "yearly" 
-                  ? "bg-white text-black" 
-                  : "text-white hover:text-white/80"
-              }`}
+              className={`toggle-btn ${billingCycle === "yearly" ? 'active' : ''}`}
             >
               Yearly
             </button>
@@ -96,43 +88,41 @@ const Pricing: React.FC = () => {
         </div>
 
         {/* Pricing Grid */}
-        <div className="grid-12 max-w-5xl mx-auto">
+        <div className="pricing-grid">
           {plans.map((plan, index) => (
             <div
               key={index}
-              className={`card relative ${
-                plan.popular ? 'border-white/40 scale-105' : ''
-              } col-span-12 md:col-span-4`}
+              className={`pricing-card ${plan.popular ? 'popular' : ''}`}
             >
               {plan.popular && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white text-black text-xs font-semibold px-3 py-1 rounded-full">
+                <div className="popular-badge">
                   Most Popular
                 </div>
               )}
               
-              <div className="text-center rhythm-24">
-                <h3 className="text-xl font-semibold rhythm-8">{plan.name}</h3>
-                <div className="rhythm-16">
-                  <span className="text-3xl font-bold">
+              <div className="pricing-header">
+                <h3 className="plan-name">{plan.name}</h3>
+                <div className="price-container">
+                  <span className="price-amount">
                     ${billingCycle === "monthly" ? plan.price.monthly : plan.price.yearly}
                   </span>
-                  <span className="text-white/60 ml-1">
+                  <span className="price-period">
                     /{billingCycle === "monthly" ? "mo" : "yr"}
                   </span>
                 </div>
-                <p className="text-white/80 text-sm">{getLeadsText(plan.baseLeads)}</p>
+                <p className="plan-description">{getLeadsText(plan.baseLeads)}</p>
               </div>
 
-              <ul className="space-y-3 rhythm-32">
+              <ul className="features-list">
                 {plan.features.map((feature, i) => (
-                  <li key={i} className="flex items-start">
-                    <Check className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0" style={{ color: '#67B26F' }} />
-                    <span className="text-sm text-white/80">{feature}</span>
+                  <li key={i} className="feature-item">
+                    <Check className="check-icon" />
+                    <span className="feature-text">{feature}</span>
                   </li>
                 ))}
               </ul>
 
-              <button className={`btn w-full ${plan.popular ? 'btn-primary' : 'btn-secondary'}`}>
+              <button className={`btn ${plan.popular ? 'btn-primary' : 'btn-secondary'} w-full`}>
                 {plan.cta}
               </button>
             </div>
