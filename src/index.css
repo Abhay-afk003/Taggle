@@ -36,6 +36,37 @@
   }
 }
 
+/* Responsive utilities */
+@layer utilities {
+  .text-responsive-xs { font-size: clamp(0.75rem, 1vw, 0.875rem); }
+  .text-responsive-sm { font-size: clamp(0.875rem, 1.5vw, 1rem); }
+  .text-responsive-base { font-size: clamp(1rem, 2vw, 1.125rem); }
+  .text-responsive-lg { font-size: clamp(1.125rem, 2.5vw, 1.25rem); }
+  .text-responsive-xl { font-size: clamp(1.25rem, 3vw, 1.5rem); }
+  .text-responsive-2xl { font-size: clamp(1.5rem, 3.5vw, 2rem); }
+  .text-responsive-3xl { font-size: clamp(1.875rem, 4vw, 2.5rem); }
+  .text-responsive-4xl { font-size: clamp(2.25rem, 5vw, 3rem); }
+
+  .p-responsive-xs { padding: clamp(0.25rem, 1vw, 0.5rem); }
+  .p-responsive-sm { padding: clamp(0.5rem, 2vw, 1rem); }
+  .p-responsive-md { padding: clamp(1rem, 3vw, 1.5rem); }
+  .p-responsive-lg { padding: clamp(1.5rem, 4vw, 2rem); }
+  .p-responsive-xl { padding: clamp(2rem, 5vw, 3rem); }
+
+  .px-responsive-md { padding-left: clamp(1rem, 3vw, 1.5rem); padding-right: clamp(1rem, 3vw, 1.5rem); }
+  .py-responsive-sm { padding-top: clamp(0.5rem, 2vw, 1rem); padding-bottom: clamp(0.5rem, 2vw, 1rem); }
+
+  .m-responsive-xs { margin: clamp(0.25rem, 1vw, 0.5rem); }
+  .m-responsive-sm { margin: clamp(0.5rem, 2vw, 1rem); }
+  .m-responsive-md { margin: clamp(1rem, 3vw, 1.5rem); }
+  .m-responsive-lg { margin: clamp(1.5rem, 4vw, 2rem); }
+  .m-responsive-xl { margin: clamp(2rem, 5vw, 3rem); }
+
+  .gap-responsive-sm { gap: clamp(0.5rem, 2vw, 1rem); }
+  .gap-responsive-md { gap: clamp(1rem, 3vw, 1.5rem); }
+  .gap-responsive-lg { gap: clamp(1.5rem, 4vw, 2rem); }
+}
+
 @layer components {
   .btn {
     @apply inline-flex items-center justify-center font-medium transition-all duration-200 touch-target;
@@ -120,34 +151,6 @@
   .animate-optimized.animate-complete {
     will-change: auto;
   }
-}
-
-/* Responsive utilities */
-@layer utilities {
-  .text-responsive-xs { font-size: clamp(0.75rem, 1vw, 0.875rem); }
-  .text-responsive-sm { font-size: clamp(0.875rem, 1.5vw, 1rem); }
-  .text-responsive-base { font-size: clamp(1rem, 2vw, 1.125rem); }
-  .text-responsive-lg { font-size: clamp(1.125rem, 2.5vw, 1.25rem); }
-  .text-responsive-xl { font-size: clamp(1.25rem, 3vw, 1.5rem); }
-  .text-responsive-2xl { font-size: clamp(1.5rem, 3.5vw, 2rem); }
-  .text-responsive-3xl { font-size: clamp(1.875rem, 4vw, 2.5rem); }
-  .text-responsive-4xl { font-size: clamp(2.25rem, 5vw, 3rem); }
-
-  .p-responsive-xs { padding: clamp(0.25rem, 1vw, 0.5rem); }
-  .p-responsive-sm { padding: clamp(0.5rem, 2vw, 1rem); }
-  .p-responsive-md { padding: clamp(1rem, 3vw, 1.5rem); }
-  .p-responsive-lg { padding: clamp(1.5rem, 4vw, 2rem); }
-  .p-responsive-xl { padding: clamp(2rem, 5vw, 3rem); }
-
-  .m-responsive-xs { margin: clamp(0.25rem, 1vw, 0.5rem); }
-  .m-responsive-sm { margin: clamp(0.5rem, 2vw, 1rem); }
-  .m-responsive-md { margin: clamp(1rem, 3vw, 1.5rem); }
-  .m-responsive-lg { margin: clamp(1.5rem, 4vw, 2rem); }
-  .m-responsive-xl { margin: clamp(2rem, 5vw, 3rem); }
-
-  .gap-responsive-sm { gap: clamp(0.5rem, 2vw, 1rem); }
-  .gap-responsive-md { gap: clamp(1rem, 3vw, 1.5rem); }
-  .gap-responsive-lg { gap: clamp(1.5rem, 4vw, 2rem); }
 }
 
 /* Device-specific optimizations */
