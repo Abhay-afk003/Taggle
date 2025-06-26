@@ -3,7 +3,7 @@ import { CheckCircle } from 'lucide-react';
 import { db } from '../main';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
 
-const Hero: React.FC = () => {
+export default function Hero() {
   const [email, setEmail] = useState('');
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -134,6 +134,4 @@ const Hero: React.FC = () => {
       </div>
     </section>
   );
-};
-
-export default Hero;
+}
