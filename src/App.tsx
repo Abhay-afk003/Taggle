@@ -68,15 +68,13 @@ We may update this policy. Changes will be reflected on this page with a revised
   const [showTermsAndConditions, setShowTermsAndConditions] = useState(false);
 
   const handleShowPrivacyPolicy = () => {
-    console.log("Showing Privacy Policy");
     setShowPrivacyPolicy(true);
-    setShowTermsAndConditions(false); // Ensure only one is shown at a time
+    setShowTermsAndConditions(false);
   };
 
   const handleShowTermsAndConditions = () => {
-    console.log("Showing Terms and Conditions");
     setShowTermsAndConditions(true);
-    setShowPrivacyPolicy(false); // Ensure only one is shown at a time
+    setShowPrivacyPolicy(false);
   };
 
   const handleGoBack = () => {
@@ -85,47 +83,60 @@ We may update this policy. Changes will be reflected on this page with a revised
   };
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full min-h-screen bg-black">
       {showPrivacyPolicy || showTermsAndConditions ? (
-        <div className="p-8"> {/* Reverted styling, added basic padding */}
+        <div className="min-h-screen bg-black text-white p-8">
           <button
             onClick={handleGoBack}
-            className="mb-4 text-blue-500 hover:underline" // Basic back button styling
+            className="mb-6 px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-full transition-colors duration-300"
           >
-            Back
+            ← Back to Home
           </button>
-          {showPrivacyPolicy && <p className="whitespace-pre-wrap">{privacyPolicyText}</p>} {/* Reverted styling, added whitespace pre-wrap */}
-          {showTermsAndConditions && <p className="whitespace-pre-wrap">{termsAndConditionsText}</p>} {/* Reverted styling, added whitespace pre-wrap */}
+          <div className="max-w-4xl mx-auto">
+            {showPrivacyPolicy && (
+              <div>
+                <h1 className="text-4xl font-bold mb-8 gradient-text">Privacy Policy</h1>
+                <div className="prose prose-invert max-w-none">
+                  <pre className="whitespace-pre-wrap text-gray-300 text-base leading-relaxed">{privacyPolicyText}</pre>
+                </div>
+              </div>
+            )}
+            {showTermsAndConditions && (
+              <div>
+                <h1 className="text-4xl font-bold mb-8 gradient-text">Terms & Conditions</h1>
+                <div className="prose prose-invert max-w-none">
+                  <pre className="whitespace-pre-wrap text-gray-300 text-base leading-relaxed">{termsAndConditionsText}</pre>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       ) : (
         <>
           {/* Background Aurora */}
           <Aurora
-            className="absolute top-0 left-0 w-full h-[100vh] -z-10"
+            className="fixed top-0 left-0 w-full h-full -z-10"
             colorStops={["#6366F1", "#8B5CF6", "#6366F1"]}
           />
           
           {/* Header */}
           <Header />
 
-          {/* Hero Section with Background Particles */}
-          <Hero>
+          {/* Hero Section */}
+          <Hero />
 
-          </Hero>
-
+          {/* Main Content */}
           <main>
             <Features />
             <Pricing />
             <Testimonials />
           </main>
 
-          <div className="flex flex-col gap-10">
-            {/* CTA Section (Optional: move it above or below depending on flow) */}
-            <CtaSection />
+          {/* CTA Section */}
+          <CtaSection />
 
-            {/* Footer */}
-            <Footer onShowPrivacy={handleShowPrivacyPolicy} onShowTerms={handleShowTermsAndConditions} />
-          </div>
+          {/* Footer */}
+          <Footer onShowPrivacy={handleShowPrivacyPolicy} onShowTerms={handleShowTermsAndConditions} />
         </>
       )}
     </div>
