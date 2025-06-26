@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { CheckCircle } from 'lucide-react';
-
-import { db } from '../main';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { CheckCircle, Loader2 } from 'lucide-react';
+import { useWaitlist } from '../hooks/useWaitlist';
 
 interface HeroProps {
   children?: React.ReactNode;
@@ -10,47 +8,35 @@ interface HeroProps {
 
 const Hero: React.FC<HeroProps> = ({ children }) => {
   const [email, setEmail] = useState('');
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [waitlistCount, setWaitlistCount] = useState(134);
+  const { joinWaitlist, getWaitlistCount, isSubmitting } = useWaitlist();
 
+  // Fetch waitlist count on component mount
   useEffect(() => {
-    if (submitStatus === 'success') {
-      const timer = setTimeout(() => setSubmitStatus('idle'), 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [submitStatus]);
-
-  useEffect(() => {
-    const fetchWaitlistCount = async () => {
+    const fetchCount = async () => {
       try {
-        const snapshot = await getDocs(collection(db, 'waitlist'));
-        setWaitlistCount(134 + snapshot.size);
+        const count = await getWaitlistCount();
+        setWaitlistCount(count);
       } catch (error) {
         console.error('Error fetching waitlist count:', error);
       }
     };
-    fetchWaitlistCount();
-  }, []);
+
+    fetchCount();
+  }, [getWaitlistCount]);
 
   const handleWaitlistSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setErrorMessage(null);
-    setSubmitStatus('idle');
 
     if (!email.trim()) {
-      setErrorMessage('Please enter your email.');
       return;
     }
 
-    try {
-      await addDoc(collection(db, 'waitlist'), { email, timestamp: new Date() });
-      setWaitlistCount((prev) => prev + 1);
-      setSubmitStatus('success');
-      setEmail('');
-    } catch (error) {
-      setSubmitStatus('error');
-      setErrorMessage('Failed to join waitlist. Please try again.');
+    const success = await joinWaitlist(email.trim());
+    
+    if (success) {
+      setEmail(''); // Clear the input
+      setWaitlistCount((prev) => prev + 1); // Update count
     }
   };
 
@@ -95,31 +81,30 @@ const Hero: React.FC<HeroProps> = ({ children }) => {
                 className="hero-input"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                disabled={submitStatus !== 'idle'}
+                disabled={isSubmitting}
+                required
                 style={{ fontSize: '16px' }}
+                autoComplete="email"
+                autoCapitalize="none"
+                autoCorrect="off"
+                spellCheck="false"
               />
             </div>
             <button
               type="submit"
               className="gradient-button"
-              disabled={submitStatus !== 'idle'}
+              disabled={isSubmitting || !email.trim()}
             >
-              {submitStatus === 'idle' && 'Join Waitlist'}
-              {submitStatus === 'success' && (
+              {isSubmitting ? (
                 <>
-                  <CheckCircle className="w-4 h-4" />
-                  Joined!
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  Joining...
                 </>
+              ) : (
+                'Join Waitlist'
               )}
-              {submitStatus === 'error' && 'Try Again'}
             </button>
           </form>
-
-          {errorMessage && (
-            <p className="text-red-400 text-sm mb-4 px-4">
-              {errorMessage}
-            </p>
-          )}
 
           {/* Social Proof */}
           <div className="flex flex-col items-center gap-4 sm:gap-6 px-4">
@@ -145,7 +130,7 @@ const Hero: React.FC<HeroProps> = ({ children }) => {
                 ))}
               </div>
               <div className="text-center sm:text-left">
-                <p className="text-white text-sm sm:text-base">{waitlistCount}+ early adopters</p>
+                <p className="text-white text-sm sm:text-base">{waitlistCount.toLocaleString()}+ early adopters</p>
                 <p className="text-gray-400 text-xs sm:text-sm">already in the waitlist</p>
               </div>
             </div>
