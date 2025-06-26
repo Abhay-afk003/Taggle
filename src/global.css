@@ -112,7 +112,7 @@
   line-height: 1.2;
 }
 
-/* Simple Carousel Styles */
+/* Simple Carousel Styles - Fixed Width Implementation */
 .simple-carousel {
   position: relative;
   width: 100%;
@@ -122,15 +122,19 @@
 
 .simple-carousel-wrapper {
   position: relative;
+  width: 100%;
+  padding: 0 60px; /* Space for arrows on desktop */
 }
 
 .simple-carousel-overflow {
   overflow: hidden;
   border-radius: 12px;
+  width: 100%;
 }
 
 .simple-carousel-track {
   display: flex;
+  align-items: stretch;
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
 }
@@ -141,12 +145,12 @@
   height: 100%;
 }
 
-/* Simple Navigation Arrows */
+/* Simple Navigation Arrows - Improved Positioning */
 .simple-carousel-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 10;
+  z-index: 20;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -158,15 +162,17 @@
   justify-content: center;
   color: white;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   opacity: 0.9;
+  user-select: none;
 }
 
 .simple-carousel-arrow:hover {
   opacity: 1;
-  background: rgba(139, 92, 246, 0.2);
-  border-color: rgba(139, 92, 246, 0.4);
+  background: rgba(139, 92, 246, 0.3);
+  border-color: rgba(139, 92, 246, 0.5);
   transform: translateY(-50%) scale(1.05);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
 }
 
 .simple-carousel-arrow:focus {
@@ -174,16 +180,35 @@
   outline-offset: 2px;
 }
 
+.simple-carousel-arrow:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
 .simple-carousel-arrow-left {
-  left: -24px;
+  left: 0;
 }
 
 .simple-carousel-arrow-right {
-  right: -24px;
+  right: 0;
 }
 
-/* Responsive Arrow Positioning */
+/* Mobile Responsive Arrow Positioning */
+@media (max-width: 1024px) {
+  .simple-carousel-wrapper {
+    padding: 0 56px; /* Slightly less padding on tablet */
+  }
+  
+  .simple-carousel-arrow {
+    width: 44px;
+    height: 44px;
+  }
+}
+
 @media (max-width: 768px) {
+  .simple-carousel-wrapper {
+    padding: 0 16px; /* Minimal padding on mobile */
+  }
+  
   .simple-carousel-arrow-left {
     left: 8px;
   }
@@ -195,10 +220,31 @@
   .simple-carousel-arrow {
     width: 40px;
     height: 40px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
   }
 }
 
-/* Feature Cards */
+@media (max-width: 480px) {
+  .simple-carousel-wrapper {
+    padding: 0 8px;
+  }
+  
+  .simple-carousel-arrow-left {
+    left: 4px;
+  }
+  
+  .simple-carousel-arrow-right {
+    right: 4px;
+  }
+  
+  .simple-carousel-arrow {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* Feature Cards - Fixed Height for Consistency */
 .feature-card {
   padding: 32px;
   border-radius: 1rem;
@@ -207,8 +253,10 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
   height: 100%;
+  min-height: 280px; /* Minimum height for consistency */
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 }
 
 .feature-card:hover {
@@ -217,7 +265,7 @@
   border-color: rgba(139, 92, 246, 0.3);
 }
 
-/* Testimonial Cards */
+/* Testimonial Cards - Fixed Height for Consistency */
 .testimonial-card {
   display: flex;
   flex-direction: column;
@@ -228,7 +276,9 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   height: 100%;
+  min-height: 260px; /* Minimum height for consistency */
   transition: all 0.3s ease;
+  box-sizing: border-box;
 }
 
 .testimonial-card:hover {
@@ -450,6 +500,16 @@
     font-size: 14px;
     padding: 10px 14px;
   }
+
+  .feature-card {
+    padding: 24px;
+    min-height: 240px;
+  }
+
+  .testimonial-card {
+    padding: 20px;
+    min-height: 220px;
+  }
 }
 
 @media (min-width: 641px) and (max-width: 1024px) {
@@ -483,6 +543,16 @@
     font-size: 15px;
     padding: 11px 15px;
   }
+
+  .feature-card {
+    padding: 28px;
+    min-height: 260px;
+  }
+
+  .testimonial-card {
+    padding: 22px;
+    min-height: 240px;
+  }
 }
 
 @media (min-width: 1025px) {
@@ -515,6 +585,16 @@
   .gradient-button {
     font-size: 16px;
     padding: 12px 16px;
+  }
+
+  .feature-card {
+    padding: 32px;
+    min-height: 280px;
+  }
+
+  .testimonial-card {
+    padding: 24px;
+    min-height: 260px;
   }
 }
 

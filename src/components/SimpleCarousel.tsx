@@ -20,28 +20,49 @@ const SimpleCarousel: React.FC<SimpleCarouselProps> = ({
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardsVisible, setCardsVisible] = useState(cardsPerView.mobile);
+  const [containerWidth, setContainerWidth] = useState(0);
   
   const containerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
 
   const totalCards = children.length;
   const maxIndex = Math.max(0, totalCards - cardsVisible);
 
-  // Handle responsive cards per view
+  // Fixed card widths for different screen sizes
+  const getCardWidth = () => {
+    const width = window.innerWidth;
+    if (width >= 1024) {
+      return 380; // Desktop: 380px per card
+    } else if (width >= 768) {
+      return 350; // Tablet: 350px per card
+    } else {
+      return Math.min(320, width - 48); // Mobile: 320px max, with 24px padding on each side
+    }
+  };
+
+  // Handle responsive cards per view and container sizing
   useEffect(() => {
-    const updateCardsPerView = () => {
+    const updateLayout = () => {
       const width = window.innerWidth;
+      let newCardsVisible = cardsPerView.mobile;
+      
       if (width >= 1024) {
-        setCardsVisible(cardsPerView.desktop);
+        newCardsVisible = cardsPerView.desktop;
       } else if (width >= 768) {
-        setCardsVisible(cardsPerView.tablet);
-      } else {
-        setCardsVisible(cardsPerView.mobile);
+        newCardsVisible = cardsPerView.tablet;
+      }
+      
+      setCardsVisible(newCardsVisible);
+      
+      // Update container width
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.offsetWidth);
       }
     };
 
-    updateCardsPerView();
-    window.addEventListener('resize', updateCardsPerView);
-    return () => window.removeEventListener('resize', updateCardsPerView);
+    updateLayout();
+    window.addEventListener('resize', updateLayout);
+    return () => window.removeEventListener('resize', updateLayout);
   }, [cardsPerView]);
 
   // Update current index when cards visible changes
@@ -52,57 +73,64 @@ const SimpleCarousel: React.FC<SimpleCarouselProps> = ({
     }
   }, [cardsVisible, totalCards, currentIndex]);
 
-  // Navigation functions
+  // Navigation functions with proper index validation
   const goToNext = () => {
-    if (currentIndex < maxIndex) {
-      setCurrentIndex(prev => prev + 1);
+    const newIndex = currentIndex + 1;
+    if (newIndex <= maxIndex) {
+      setCurrentIndex(newIndex);
     }
   };
 
   const goToPrev = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(prev => prev - 1);
+    const newIndex = currentIndex - 1;
+    if (newIndex >= 0) {
+      setCurrentIndex(newIndex);
     }
   };
 
-  // Calculate transform for smooth sliding
-  const cardWidth = `calc((100% - ${gap * (cardsVisible - 1)}px) / ${cardsVisible})`;
-  const translateX = `calc(-${currentIndex} * (${cardWidth} + ${gap}px))`;
+  // Calculate transform for smooth sliding with fixed card width
+  const cardWidth = getCardWidth();
+  const translateX = currentIndex * (cardWidth + gap);
+
+  // Calculate total track width
+  const trackWidth = totalCards * cardWidth + (totalCards - 1) * gap;
 
   return (
     <div className={`simple-carousel ${className}`}>
       {/* Main carousel wrapper */}
-      <div className="simple-carousel-wrapper">
-        {/* Left Arrow */}
+      <div className="simple-carousel-wrapper" ref={containerRef}>
+        {/* Left Arrow - Only show if we can go back */}
         {currentIndex > 0 && (
           <button
             className="simple-carousel-arrow simple-carousel-arrow-left"
             onClick={goToPrev}
-            aria-label="Previous"
+            aria-label="Previous cards"
+            type="button"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
         )}
 
-        {/* Right Arrow */}
+        {/* Right Arrow - Only show if we can go forward */}
         {currentIndex < maxIndex && (
           <button
             className="simple-carousel-arrow simple-carousel-arrow-right"
             onClick={goToNext}
-            aria-label="Next"
+            aria-label="Next cards"
+            type="button"
           >
             <ChevronRight className="w-6 h-6" />
           </button>
         )}
 
-        {/* Cards container */}
+        {/* Cards container with overflow hidden */}
         <div className="simple-carousel-overflow">
           <div
-            ref={containerRef}
+            ref={trackRef}
             className="simple-carousel-track"
             style={{
-              transform: translateX,
-              gap: `${gap}px`,
+              transform: `translateX(-${translateX}px)`,
+              width: `${trackWidth}px`,
             }}
           >
             {children.map((child, index) => (
@@ -110,7 +138,8 @@ const SimpleCarousel: React.FC<SimpleCarouselProps> = ({
                 key={index}
                 className="simple-carousel-card"
                 style={{ 
-                  minWidth: cardWidth,
+                  width: `${cardWidth}px`,
+                  marginRight: index < children.length - 1 ? `${gap}px` : '0',
                   flexShrink: 0,
                 }}
               >
@@ -120,6 +149,15 @@ const SimpleCarousel: React.FC<SimpleCarouselProps> = ({
           </div>
         </div>
       </div>
+
+      {/* Debug info - remove in production */}
+      {process.env.NODE_ENV === 'development' && (
+        <div className="text-xs text-gray-500 mt-2 text-center">
+          Cards: {currentIndex + 1}-{Math.min(currentIndex + cardsVisible, totalCards)} of {totalCards} | 
+          Visible: {cardsVisible} | 
+          Width: {cardWidth}px
+        </div>
+      )}
     </div>
   );
 };
