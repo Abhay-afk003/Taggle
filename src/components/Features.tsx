@@ -53,10 +53,8 @@ const Features: React.FC = () => {
         >
           <div className="text-container mb-6 sm:mb-8">
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 sm:mb-6 text-white leading-tight">
-              <span className="block sm:inline">Taggle Delivers the </span>
-              <div className="gradient-text-container inline-block">
-                <span className="gradient-text italic">Leads That Convert</span>
-              </div>
+              <span className="text-white">Taggle Delivers the</span>
+              <span className="gradient-text italic">Leads That Convert</span>
             </h2>
           </div>
           

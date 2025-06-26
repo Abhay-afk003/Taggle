@@ -74,10 +74,8 @@ const Pricing: React.FC = () => {
         >
           <div className="text-container mb-4 sm:mb-6">
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-3 sm:mb-4 leading-tight">
-              <span className="text-white">Straightforward </span>
-              <div className="gradient-text-container inline-block">
-                <span className="gradient-text italic">Pricing</span>
-              </div>
+              <span className="text-white">Straightforward</span>
+              <span className="gradient-text italic">Pricing</span>
             </h2>
           </div>
           

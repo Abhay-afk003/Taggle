@@ -70,16 +70,13 @@ const Hero: React.FC<HeroProps> = ({ children }) => {
           {/* Main Headline */}
           <div className="mb-8 sm:mb-10">
             <div className="text-container">
-              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-tight mb-2 sm:mb-4">
-                <span className="text-white block sm:inline">You Built It.</span>
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-tight mb-4 sm:mb-6">
+                <span className="text-white">You Built It.</span>
+                <br />
+                <span className="text-white">Now Find</span>
+                <span className="gradient-text italic">Who</span>
+                <span className="text-white">Needs It.</span>
               </h1>
-              <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-2">
-                <span className="text-white text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">Now Find</span>
-                <div className="gradient-text-container">
-                  <span className="gradient-text italic text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">Who</span>
-                </div>
-                <span className="text-white text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">Needs It.</span>
-              </div>
             </div>
           </div>
 

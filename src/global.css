@@ -19,14 +19,22 @@
   overflow-wrap: break-word;
   text-overflow: ellipsis;
   max-width: 100%;
+  vertical-align: baseline;
 }
 
 .gradient-text.italic {
+  font-family: 'Poppins', 'Georgia', 'Times New Roman', serif;
   font-style: italic;
-  transform: skew(-8deg, 0deg);
-  letter-spacing: -0.01em;
-  padding: 0 0.2rem;
-  margin: 0 0.1rem;
+  font-weight: 600;
+  transform: skew(-3deg, 0deg);
+  letter-spacing: 0.01em;
+  padding: 0 0.3rem 0 0.1rem;
+  margin: 0 0.05rem;
+  line-height: inherit;
+  vertical-align: baseline;
+  display: inline;
+  position: relative;
+  top: 0;
 }
 
 /* Gradient border animation */
@@ -114,39 +122,73 @@
 
 /* Responsive gradient text containers */
 .gradient-text-container {
-  padding: 0.25rem 0.5rem;
-  margin: 0.125rem;
-  overflow: hidden;
   display: inline-block;
   position: relative;
+  line-height: inherit;
+  vertical-align: baseline;
+}
+
+/* Text container for proper alignment */
+.text-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.25rem;
+  line-height: 1.2;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+.text-container h1,
+.text-container h2,
+.text-container h3 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.25rem;
+  line-height: 1.2;
+  margin: 0;
 }
 
 /* Text overflow handling for different screen sizes */
 @media (max-width: 640px) {
   .gradient-text {
     font-size: clamp(1.5rem, 5vw, 2.5rem);
-    line-height: 1.1;
+    line-height: 1.2;
     letter-spacing: -0.025em;
   }
   
   .gradient-text.italic {
-    transform: skew(-6deg, 0deg);
-    padding: 0 0.15rem;
-    margin: 0 0.075rem;
+    transform: skew(-2deg, 0deg);
+    padding: 0 0.2rem 0 0.1rem;
+    margin: 0 0.025rem;
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+  }
+  
+  .text-container {
+    gap: 0.125rem;
   }
 }
 
 @media (min-width: 641px) and (max-width: 1024px) {
   .gradient-text {
     font-size: clamp(2rem, 4vw, 3rem);
-    line-height: 1.15;
+    line-height: 1.2;
     letter-spacing: -0.02em;
   }
   
   .gradient-text.italic {
-    transform: skew(-7deg, 0deg);
-    padding: 0 0.175rem;
-    margin: 0 0.0875rem;
+    transform: skew(-2.5deg, 0deg);
+    padding: 0 0.25rem 0 0.1rem;
+    margin: 0 0.0375rem;
+    font-size: clamp(2rem, 4vw, 3rem);
+  }
+  
+  .text-container {
+    gap: 0.1875rem;
   }
 }
 
@@ -158,18 +200,15 @@
   }
   
   .gradient-text.italic {
-    transform: skew(-8deg, 0deg);
-    padding: 0 0.2rem;
-    margin: 0 0.1rem;
+    transform: skew(-3deg, 0deg);
+    padding: 0 0.3rem 0 0.1rem;
+    margin: 0 0.05rem;
+    font-size: clamp(2.5rem, 3vw, 4rem);
   }
-}
-
-/* Ensure proper text wrapping and overflow */
-.text-container {
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  hyphens: auto;
-  overflow: hidden;
+  
+  .text-container {
+    gap: 0.25rem;
+  }
 }
 
 @layer base {
