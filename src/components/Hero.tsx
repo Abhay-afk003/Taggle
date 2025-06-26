@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CheckCircle, ArrowRight } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
 
 import { db } from '../main';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
@@ -101,19 +101,10 @@ const Hero: React.FC<HeroProps> = ({ children }) => {
             </div>
             <button
               type="submit"
-              className="hero-button"
+              className="gradient-button"
               disabled={submitStatus !== 'idle'}
-              style={{ 
-                fontSize: '16px',
-                padding: '12px 16px'
-              }}
             >
-              {submitStatus === 'idle' && (
-                <>
-                  Join Waitlist
-                  <ArrowRight className="w-4 h-4" />
-                </>
-              )}
+              {submitStatus === 'idle' && 'Join Waitlist'}
               {submitStatus === 'success' && (
                 <>
                   <CheckCircle className="w-4 h-4" />
