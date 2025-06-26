@@ -57,21 +57,48 @@ export default {
   		fontFamily: {
   			sans: [
   				'Inter',
+  				'system-ui',
+  				'-apple-system',
+  				'BlinkMacSystemFont',
+  				'"Segoe UI"',
+  				'Roboto',
+  				'"Helvetica Neue"',
+  				'Arial',
   				'sans-serif'
   			],
   			heading: [
   				'Poppins',
+  				'Inter',
+  				'system-ui',
   				'sans-serif'
   			]
   		},
+  		fontSize: {
+  			'responsive-xs': 'clamp(0.75rem, 1vw, 0.875rem)',
+  			'responsive-sm': 'clamp(0.875rem, 1.5vw, 1rem)',
+  			'responsive-base': 'clamp(1rem, 2vw, 1.125rem)',
+  			'responsive-lg': 'clamp(1.125rem, 2.5vw, 1.25rem)',
+  			'responsive-xl': 'clamp(1.25rem, 3vw, 1.5rem)',
+  			'responsive-2xl': 'clamp(1.5rem, 3.5vw, 2rem)',
+  			'responsive-3xl': 'clamp(1.875rem, 4vw, 2.5rem)',
+  			'responsive-4xl': 'clamp(2.25rem, 5vw, 3rem)'
+  		},
+  		spacing: {
+  			'responsive-sm': 'clamp(0.5rem, 2vw, 1rem)',
+  			'responsive-md': 'clamp(1rem, 3vw, 1.5rem)',
+  			'responsive-lg': 'clamp(1.5rem, 4vw, 2rem)',
+  			'responsive-xl': 'clamp(2rem, 5vw, 3rem)',
+  			'responsive-2xl': 'clamp(3rem, 6vw, 4rem)'
+  		},
   		animation: {
-  			gradient: 'gradient-shift 3s ease-in-out infinite',
-  			marquee: 'marquee var(--duration) linear infinite',
-  			'fade-in': 'fade-in 0.3s ease-out forwards',
-  			'slide-up': 'slide-up 0.3s ease-out forwards'
+  			'gradient-flow': 'gradient-flow 4s ease-in-out infinite',
+  			'pulse-slow': 'pulse-optimized 4s ease-in-out infinite',
+  			'fade-in': 'fade-in 0.6s ease-out forwards',
+  			'slide-up': 'slide-up 0.6s ease-out forwards',
+  			'scale-in': 'scale-in 0.6s ease-out forwards'
   		},
   		keyframes: {
-  			'gradient-shift': {
+  			'gradient-flow': {
   				'0%, 100%': {
   					backgroundPosition: '0% 50%'
   				},
@@ -79,12 +106,14 @@ export default {
   					backgroundPosition: '100% 50%'
   				}
   			},
-  			marquee: {
-  				from: {
-  					transform: 'translateX(0)'
+  			'pulse-optimized': {
+  				'0%, 100%': {
+  					opacity: '0.4',
+  					transform: 'scale(1)'
   				},
-  				to: {
-  					transform: 'translateX(calc(-100% - var(--gap)))'
+  				'50%': {
+  					opacity: '0.8',
+  					transform: 'scale(1.05)'
   				}
   			},
   			'fade-in': {
@@ -98,11 +127,21 @@ export default {
   			'slide-up': {
   				from: {
   					opacity: '0',
-  					transform: 'translateY(20px)'
+  					transform: 'translateY(2rem)'
   				},
   				to: {
   					opacity: '1',
   					transform: 'translateY(0)'
+  				}
+  			},
+  			'scale-in': {
+  				from: {
+  					opacity: '0',
+  					transform: 'scale(0.95)'
+  				},
+  				to: {
+  					opacity: '1',
+  					transform: 'scale(1)'
   				}
   			}
   		},
@@ -112,11 +151,26 @@ export default {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		maxWidth: {
-  			container: '1280px'
+  			container: '1280px',
+  			'8xl': '88rem',
+  			'9xl': '96rem'
+  		},
+  		screens: {
+  			'xs': '320px',
+  			'sm': '640px',
+  			'md': '768px',
+  			'lg': '1024px',
+  			'xl': '1280px',
+  			'2xl': '1536px',
+  			'3xl': '1920px'
   		},
   		transitionDuration: {
+  			'150': '150ms',
   			'200': '200ms',
-  			'300': '300ms'
+  			'250': '250ms'
+  		},
+  		backdropBlur: {
+  			'xs': '2px'
   		}
   	}
   },
