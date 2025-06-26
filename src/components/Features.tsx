@@ -9,6 +9,7 @@ import {
   DollarSign,
   BarChart3,
 } from 'lucide-react';
+import SlidingArrow from './SlidingArrow';
 
 const Features: React.FC = () => {
   const [ref, inView] = useInView({ 
@@ -74,9 +75,17 @@ const Features: React.FC = () => {
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center max-w-4xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl mb-6 text-white leading-tight">
-            Taggle Delivers the <span className="gradient-text italic">Leads That Convert</span>
-          </h2>
+          {/* Sliding Arrow for Section Header */}
+          <div className="flex items-center justify-center mb-6">
+            <SlidingArrow 
+              isVisible={animationStarted} 
+              delay={200}
+              className="mr-4"
+            />
+            <h2 className="text-3xl md:text-4xl lg:text-5xl text-white leading-tight">
+              Taggle Delivers the <span className="gradient-text italic">Leads That Convert</span>
+            </h2>
+          </div>
           
           <p className="text-gray-300 text-lg mb-12 leading-relaxed">
             Verified contacts. Real-time insights. Smart automations. CRM integrations ready.
@@ -131,6 +140,14 @@ const Features: React.FC = () => {
               <p className="text-gray-300 text-base leading-relaxed">
                 {feature.description}
               </p>
+
+              {/* Sliding Arrow for each feature */}
+              <div className="mt-4">
+                <SlidingArrow 
+                  isVisible={animationStarted} 
+                  delay={300 + (idx * 100)}
+                />
+              </div>
             </div>
           ))}
         </div>

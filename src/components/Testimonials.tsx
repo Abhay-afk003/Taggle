@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Quote } from 'lucide-react';
+import SlidingArrow from './SlidingArrow';
 
 interface TestimonialProps {
   quote: string;
@@ -74,6 +75,14 @@ const Testimonial: React.FC<TestimonialProps> = ({
             </p>
           </div>
         </div>
+      </div>
+      
+      {/* Sliding Arrow for each testimonial */}
+      <div className="mt-4 flex justify-end">
+        <SlidingArrow 
+          isVisible={isVisible} 
+          delay={200 + (index * 100)}
+        />
       </div>
     </div>
   );
@@ -149,9 +158,17 @@ const Testimonials: React.FC = () => {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center max-w-4xl mx-auto mb-16" ref={ref}>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl mb-4 text-white leading-tight">
-            Trusted by <span className="gradient-text italic">Industry Leaders</span>
-          </h2>
+          {/* Sliding Arrow for Section Header */}
+          <div className="flex items-center justify-center mb-6">
+            <SlidingArrow 
+              isVisible={animationStarted} 
+              delay={150}
+              className="mr-4"
+            />
+            <h2 className="text-3xl md:text-4xl lg:text-5xl mb-4 text-white leading-tight">
+              Trusted by <span className="gradient-text italic">Industry Leaders</span>
+            </h2>
+          </div>
           
           <p className="text-white/70 text-lg">
             See how companies are scaling their outreach with Taggle.

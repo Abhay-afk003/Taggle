@@ -112,6 +112,23 @@
   line-height: 1.2;
 }
 
+/* Sliding Arrow Animation - Lightweight & Smooth */
+.sliding-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+.arrow-slide-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
 /* Unified Button Styling - Matches "who" text gradient */
 .gradient-button {
   display: inline-flex;
@@ -542,6 +559,12 @@
   .gradient-button:hover {
     transform: none;
   }
+
+  .sliding-arrow {
+    opacity: 1;
+    transform: translateX(0);
+    transition: none;
+  }
 }
 
 /* Performance optimizations for off-screen content */
@@ -550,7 +573,7 @@ section {
 }
 
 /* Optimize repaints and reflows */
-.feature-slide-up, .testimonial-slide, .pricing-card {
+.feature-slide-up, .testimonial-slide, .pricing-card, .sliding-arrow {
   will-change: transform, opacity;
 }
 
