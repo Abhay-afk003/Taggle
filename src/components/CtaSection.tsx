@@ -27,11 +27,9 @@ const CtaSection: React.FC = () => {
             
             <div className="text-container mb-4 sm:mb-6">
               <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white mb-3 sm:mb-4 leading-tight">
-                <span className="block sm:inline">Ready to Transform Your </span>
-                <div className="gradient-text-container inline-block">
-                  <span className="gradient-text italic">Lead Generation</span>
-                </div>
-                <span className="block sm:inline">?</span>
+                <span className="text-white">Ready to Transform Your </span>
+                <span className="gradient-text italic">Lead Generation</span>
+                <span className="text-white">?</span>
               </h2>
             </div>
             

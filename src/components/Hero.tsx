@@ -73,9 +73,9 @@ const Hero: React.FC<HeroProps> = ({ children }) => {
               <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-tight mb-4 sm:mb-6">
                 <span className="text-white">You Built It.</span>
                 <br />
-                <span className="text-white">Now Find</span>
+                <span className="text-white">Now Find </span>
                 <span className="gradient-text italic">Who</span>
-                <span className="text-white">Needs It.</span>
+                <span className="text-white"> Needs It.</span>
               </h1>
             </div>
           </div>
