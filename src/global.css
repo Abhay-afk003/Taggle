@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Enhanced Gradient Text Styling with Fixed Font Rendering */
+/* Enhanced Gradient Text Styling with Elegant Calligraphic Font */
 .gradient-text {
   background: linear-gradient(120deg, #6366F1 0%, #8B5CF6 50%, #A855F7 100%);
   background-size: 200% 200%;
@@ -25,62 +25,74 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Fixed Italic Gradient Text with Proper Font Loading */
+/* Elegant Calligraphic Italic Gradient Text */
 .gradient-text.italic {
-  /* Ensure Inter italic is properly loaded and fallback to reliable italic fonts */
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-  font-style: italic;
-  font-weight: 500;
-  /* Reduced skew to prevent clipping */
-  transform: skew(-0.8deg, 0deg);
-  letter-spacing: -0.01em;
-  /* Added padding to prevent text cutoff */
-  padding: 0.1em 0.2em;
-  margin: 0 0.1rem;
-  line-height: 1.3;
+  /* Beautiful calligraphic font for italic text */
+  font-family: 'Kaushan Script', 'Playfair Display', cursive;
+  font-style: normal; /* Don't double-italicize since Kaushan Script is already script-like */
+  font-weight: 400;
+  /* Subtle skew for elegant flow */
+  transform: skew(-2deg, 0deg);
+  letter-spacing: 0.02em;
+  /* Enhanced spacing for elegance */
+  padding: 0.2em 0.4em;
+  margin: 0 0.2rem;
+  line-height: 1.4;
   vertical-align: baseline;
   display: inline;
   position: relative;
   /* Prevent text clipping */
   overflow: visible;
-  /* Enhanced font rendering */
+  /* Enhanced font rendering for script fonts */
   font-variant-ligatures: common-ligatures;
-  font-feature-settings: "liga" 1, "calt" 1, "kern" 1;
+  font-feature-settings: "liga" 1, "calt" 1, "kern" 1, "swsh" 1;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Ensure proper font loading */
+  /* Font loading optimization */
   font-display: swap;
-  /* Fix for potential clipping */
-  transform-origin: center center;
+  /* Proper transform origin for script fonts */
+  transform-origin: center baseline;
   will-change: transform;
+  /* Add subtle text shadow for depth */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced script font styling for better readability */
+.gradient-text.italic.script-enhanced {
+  font-size: 1.1em;
+  line-height: 1.3;
+  letter-spacing: 0.03em;
+  transform: skew(-1deg, 0deg);
 }
 
 /* Container fixes to prevent text overflow */
 .text-container {
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  gap: 0;
+  gap: 0.5rem;
   line-height: 1.3;
   overflow-wrap: break-word;
   word-wrap: break-word;
   hyphens: auto;
   /* Prevent container clipping */
   overflow: visible;
-  /* Add padding to accommodate skewed text */
-  padding: 0.2em 0.5em;
+  /* Add padding to accommodate script text */
+  padding: 0.5em 1em;
+}
+
+.text-container.hero-text {
+  gap: 0.8rem;
 }
 
 .text-container h1,
 .text-container h2,
 .text-container h3 {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: center;
-  gap: 0;
+  display: block;
+  width: 100%;
+  text-align: center;
   line-height: 1.3;
   margin: 0;
   overflow: visible;
@@ -92,16 +104,25 @@
   line-height: inherit;
 }
 
-/* Enhanced baseline alignment */
+/* Enhanced baseline alignment for script fonts */
 .text-container .gradient-text.italic {
-  margin: 0 0.1rem;
-  padding: 0.1em 0.15em;
+  margin: 0 0.2rem;
+  padding: 0.2em 0.3em;
   vertical-align: baseline;
   line-height: inherit;
   position: relative;
-  top: 0;
+  top: -0.05em; /* Slight adjustment for script font baseline */
   /* Ensure proper rendering space */
-  min-height: 1.3em;
+  min-height: 1.4em;
+}
+
+/* Hero text line styling */
+.hero-line {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin: 0.4rem 0;
+  line-height: 1.2;
 }
 
 /* Gradient border animation */
@@ -187,7 +208,7 @@
   background-color: white;
 }
 
-/* Responsive typography with proper italic handling */
+/* Responsive typography with proper script font handling */
 @media (max-width: 640px) {
   .gradient-text {
     font-size: clamp(1.5rem, 5vw, 2.5rem);
@@ -196,17 +217,23 @@
   }
   
   .gradient-text.italic {
-    transform: skew(-0.5deg, 0deg);
-    margin: 0 0.08rem;
-    padding: 0.08em 0.12em;
-    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    transform: skew(-1deg, 0deg);
+    margin: 0 0.1rem;
+    padding: 0.15em 0.2em;
+    font-size: clamp(1.6rem, 5.5vw, 2.8rem);
     line-height: 1.3;
+    letter-spacing: 0.015em;
   }
   
   .text-container {
-    gap: 0;
+    gap: 0.3rem;
     line-height: 1.3;
-    padding: 0.15em 0.3em;
+    padding: 0.3em 0.5em;
+  }
+  
+  .hero-line {
+    margin: 0.3rem 0;
+    line-height: 1.1;
   }
 }
 
@@ -218,17 +245,23 @@
   }
   
   .gradient-text.italic {
-    transform: skew(-0.6deg, 0deg);
-    margin: 0 0.12rem;
-    padding: 0.1em 0.15em;
-    font-size: clamp(2rem, 4vw, 3rem);
+    transform: skew(-1.5deg, 0deg);
+    margin: 0 0.15rem;
+    padding: 0.18em 0.25em;
+    font-size: clamp(2.2rem, 4.5vw, 3.5rem);
     line-height: 1.3;
+    letter-spacing: 0.02em;
   }
   
   .text-container {
-    gap: 0;
+    gap: 0.4rem;
     line-height: 1.3;
-    padding: 0.18em 0.4em;
+    padding: 0.4em 0.6em;
+  }
+  
+  .hero-line {
+    margin: 0.5rem 0;
+    line-height: 1.15;
   }
 }
 
@@ -240,17 +273,23 @@
   }
   
   .gradient-text.italic {
-    transform: skew(-0.8deg, 0deg);
-    margin: 0 0.15rem;
-    padding: 0.1em 0.2em;
-    font-size: clamp(2.5rem, 3vw, 4rem);
+    transform: skew(-2deg, 0deg);
+    margin: 0 0.2rem;
+    padding: 0.2em 0.3em;
+    font-size: clamp(2.8rem, 3.5vw, 4.5rem);
     line-height: 1.3;
+    letter-spacing: 0.025em;
   }
   
   .text-container {
-    gap: 0;
+    gap: 0.6rem;
     line-height: 1.3;
-    padding: 0.2em 0.5em;
+    padding: 0.5em 0.8em;
+  }
+  
+  .hero-line {
+    margin: 0.6rem 0;
+    line-height: 1.2;
   }
 }
 
@@ -269,11 +308,12 @@
   }
 }
 
-/* Safari-specific fixes */
+/* Safari-specific fixes for script fonts */
 @supports (-webkit-appearance: none) {
   .gradient-text.italic {
-    -webkit-transform: skew(-0.8deg, 0deg);
+    -webkit-transform: skew(-2deg, 0deg);
     -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke: 0.5px transparent;
   }
 }
 
@@ -281,7 +321,7 @@
 @-moz-document url-prefix() {
   .gradient-text.italic {
     -moz-osx-font-smoothing: grayscale;
-    transform: skew(-0.8deg, 0deg);
+    transform: skew(-2deg, 0deg);
   }
 }
 
@@ -354,8 +394,31 @@
   }
   body {
     @apply bg-background text-foreground;
-    /* Ensure fonts are loaded properly */
+    /* Modern, distinct font family for all content */
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
     font-display: swap;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+  }
+  
+  /* Enhanced typography hierarchy with distinctive fonts */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+  }
+  
+  p, span, div {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    line-height: 1.6;
+    letter-spacing: -0.005em;
+  }
+  
+  /* Ensure buttons and interactive elements use the main font */
+  button, input, select, textarea {
+    font-family: 'Plus Jakarta Sans', sans-serif;
   }
 }
 
