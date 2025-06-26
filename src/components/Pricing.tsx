@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
 import { Check } from "lucide-react";
 
 interface PricingPlan {
   name: string;
   price: { monthly: number; yearly: number };
   baseLeads: number;
-  description: string;
   features: string[];
   cta: string;
+  popular?: boolean;
 }
 
 const plans: PricingPlan[] = [
@@ -17,11 +15,10 @@ const plans: PricingPlan[] = [
     name: "Lite",
     price: { monthly: 9, yearly: 90 },
     baseLeads: 100,
-    description: "",
     features: [
       "Inbox delivery only",
       "Basic ICP matching",
-      "No CRM or automation",
+      "Email support",
     ],
     cta: "Start Lite",
   },
@@ -29,25 +26,25 @@ const plans: PricingPlan[] = [
     name: "Solo",
     price: { monthly: 29, yearly: 290 },
     baseLeads: 500,
-    description: "",
     features: [
       "Inbox delivery with insights",
       "Advanced ICP matching",
       "Limited CRM integrations",
-      "Limited Automations enabled"
+      "Priority support"
     ],
     cta: "Get Solo",
+    popular: true,
   },
   {
     name: "Pro",
     price: { monthly: 69, yearly: 690 },
     baseLeads: 1500,
-    description: "",
     features: [
-      "Inbox delivery with insights",
+      "Full platform access",
       "Advanced ICP matching",
-      "Full CRM integrations",
-      "All Automations enabled",
+      "All CRM integrations",
+      "Full automation suite",
+      "Dedicated support"
     ],
     cta: "Go Pro",
   },
@@ -55,93 +52,90 @@ const plans: PricingPlan[] = [
 
 const Pricing: React.FC = () => {
   const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">("monthly");
-  const [ref, inView] = useInView({ 
-    triggerOnce: true, 
-    threshold: 0.1,
-  });
 
   const getLeadsText = (baseLeads: number) => {
     const leads = billingCycle === "yearly" ? Math.ceil(baseLeads * 1.2) : baseLeads;
-    return `${leads} verified leads/month delivered to your inbox.`;
+    return `${leads} verified leads/month`;
   };
 
   return (
-    <section id="pricing" className="py-20 text-white">
-      <div className="max-w-7xl mx-auto px-4">
-        <motion.div
-          ref={ref}
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.3 }}
-        >
-          <h2 className="text-4xl font-bold mb-4">
-            Straightforward <span className="gradient-text">Pricing</span>
+    <section id="pricing" className="section">
+      <div className="container">
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto rhythm-48">
+          <h2 className="section-heading rhythm-24">
+            Simple <span className="gradient-text-2">pricing</span>
           </h2>
-          <p className="text-white/70 text-lg">
-          You pay. We deliver. Simple.
+          <p className="body-text text-white/80 rhythm-32">
+            Choose the plan that fits your business needs.
           </p>
 
-          <div className="mt-6 inline-flex items-center space-x-4 justify-center">
-            <span
-              className={`text-sm cursor-pointer transition-colors duration-200 ${billingCycle === "monthly" ? "text-white" : "text-white/50"}`}
+          {/* Billing Toggle */}
+          <div className="inline-flex items-center space-x-4 bg-white/5 p-1 rounded-lg border border-white/10">
+            <button
               onClick={() => setBillingCycle("monthly")}
+              className={`px-4 py-2 rounded text-sm font-medium transition-all duration-300 ${
+                billingCycle === "monthly" 
+                  ? "bg-white text-black" 
+                  : "text-white hover:text-white/80"
+              }`}
             >
               Monthly
-            </span>
-            <div
-              className="w-12 h-6 bg-zinc-700 rounded-full flex items-center px-1 cursor-pointer transition-all duration-200"
-              onClick={() => setBillingCycle(billingCycle === "monthly" ? "yearly" : "monthly")}
-            >
-              <div
-                className={`w-4 h-4 rounded-full bg-white transition-transform duration-200 ${
-                  billingCycle === "yearly" ? "translate-x-6" : ""
-                }`}
-              />
-            </div>
-            <span
-              className={`text-sm cursor-pointer transition-colors duration-200 ${billingCycle === "yearly" ? "text-white" : "text-white/50"}`}
+            </button>
+            <button
               onClick={() => setBillingCycle("yearly")}
+              className={`px-4 py-2 rounded text-sm font-medium transition-all duration-300 ${
+                billingCycle === "yearly" 
+                  ? "bg-white text-black" 
+                  : "text-white hover:text-white/80"
+              }`}
             >
               Yearly
-            </span>
+            </button>
           </div>
-        </motion.div>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Pricing Grid */}
+        <div className="grid-12 max-w-5xl mx-auto">
           {plans.map((plan, index) => (
-            <motion.div
+            <div
               key={index}
-              className="rounded-xl border border-zinc-800 p-6 bg-zinc-900 flex flex-col justify-between"
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.3, delay: index * 0.1 }}
+              className={`card relative ${
+                plan.popular ? 'border-white/40 scale-105' : ''
+              } col-span-12 md:col-span-4`}
             >
-              <div>
-                <h3 className="text-xl font-semibold mb-2">{plan.name}</h3>
-                <p className="text-3xl font-bold mb-4">
-                  ${billingCycle === "monthly" ? plan.price.monthly : plan.price.yearly}
-                  <span className="text-sm font-normal text-white/50 ml-1">
+              {plan.popular && (
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white text-black text-xs font-semibold px-3 py-1 rounded-full">
+                  Most Popular
+                </div>
+              )}
+              
+              <div className="text-center rhythm-24">
+                <h3 className="text-xl font-semibold rhythm-8">{plan.name}</h3>
+                <div className="rhythm-16">
+                  <span className="text-3xl font-bold">
+                    ${billingCycle === "monthly" ? plan.price.monthly : plan.price.yearly}
+                  </span>
+                  <span className="text-white/60 ml-1">
                     /{billingCycle === "monthly" ? "mo" : "yr"}
                   </span>
-                </p>
-                <p className="text-white/70 mb-6">{getLeadsText(plan.baseLeads)}</p>
-                <ul className="space-y-3">
-                  {plan.features.map((feature, i) => (
-                    <li key={i} className="flex items-start">
-                      <Check className="w-5 h-5 text-green-400 mt-1 mr-2" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+                </div>
+                <p className="text-white/80 text-sm">{getLeadsText(plan.baseLeads)}</p>
               </div>
-              <a
-                href="#signup"
-                className="mt-6 inline-block w-full text-center bg-purple-600 hover:bg-purple-700 transition-colors duration-200 rounded-md py-2 font-medium"
-              >
+
+              <ul className="space-y-3 rhythm-32">
+                {plan.features.map((feature, i) => (
+                  <li key={i} className="flex items-start">
+                    <Check className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0" style={{ color: '#67B26F' }} />
+                    <span className="text-sm text-white/80">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <button className={`btn w-full ${plan.popular ? 'btn-primary' : 'btn-secondary'}`}>
                 {plan.cta}
-              </a>
-            </motion.div>
+              </button>
+            </div>
           ))}
         </div>
       </div>

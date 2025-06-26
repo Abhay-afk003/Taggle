@@ -1,30 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
 import { CheckCircle } from 'lucide-react';
-
 import { db } from '../main';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
 
-interface HeroProps {
-  children?: React.ReactNode;
-}
-
-const Hero: React.FC<HeroProps> = ({ children }) => {
-  const [ref] = useInView({ 
-    triggerOnce: true, 
-    threshold: 0.1,
-  });
-
+const Hero: React.FC = () => {
   const [email, setEmail] = useState('');
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [waitlistCount, setWaitlistCount] = useState(134); // Default fallback value
+  const [waitlistCount, setWaitlistCount] = useState(134);
   const [canAccessFirebase, setCanAccessFirebase] = useState(true);
 
   useEffect(() => {
     if (submitStatus === 'success') {
-      const timer = setTimeout(() => setSubmitStatus('idle'), 2000);
+      const timer = setTimeout(() => setSubmitStatus('idle'), 3000);
       return () => clearTimeout(timer);
     }
   }, [submitStatus]);
@@ -37,7 +25,6 @@ const Hero: React.FC<HeroProps> = ({ children }) => {
         setCanAccessFirebase(true);
       } catch (error) {
         console.warn('Unable to fetch waitlist count from Firebase. Using fallback value.');
-        // Use fallback count and disable Firebase functionality
         setWaitlistCount(134);
         setCanAccessFirebase(false);
       }
@@ -56,11 +43,9 @@ const Hero: React.FC<HeroProps> = ({ children }) => {
     }
 
     if (!canAccessFirebase) {
-      // Fallback when Firebase is not accessible
       setWaitlistCount((prev) => prev + 1);
       setSubmitStatus('success');
       setEmail('');
-      console.warn('Firebase not accessible. Simulating successful signup.');
       return;
     }
 
@@ -70,8 +55,6 @@ const Hero: React.FC<HeroProps> = ({ children }) => {
       setSubmitStatus('success');
       setEmail('');
     } catch (error) {
-      // If Firebase fails, still provide user feedback
-      console.warn('Firebase operation failed. Using fallback behavior.');
       setWaitlistCount((prev) => prev + 1);
       setSubmitStatus('success');
       setEmail('');
@@ -79,72 +62,75 @@ const Hero: React.FC<HeroProps> = ({ children }) => {
   };
 
   return (
-    <section className="relative flex flex-col items-center justify-center min-h-[80vh] pt-20 pb-10 text-white">
-      <div className="w-full max-w-4xl text-center px-4" ref={ref}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mt-10 mb-1 text-white">
-            You build it.
+    <section className="section flex flex-col items-center justify-center min-h-[calc(100vh-80px)] text-center">
+      <div className="container">
+        <div className="max-w-4xl mx-auto animate-fade-up">
+          {/* Hero Heading */}
+          <h1 className="hero-text rhythm-24">
+            You built it.
           </h1>
-          <h1 className="gradient-text text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-1">
-            Now Find Who needs it.
+          <h1 className="hero-text rhythm-32">
+            Now find <span className="hero-highlight">who</span> needs it.
           </h1>
-          <p className="text-gray-400 text-lg md:text-xl mt-6 mb-8 max-w-2xl mx-auto">
+          
+          {/* Subheading */}
+          <p className="body-text text-white/80 max-w-2xl mx-auto rhythm-48 animate-fade-up-delay-1">
             Done chasing leads? We'll send qualified ones right to your inbox.
           </p>
 
+          {/* Waitlist Form */}
           <form
             onSubmit={handleWaitlistSubmit}
             id="waitlist-section"
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 animate-fade-up-delay-2"
           >
-            <div className="relative rounded-lg w-64 bg-neutral-800 border border-neutral-600">
+            <div className="relative">
               <input
                 type="email"
                 name="email"
                 placeholder="Enter your email"
-                className="w-full bg-transparent text-white placeholder-gray-400 text-sm rounded-lg border-0 focus:ring-2 focus:ring-purple-500 p-3 outline-none"
+                className="w-64 bg-white/5 text-white placeholder-white/60 border border-white/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-all duration-300"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </div>
             <button
               type="submit"
-              className="bg-purple-600 hover:bg-purple-700 text-white font-medium px-6 py-3 rounded-lg transition-colors duration-200"
+              className="btn btn-primary"
               disabled={submitStatus !== 'idle'}
             >
               {submitStatus === 'idle' && 'Join Waitlist'}
-              {submitStatus === 'success' && 'Joined!'}
-              {submitStatus === 'error' && 'Error!'}
+              {submitStatus === 'success' && 'Welcome aboard!'}
+              {submitStatus === 'error' && 'Try again'}
             </button>
           </form>
 
-          {children}
-          {errorMessage && <p className="text-red-400 text-sm mt-2">{errorMessage}</p>}
+          {errorMessage && (
+            <p className="text-red-400 text-sm mb-4">{errorMessage}</p>
+          )}
 
-          <div className="mt-12">
-            <div className="flex flex-col items-center gap-4">
-              <p className="text-white/60 flex items-center text-base">
-                <CheckCircle className="w-5 h-5 text-green-400 mr-2" />
-                {waitlistCount} people have joined. Join them?
-              </p>
+          {/* Social Proof */}
+          <div className="flex flex-col items-center gap-6 animate-fade-up-delay-3">
+            <p className="text-white/60 flex items-center body-text">
+              <CheckCircle className="w-5 h-5 mr-2" style={{ color: '#67B26F' }} />
+              {waitlistCount} professionals have joined. Join them?
+            </p>
 
-              <div className="flex items-center -space-x-3">
-                {[1, 2, 3, 4, 5, 6, 7].map((i) => (
-                  <img
-                    key={i}
-                    src={`/images/trusted-by-avatars/person${i}.png`}
-                    className="w-10 h-10 rounded-full object-cover ring-2 ring-white"
-                    alt="User avatar"
-                  />
-                ))}
-              </div>
+            {/* Avatar Stack */}
+            <div className="flex items-center -space-x-3">
+              {[1, 2, 3, 4, 5, 6, 7].map((i) => (
+                <img
+                  key={i}
+                  src={`/images/trusted-by-avatars/person${i}.png`}
+                  className="w-10 h-10 rounded-full object-cover ring-2 ring-white transition-transform duration-300 hover:scale-110 hover:z-10 relative"
+                  alt={`Professional ${i}`}
+                  loading="lazy"
+                />
+              ))}
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
