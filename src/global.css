@@ -2,12 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Enhanced Gradient Text Styling */
+.gradient-text {
+  background: linear-gradient(120deg, #6366F1 0%, #8B5CF6 50%, #A855F7 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: gradient-shift 6s ease-in-out infinite;
+  display: inline-block;
+  position: relative;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.gradient-text.italic {
+  font-style: italic;
+  transform: skew(-8deg, 0deg);
+  letter-spacing: -0.01em;
+  padding: 0 0.2rem;
+  margin: 0 0.1rem;
+}
+
 /* Gradient border animation */
 .card-gradient-border {
   position: relative;
-  background-color: #0A0A0F; /* theme background */
+  background-color: #0A0A0F;
   border-radius: 1rem;
-  padding: 2px; /* border width */
+  padding: 2px;
   overflow: hidden;
 }
 
@@ -38,14 +65,6 @@
   padding: 2rem;
 }
 
-.gradient-text {
-  background: linear-gradient(90deg, #6366F1, #8B5CF6, #6366F1);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradient-shift 4s ease infinite;
-}
-
 @keyframes rotate-gradient {
   to {
     transform: rotate(1turn);
@@ -53,19 +72,26 @@
 }
 
 @keyframes gradient-shift {
-  0% {
+  0%, 100% {
     background-position: 0% 50%;
+    filter: hue-rotate(0deg) brightness(1);
+  }
+  25% {
+    background-position: 50% 50%;
+    filter: hue-rotate(15deg) brightness(1.1);
   }
   50% {
     background-position: 100% 50%;
+    filter: hue-rotate(30deg) brightness(1.2);
   }
-  100% {
-    background-position: 0% 50%;
+  75% {
+    background-position: 50% 50%;
+    filter: hue-rotate(15deg) brightness(1.1);
   }
 }
 
 .overlap-avatar {
-  margin-left: -1rem; /* Adjust the value for desired overlap */
+  margin-left: -1rem;
 }
 
 /* Avatar Overlap Style */
@@ -73,7 +99,6 @@
   @apply w-10 h-10 rounded-full object-cover ring-2 ring-white;
 }
 
-/* Optional hover effect */
 .avatar-ring:hover {
   @apply scale-105 transition-transform duration-200;
 }
@@ -85,6 +110,66 @@
   border: 2px solid white;
   object-fit: cover;
   background-color: white;
+}
+
+/* Responsive gradient text containers */
+.gradient-text-container {
+  padding: 0.25rem 0.5rem;
+  margin: 0.125rem;
+  overflow: hidden;
+  display: inline-block;
+  position: relative;
+}
+
+/* Text overflow handling for different screen sizes */
+@media (max-width: 640px) {
+  .gradient-text {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+  }
+  
+  .gradient-text.italic {
+    transform: skew(-6deg, 0deg);
+    padding: 0 0.15rem;
+    margin: 0 0.075rem;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .gradient-text {
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+  
+  .gradient-text.italic {
+    transform: skew(-7deg, 0deg);
+    padding: 0 0.175rem;
+    margin: 0 0.0875rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  .gradient-text {
+    font-size: clamp(2.5rem, 3vw, 4rem);
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+  }
+  
+  .gradient-text.italic {
+    transform: skew(-8deg, 0deg);
+    padding: 0 0.2rem;
+    margin: 0 0.1rem;
+  }
+}
+
+/* Ensure proper text wrapping and overflow */
+.text-container {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+  overflow: hidden;
 }
 
 @layer base {
