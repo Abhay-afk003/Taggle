@@ -52,7 +52,7 @@ const Features: React.FC = () => {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
-            Taggle Delivers the <span className="gradient-text">Leads That Convert</span>
+            Taggle Delivers the <span className="gradient-text italic">Leads That Convert</span>
           </h2>
           <p className="text-gray-300 text-base md:text-lg mb-10 leading-relaxed">
             Verified contacts. Real-time insights. Smart automations. CRM integrations ready.

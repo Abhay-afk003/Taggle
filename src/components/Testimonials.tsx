@@ -85,7 +85,7 @@ const Testimonials: React.FC = () => {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-2xl md:text-3xl font-bold mb-3 text-white font-heading">
-            Trusted by <span className="bg-gradient-to-r from-primary-light via-primary-dark to-primary-light bg-clip-text text-transparent animate-gradient">Industry Leaders</span>
+            Trusted by <span className="gradient-text italic">Industry Leaders</span>
           </h2>
           <p className="text-white/70 text-base">
             See how companies are scaling their outreach with Taggle.
