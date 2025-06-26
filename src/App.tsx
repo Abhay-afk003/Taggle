@@ -95,7 +95,7 @@ We may update this policy. Changes will be reflected on this page with a revised
           <div className="max-w-4xl mx-auto">
             {showPrivacyPolicy && (
               <div>
-                <h1 className="text-4xl font-bold mb-8 gradient-text">Privacy Policy</h1>
+                <h1 className="text-4xl mb-8 gradient-text">Privacy Policy</h1>
                 <div className="prose prose-invert max-w-none">
                   <pre className="whitespace-pre-wrap text-gray-300 text-base leading-relaxed">{privacyPolicyText}</pre>
                 </div>
@@ -103,7 +103,7 @@ We may update this policy. Changes will be reflected on this page with a revised
             )}
             {showTermsAndConditions && (
               <div>
-                <h1 className="text-4xl font-bold mb-8 gradient-text">Terms & Conditions</h1>
+                <h1 className="text-4xl mb-8 gradient-text">Terms & Conditions</h1>
                 <div className="prose prose-invert max-w-none">
                   <pre className="whitespace-pre-wrap text-gray-300 text-base leading-relaxed">{termsAndConditionsText}</pre>
                 </div>

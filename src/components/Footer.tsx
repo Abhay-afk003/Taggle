@@ -29,7 +29,7 @@ const Footer: FC<FooterProps> = ({ onShowPrivacy, onShowTerms }) => {
                 alt="logo"
                 className="h-8 w-8 object-contain"
               />
-              <span className="ml-0 text-xl font-heading font-semibold text-white">
+              <span className="ml-0 text-xl font-heading text-white">
                 aggle
               </span>
             </div>
@@ -58,7 +58,7 @@ const Footer: FC<FooterProps> = ({ onShowPrivacy, onShowTerms }) => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-heading font-semibold text-lg text-white mb-6">
+            <h3 className="font-heading text-lg text-white mb-6">
               Quick Links
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-y-4">
@@ -108,7 +108,7 @@ const Footer: FC<FooterProps> = ({ onShowPrivacy, onShowTerms }) => {
           </div>
         </div>
       </motion.div>
-    </footer> // Corrected closing tag for footer
+    </footer>
   );
 };
 

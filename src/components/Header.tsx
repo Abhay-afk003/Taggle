@@ -28,7 +28,7 @@ const Header: React.FC = () => {
         {/* Left - Logo */}
         <div className="flex items-center">
           <img src="/Untitled design.png" alt="T Logo" className="h-8 w-8 object-contain" />
-          <span className="text-white text-xl font-bold tracking-tight ml-0">aggle</span>
+          <span className="text-white text-xl tracking-tight ml-0">aggle</span>
         </div>
 
         {/* Right - Nav (Desktop) */}
@@ -38,7 +38,7 @@ const Header: React.FC = () => {
           <a href="#login" className="text-white/80 hover:text-white transition text-sm">Login</a>
           <a
             href="#get-started"
-            className="ml-4 inline-block bg-white text-black text-sm font-semibold px-4 py-2 rounded-full shadow hover:bg-gray-200 transition"
+            className="ml-4 inline-block bg-white text-black text-sm px-4 py-2 rounded-full shadow hover:bg-gray-200 transition"
           >
             Get Started
           </a>
@@ -82,7 +82,7 @@ const Header: React.FC = () => {
                 <a href="#login" onClick={() => setMenuOpen(false)}>Login</a>
                 <a
                   href="#get-started"
-                  className="mt-4 bg-white text-black px-4 py-2 rounded-full text-sm font-semibold hover:bg-gray-200"
+                  className="mt-4 bg-white text-black px-4 py-2 rounded-full text-sm hover:bg-gray-200"
                   onClick={() => setMenuOpen(false)}
                 >
                   Get Started
