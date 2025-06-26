@@ -25,7 +25,7 @@ const CtaSection: React.FC = () => {
           <div className="relative bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-md border border-white/10 rounded-3xl p-8 md:p-12">
             <Sparkles className="w-12 h-12 text-purple-400 mx-auto mb-6" />
             
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+            <h2 className="text-2xl md:text-3xl text-white mb-4">
               Ready to Transform Your Lead Generation?
             </h2>
             
@@ -35,7 +35,7 @@ const CtaSection: React.FC = () => {
             
             <button
               onClick={scrollToWaitlist}
-              className="group relative px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-purple-500/25 flex items-center gap-3 mx-auto"
+              className="group relative px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-purple-500/25 flex items-center gap-3 mx-auto"
             >
               <span>Get Early Access</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />

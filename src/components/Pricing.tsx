@@ -72,7 +72,7 @@ const Pricing: React.FC = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-3">
+          <h2 className="text-3xl md:text-4xl mb-3">
             Straightforward <span className="gradient-text italic">Pricing</span>
           </h2>
           <p className="text-white/70 text-base md:text-lg">
@@ -115,8 +115,8 @@ const Pricing: React.FC = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <div>
-                <h3 className="text-lg font-semibold mb-2">{plan.name}</h3>
-                <p className="text-2xl font-bold mb-3">
+                <h3 className="text-lg mb-2">{plan.name}</h3>
+                <p className="text-2xl mb-3">
                   ${billingCycle === "monthly" ? plan.price.monthly : plan.price.yearly}
                   <span className="text-sm font-normal text-white/50 ml-1">
                     /{billingCycle === "monthly" ? "mo" : "yr"}
@@ -134,7 +134,7 @@ const Pricing: React.FC = () => {
               </div>
               <a
                 href="#signup"
-                className="mt-5 inline-block w-full text-center bg-purple-600 hover:bg-purple-700 transition rounded-md py-2 font-medium text-sm"
+                className="mt-5 inline-block w-full text-center bg-purple-600 hover:bg-purple-700 transition rounded-md py-2 text-sm"
               >
                 {plan.cta}
               </a>

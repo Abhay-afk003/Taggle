@@ -33,7 +33,7 @@ const Testimonial: React.FC<TestimonialProps> = ({ quote, name, role, company, i
         <div className="flex items-center">
           <img src={image} alt={name} className="w-12 h-12 rounded-full object-cover mr-3 ring-2 ring-primary-dark" />
           <div>
-            <h4 className="font-heading font-semibold text-white text-sm">{name}</h4>
+            <h4 className="font-heading text-white text-sm">{name}</h4>
             <p className="text-white/60 text-xs">{role}, {company}</p>
           </div>
         </div>
@@ -84,7 +84,7 @@ const Testimonials: React.FC = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-2xl md:text-3xl font-bold mb-3 text-white font-heading">
+          <h2 className="text-2xl md:text-3xl mb-3 text-white font-heading">
             Trusted by <span className="gradient-text italic">Industry Leaders</span>
           </h2>
           <p className="text-white/70 text-base">
