@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { useInView } from 'react-intersection-observer';
 import {
   UserCheck,
@@ -9,7 +9,7 @@ import {
   DollarSign,
   BarChart3,
 } from 'lucide-react';
-import SlidingArrow from './SlidingArrow';
+import CardCarousel from './CardCarousel';
 
 const Features: React.FC = () => {
   const [ref, inView] = useInView({ 
@@ -17,9 +17,6 @@ const Features: React.FC = () => {
     threshold: 0.15,
     rootMargin: '50px 0px'
   });
-  
-  const [animationStarted, setAnimationStarted] = useState(false);
-  const featureRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const features = [
     {
@@ -42,30 +39,39 @@ const Features: React.FC = () => {
       title: 'CRM Integrations',
       description: 'Seamlessly integrate with Salesforce, HubSpot, and more. Keep your pipeline fresh and organized.',
     },
+    {
+      icon: <Clock className="w-8 h-8 text-indigo-400" />,
+      title: 'Real-time Notifications',
+      description: 'Get instant alerts when high-value prospects show buying intent, so you never miss an opportunity.',
+    },
+    {
+      icon: <BarChart3 className="w-8 h-8 text-emerald-400" />,
+      title: 'Advanced Analytics',
+      description: 'Track performance metrics, conversion rates, and ROI with detailed analytics and reporting.',
+    },
   ];
 
-  useEffect(() => {
-    if (inView && !animationStarted) {
-      setAnimationStarted(true);
+  // Create feature cards
+  const featureCards = features.map((feature, index) => (
+    <div
+      key={index}
+      className="feature-carousel-card"
+      role="article"
+      aria-labelledby={`feature-title-${index}`}
+    >
+      <div className="mb-6 p-3 rounded-xl bg-black/20 w-fit">
+        {feature.icon}
+      </div>
       
-      // Use requestAnimationFrame for smooth performance
-      const animateFeatures = () => {
-        featureRefs.current.forEach((element, index) => {
-          if (element) {
-            // Stagger animations by 100ms
-            setTimeout(() => {
-              requestAnimationFrame(() => {
-                element.classList.add('feature-slide-up-visible');
-              });
-            }, index * 100);
-          }
-        });
-      };
+      <h3 id={`feature-title-${index}`} className="text-xl mb-3 text-white leading-tight">
+        {feature.title}
+      </h3>
       
-      // Small delay to ensure DOM is ready
-      setTimeout(animateFeatures, 50);
-    }
-  }, [inView, animationStarted]);
+      <p className="text-gray-300 text-base leading-relaxed">
+        {feature.description}
+      </p>
+    </div>
+  ));
 
   return (
     <section 
@@ -75,17 +81,9 @@ const Features: React.FC = () => {
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center max-w-4xl mx-auto mb-16">
-          {/* Sliding Arrow for Section Header */}
-          <div className="flex items-center justify-center mb-6">
-            <SlidingArrow 
-              isVisible={animationStarted} 
-              delay={200}
-              className="mr-4"
-            />
-            <h2 className="text-3xl md:text-4xl lg:text-5xl text-white leading-tight">
-              Taggle Delivers the <span className="gradient-text italic">Leads That Convert</span>
-            </h2>
-          </div>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl mb-6 text-white leading-tight">
+            Taggle Delivers the <span className="gradient-text italic">Leads That Convert</span>
+          </h2>
           
           <p className="text-gray-300 text-lg mb-12 leading-relaxed">
             Verified contacts. Real-time insights. Smart automations. CRM integrations ready.
@@ -112,44 +110,26 @@ const Features: React.FC = () => {
           </div>
         </div>
 
-        {/* Features Grid with Slide-Up Animation */}
-        <div 
-          ref={ref}
-          className="features-grid"
-          style={{ gap: '24px' }}
-        >
-          {features.map((feature, idx) => (
-            <div
-              key={idx}
-              ref={(el) => {
-                featureRefs.current[idx] = el;
-              }}
-              className="feature-slide-up"
-              style={{ 
-                gap: '24px'
-              }}
-            >
-              <div className="mb-6 p-3 rounded-xl bg-black/20 w-fit">
-                {feature.icon}
-              </div>
-              
-              <h3 className="text-xl mb-3 text-white leading-tight">
-                {feature.title}
-              </h3>
-              
-              <p className="text-gray-300 text-base leading-relaxed">
-                {feature.description}
-              </p>
-
-              {/* Sliding Arrow for each feature */}
-              <div className="mt-4">
-                <SlidingArrow 
-                  isVisible={animationStarted} 
-                  delay={300 + (idx * 100)}
-                />
-              </div>
-            </div>
-          ))}
+        {/* Features Carousel */}
+        <div ref={ref}>
+          <CardCarousel
+            autoPlay={true}
+            autoPlayInterval={5000}
+            animationSpeed={400}
+            cardsPerView={{
+              mobile: 1,
+              tablet: 2,
+              desktop: 3,
+            }}
+            gap={24}
+            className="features-carousel"
+            onCardChange={(index) => {
+              // Optional: Track analytics or perform actions on card change
+              console.log(`Features carousel changed to card ${index}`);
+            }}
+          >
+            {featureCards}
+          </CardCarousel>
         </div>
       </div>
     </section>

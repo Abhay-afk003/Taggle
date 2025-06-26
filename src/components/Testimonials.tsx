@@ -1,94 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Quote } from 'lucide-react';
-import SlidingArrow from './SlidingArrow';
+import CardCarousel from './CardCarousel';
 
-interface TestimonialProps {
+interface TestimonialData {
   quote: string;
   name: string;
   role: string;
   company: string;
   image: string;
-  index: number;
-  isVisible: boolean;
 }
 
-const Testimonial: React.FC<TestimonialProps> = ({ 
-  quote, 
-  name, 
-  role, 
-  company, 
-  image, 
-  index, 
-  isVisible 
-}) => {
-  const testimonialRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (isVisible && testimonialRef.current) {
-      // Use requestAnimationFrame for smooth performance
-      requestAnimationFrame(() => {
-        if (testimonialRef.current) {
-          testimonialRef.current.classList.add('testimonial-slide-visible');
-        }
-      });
-    }
-  }, [isVisible]);
-
-  return (
-    <div 
-      ref={testimonialRef}
-      className="testimonial-slide"
-      style={{
-        animationDelay: `${index * 100}ms`
-      }}
-    >
-      <Quote className="w-6 h-6 text-primary-light opacity-20 mb-4" />
-      <div className="flex-1">
-        <p className="text-white/90 text-base leading-relaxed mb-6">
-          {quote}
-        </p>
-        <div className="flex items-center">
-          <picture>
-            <source 
-              srcSet={`${image}?format=webp&w=400`} 
-              type="image/webp"
-              width="48"
-              height="48"
-            />
-            <img 
-              src={image} 
-              alt={`${name} profile`}
-              className="testimonial-avatar"
-              width="48"
-              height="48"
-              loading="lazy"
-              style={{ maxWidth: '400px' }}
-            />
-          </picture>
-          <div className="overflow-hidden">
-            <h4 className="font-heading text-white text-base truncate">
-              {name}
-            </h4>
-            <p className="text-white/60 text-sm truncate">
-              {role}, {company}
-            </p>
-          </div>
-        </div>
-      </div>
-      
-      {/* Sliding Arrow for each testimonial */}
-      <div className="mt-4 flex justify-end">
-        <SlidingArrow 
-          isVisible={isVisible} 
-          delay={200 + (index * 100)}
-        />
-      </div>
-    </div>
-  );
-};
-
-const testimonials = [
+const testimonials: TestimonialData[] = [
   {
     quote: "Taggle has transformed our B2B outreach. We've seen a 43% increase in qualified leads and our sales team is closing deals 30% faster.",
     name: "Sarah Johnson",
@@ -131,7 +54,69 @@ const testimonials = [
     company: "TechForward",
     image: "https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg",
   },
+  {
+    quote: "The automation and lead quality from Taggle has doubled our monthly revenue. It's the best investment we've made.",
+    name: "Rachel Kim",
+    role: "Founder",
+    company: "NextGen Solutions",
+    image: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg",
+  },
+  {
+    quote: "Taggle's AI-powered lead matching is incredibly accurate. We're closing 40% more deals with half the effort.",
+    name: "Alex Martinez",
+    role: "Sales Manager",
+    company: "InnovateTech",
+    image: "https://images.pexels.com/photos/1181316/pexels-photo-1181316.jpeg",
+  },
 ];
+
+const TestimonialCard: React.FC<{ testimonial: TestimonialData; index: number }> = ({ 
+  testimonial, 
+  index 
+}) => (
+  <div 
+    className="testimonial-carousel-card"
+    role="article"
+    aria-labelledby={`testimonial-author-${index}`}
+  >
+    <Quote className="w-6 h-6 text-primary-light opacity-20 mb-4 flex-shrink-0" />
+    <div className="flex-1">
+      <blockquote className="text-white/90 text-base leading-relaxed mb-6">
+        {testimonial.quote}
+      </blockquote>
+      <div className="flex items-center">
+        <picture>
+          <source 
+            srcSet={`${testimonial.image}?format=webp&w=400`} 
+            type="image/webp"
+            width="48"
+            height="48"
+          />
+          <img 
+            src={testimonial.image} 
+            alt={`${testimonial.name} profile`}
+            className="testimonial-avatar"
+            width="48"
+            height="48"
+            loading="lazy"
+            style={{ maxWidth: '400px' }}
+          />
+        </picture>
+        <div className="overflow-hidden">
+          <h4 
+            id={`testimonial-author-${index}`}
+            className="font-heading text-white text-base truncate"
+          >
+            {testimonial.name}
+          </h4>
+          <p className="text-white/60 text-sm truncate">
+            {testimonial.role}, {testimonial.company}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+);
 
 const Testimonials: React.FC = () => {
   const [ref, inView] = useInView({ 
@@ -139,14 +124,15 @@ const Testimonials: React.FC = () => {
     threshold: 0.1,
     rootMargin: '50px 0px'
   });
-  
-  const [animationStarted, setAnimationStarted] = useState(false);
 
-  useEffect(() => {
-    if (inView && !animationStarted) {
-      setAnimationStarted(true);
-    }
-  }, [inView, animationStarted]);
+  // Create testimonial cards
+  const testimonialCards = testimonials.map((testimonial, index) => (
+    <TestimonialCard 
+      key={index} 
+      testimonial={testimonial} 
+      index={index}
+    />
+  ));
 
   return (
     <section 
@@ -158,34 +144,34 @@ const Testimonials: React.FC = () => {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center max-w-4xl mx-auto mb-16" ref={ref}>
-          {/* Sliding Arrow for Section Header */}
-          <div className="flex items-center justify-center mb-6">
-            <SlidingArrow 
-              isVisible={animationStarted} 
-              delay={150}
-              className="mr-4"
-            />
-            <h2 className="text-3xl md:text-4xl lg:text-5xl mb-4 text-white leading-tight">
-              Trusted by <span className="gradient-text italic">Industry Leaders</span>
-            </h2>
-          </div>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl mb-4 text-white leading-tight">
+            Trusted by <span className="gradient-text italic">Industry Leaders</span>
+          </h2>
           
-          <p className="text-white/70 text-lg">
+          <p className="text-white/70 text-lg mb-12">
             See how companies are scaling their outreach with Taggle.
           </p>
         </div>
 
-        {/* Testimonials Grid with Horizontal Slide Animation */}
-        <div className="testimonials-grid">
-          {testimonials.map((testimonial, index) => (
-            <Testimonial 
-              key={index} 
-              {...testimonial} 
-              index={index}
-              isVisible={animationStarted}
-            />
-          ))}
-        </div>
+        {/* Testimonials Carousel */}
+        <CardCarousel
+          autoPlay={true}
+          autoPlayInterval={6000}
+          animationSpeed={350}
+          cardsPerView={{
+            mobile: 1,
+            tablet: 2,
+            desktop: 3,
+          }}
+          gap={24}
+          className="testimonials-carousel"
+          onCardChange={(index) => {
+            // Optional: Track analytics or perform actions on card change
+            console.log(`Testimonials carousel changed to card ${index}`);
+          }}
+        >
+          {testimonialCards}
+        </CardCarousel>
       </div>
     </section>
   );

@@ -112,21 +112,210 @@
   line-height: 1.2;
 }
 
-/* Sliding Arrow Animation - Lightweight & Smooth */
-.sliding-arrow {
-  display: inline-flex;
+/* Card Carousel Styles - High Performance */
+.carousel-container {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.carousel-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  outline: none;
+  background: transparent;
+}
+
+.carousel-wrapper:focus-visible {
+  outline: 2px solid #8B5CF6;
+  outline-offset: 4px;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.carousel-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Navigation Arrows */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
-  transform: translateX(-40px);
-  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-  will-change: transform, opacity;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  opacity: 0.8;
+  will-change: transform, opacity, background-color;
+}
+
+.carousel-arrow:hover {
+  opacity: 1;
+  background: rgba(139, 92, 246, 0.2);
+  border-color: rgba(139, 92, 246, 0.4);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.carousel-arrow:focus-visible {
+  outline: 2px solid #8B5CF6;
+  outline-offset: 2px;
+}
+
+.carousel-arrow-prev {
+  left: -24px;
+}
+
+.carousel-arrow-next {
+  right: -24px;
+}
+
+.carousel-arrow-disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
   pointer-events: none;
 }
 
-.arrow-slide-visible {
-  opacity: 1;
-  transform: translateX(0);
+/* Responsive Arrow Positioning */
+@media (max-width: 768px) {
+  .carousel-arrow-prev {
+    left: 8px;
+  }
+  
+  .carousel-arrow-next {
+    right: 8px;
+  }
+  
+  .carousel-arrow {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Dot Indicators */
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 0;
+}
+
+.carousel-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  transform: scale(1);
+  will-change: transform, background-color;
+}
+
+.carousel-dot:hover {
+  background: rgba(255, 255, 255, 0.5);
+  transform: scale(1.1);
+}
+
+.carousel-dot:focus-visible {
+  outline: 2px solid #8B5CF6;
+  outline-offset: 2px;
+}
+
+.carousel-dot-active {
+  background: linear-gradient(120deg, #6366F1 0%, #8B5CF6 50%, #A855F7 100%);
+  transform: scale(1.2);
+}
+
+/* Progress Bar */
+.carousel-progress {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  margin-top: 16px;
+  overflow: hidden;
+}
+
+.carousel-progress-bar {
+  height: 100%;
+  background: linear-gradient(120deg, #6366F1 0%, #8B5CF6 50%, #A855F7 100%);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+  will-change: width;
+}
+
+/* Feature Carousel Cards */
+.feature-carousel-card {
+  padding: 32px;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  will-change: transform, box-shadow;
+}
+
+.feature-carousel-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(139, 92, 246, 0.15);
+  border-color: rgba(139, 92, 246, 0.3);
+}
+
+/* Testimonial Carousel Cards */
+.testimonial-carousel-card {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  transition: all 0.3s ease;
+  will-change: transform, box-shadow;
+}
+
+.testimonial-carousel-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(139, 92, 246, 0.15);
+  border-color: rgba(139, 92, 246, 0.3);
+}
+
+.testimonial-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 12px;
+  border: 2px solid rgba(139, 92, 246, 0.5);
+  flex-shrink: 0;
 }
 
 /* Unified Button Styling - Matches "who" text gradient */
@@ -196,84 +385,6 @@
 .cta-button:focus {
   outline: 2px solid #a78bfa;
   outline-offset: 2px;
-}
-
-/* Features Section - Slide-Up Animation */
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
-}
-
-.feature-slide-up {
-  padding: 32px;
-  border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
-  will-change: transform, opacity;
-}
-
-.feature-slide-up-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Testimonials Section - Horizontal Slide Animation */
-.testimonials-grid {
-  display: grid;
-  gap: 24px;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-}
-
-@media (min-width: 768px) {
-  .testimonials-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .testimonials-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-.testimonial-slide {
-  display: flex;
-  flex-direction: column;
-  padding: 24px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  height: 100%;
-  opacity: 0;
-  transform: translateX(-30px);
-  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out, translateY 0.2s ease;
-  will-change: transform, opacity;
-}
-
-.testimonial-slide-visible {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.testimonial-slide:hover {
-  transform: translateX(0) translateY(-2px);
-}
-
-.testimonial-avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 12px;
-  border: 2px solid rgba(139, 92, 246, 0.5);
-  flex-shrink: 0;
 }
 
 /* Pricing Grid - Responsive Layout */
@@ -378,11 +489,6 @@
   outline-offset: 2px;
 }
 
-/* Hero button now uses the unified gradient-button class */
-.hero-button {
-  /* Inherits from .gradient-button */
-}
-
 /* Responsive typography with proper script font handling */
 @media (max-width: 640px) {
   .gradient-text {
@@ -411,18 +517,14 @@
     line-height: 1.1;
   }
 
-  .features-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  
-  .feature-slide-up {
-    padding: 24px;
-  }
-
   .gradient-button {
     font-size: 14px;
     padding: 10px 14px;
+  }
+
+  .carousel-container {
+    margin: 0 -16px;
+    padding: 0 16px;
   }
 }
 
@@ -451,10 +553,6 @@
   .hero-line {
     margin: 0.5rem 0;
     line-height: 1.15;
-  }
-
-  .features-grid {
-    grid-template-columns: repeat(2, 1fr);
   }
 
   .gradient-button {
@@ -488,10 +586,6 @@
   .hero-line {
     margin: 0.6rem 0;
     line-height: 1.2;
-  }
-
-  .features-grid {
-    grid-template-columns: repeat(4, 1fr);
   }
 
   .gradient-button {
@@ -540,30 +634,25 @@
     transition-duration: 0.01ms !important;
   }
   
-  .feature-slide-up {
-    opacity: 1;
-    transform: translateY(0);
+  .carousel-track {
     transition: none;
   }
   
-  .testimonial-slide {
-    opacity: 1;
-    transform: translateX(0);
-    transition: none;
+  .carousel-arrow:hover {
+    transform: translateY(-50%);
   }
   
-  .testimonial-slide:hover {
+  .carousel-dot:hover {
+    transform: scale(1);
+  }
+  
+  .feature-carousel-card:hover,
+  .testimonial-carousel-card:hover {
     transform: none;
   }
 
   .gradient-button:hover {
     transform: none;
-  }
-
-  .sliding-arrow {
-    opacity: 1;
-    transform: translateX(0);
-    transition: none;
   }
 }
 
@@ -573,7 +662,12 @@ section {
 }
 
 /* Optimize repaints and reflows */
-.feature-slide-up, .testimonial-slide, .pricing-card, .sliding-arrow {
+.feature-carousel-card, 
+.testimonial-carousel-card, 
+.pricing-card, 
+.carousel-track,
+.carousel-arrow,
+.carousel-dot {
   will-change: transform, opacity;
 }
 
@@ -590,7 +684,10 @@ button, a, input[type="submit"], input[type="button"] {
 
 /* High contrast mode support */
 @media (prefers-contrast: high) {
-  .pricing-card, .testimonial-slide, .feature-slide-up {
+  .pricing-card, 
+  .testimonial-carousel-card, 
+  .feature-carousel-card,
+  .carousel-arrow {
     border-width: 2px;
     border-color: #ffffff;
   }
