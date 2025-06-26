@@ -33,7 +33,7 @@ const Features: React.FC = () => {
       icon: <FileSearch className="w-8 h-8 text-white group-hover:text-purple-400 transition-colors duration-200" />,
       title: 'Prospect Intelligence',
       description:
-        'Gain insight into each lead's buying signals, firmographics, and intent, all enriched automatically.',
+        "Gain insight into each lead's buying signals, firmographics, and intent, all enriched automatically.",
     },
     {
       icon: <Zap className="w-8 h-8 text-white group-hover:text-purple-400 transition-colors duration-200" />,
