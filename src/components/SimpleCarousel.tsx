@@ -149,15 +149,6 @@ const SimpleCarousel: React.FC<SimpleCarouselProps> = ({
           </div>
         </div>
       </div>
-
-      {/* Debug info - remove in production */}
-      {process.env.NODE_ENV === 'development' && (
-        <div className="text-xs text-gray-500 mt-2 text-center">
-          Cards: {currentIndex + 1}-{Math.min(currentIndex + cardsVisible, totalCards)} of {totalCards} | 
-          Visible: {cardsVisible} | 
-          Width: {cardWidth}px
-        </div>
-      )}
     </div>
   );
 };

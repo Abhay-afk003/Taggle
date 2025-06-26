@@ -87,8 +87,8 @@ const Features: React.FC = () => {
             Verified contacts. Real-time insights. Smart automations. CRM integrations ready.
           </p>
 
-          {/* Stats Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+          {/* Stats Grid - Always 3 columns in a single line */}
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6 mb-16 max-w-4xl mx-auto">
             {[
               { icon: Clock, text: 'Save 25+ hours weekly', color: 'text-purple-400' },
               { icon: DollarSign, text: 'Cut CAC by up to 60%', color: 'text-green-400' },
@@ -96,11 +96,10 @@ const Features: React.FC = () => {
             ].map((stat, idx) => (
               <div
                 key={idx}
-                className="flex items-center justify-center gap-3 p-5 rounded-xl bg-white/5 backdrop-blur-md border border-white/10"
-                style={{ gap: '24px' }}
+                className="flex items-center justify-center gap-3 p-4 sm:p-5 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 flex-1 min-w-[200px] max-w-[280px]"
               >
-                <stat.icon className={`w-6 h-6 ${stat.color} flex-shrink-0`} />
-                <span className="text-white text-base text-center leading-tight">
+                <stat.icon className={`w-5 h-5 sm:w-6 sm:h-6 ${stat.color} flex-shrink-0`} />
+                <span className="text-white text-sm sm:text-base text-center leading-tight font-medium">
                   {stat.text}
                 </span>
               </div>
