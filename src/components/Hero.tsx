@@ -72,10 +72,10 @@ const Hero: React.FC<HeroProps> = ({ children }) => {
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-3">
               <span className="text-white">You Built It.</span>
             </h1>
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight">
-              <span className="text-white">Now Find </span>
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight flex flex-wrap items-center justify-center gap-2">
+              <span className="text-white">Now Find</span>
               <span className="gradient-text italic">Who</span>
-              <span className="text-white"> Needs It.</span>
+              <span className="text-white">Needs It.</span>
             </h1>
           </div>
 
